@@ -114,7 +114,7 @@ const ImageGalleryBottomThumb = ({
           </Tooltip>
         </div>
         <LightgalleryProvider>
-          <Swiper {...gallerySwiperParams}>
+          {/* <Swiper {...gallerySwiperParams}> */}
                   <div>
                     {/* <LightgalleryItem
                       group="any"
@@ -142,10 +142,10 @@ const ImageGalleryBottomThumb = ({
                     </div>
                   </div>
                
-          </Swiper>
+          {/* </Swiper> */}
         </LightgalleryProvider>
       </div>
-      <div className="product-small-image-wrapper">
+      {/* <div className="product-small-image-wrapper">
         <Swiper {...thumbnailSwiperParams}>
                 <div >
                   <div className="single-image">
@@ -157,7 +157,7 @@ const ImageGalleryBottomThumb = ({
                   </div>
                 </div>
         </Swiper>
-      </div>
+      </div> */}
     </Fragment>
   );
 };

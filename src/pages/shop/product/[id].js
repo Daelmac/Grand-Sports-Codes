@@ -62,7 +62,7 @@ const ProductBasic = ({
   return (
     <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
-      <BreadcrumbOne
+      {/* <BreadcrumbOne
         pageTitle={product.name}
         backgroundImage="/assets/images/backgrounds/breadcrumb-bg-1.png"
       >
@@ -82,7 +82,7 @@ const ProductBasic = ({
           </li>
           <li>{product.product_name}</li>
         </ul>
-      </BreadcrumbOne>
+      </BreadcrumbOne> */}
 
       {/* product details */}
       <div className="product-details space-mt--r100 space-mb--r100">

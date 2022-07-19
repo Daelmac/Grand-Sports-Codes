@@ -55,9 +55,9 @@ const LeftSidebar = ({ products }) => {
   }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
 
   return (
-    <LayoutTwo>
+    <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
-      <BreadcrumbOne
+      {/* <BreadcrumbOne
         pageTitle="Shop Left Sidebar"
         backgroundImage="/assets/images/backgrounds/breadcrumb-bg-1.png"
       >
@@ -70,7 +70,7 @@ const LeftSidebar = ({ products }) => {
 
           <li>Shop Left Sidebar</li>
         </ul>
-      </BreadcrumbOne>
+      </BreadcrumbOne> */}
       <div className="shop-page-content">
         {/* shop page header */}
         <ShopHeader

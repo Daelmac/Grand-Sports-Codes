@@ -35,12 +35,12 @@ const ProductGrid = ({
           {/*=======  single product image  =======*/}
           <div className="product-grid__image">
             <Link
-              href={`/shop/test/[id]`}
+              href={`/shop/product/[id]`}
               as={
-                process.env.PUBLIC_URL + "/shop/test/" + product.product_id
+                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
               }
             >
-              <a className="image-wrap">
+              <div className="image-wrap" style={{cursor: 'pointer'}}>
                 <img
                   src={"http://"+product.product_image}
                   className="img-fluid"
@@ -56,7 +56,7 @@ const ProductGrid = ({
                 ) : (
                   ""
                 )} */}
-              </a>
+              </div>
             </Link>
             <div className="product-grid__floating-badges">
               {product.product_discount && product.product_discount > 0 ? (

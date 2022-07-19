@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Table } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import { LayoutTwo } from "../../components/Layout";
@@ -7,11 +7,11 @@ import { BreadcrumbOne } from "../../components/Breadcrumb";
 
 const Faq = () => {
   return (
-    <LayoutTwo>
+    <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
       <BreadcrumbOne
         pageTitle="F.A.Q"
-        backgroundImage="/assets/images/backgrounds/breadcrumb-bg-1.png"
+        backgroundImage="/assets/images/breadcrumb_banner_final.jpg"
       >
         <ul className="breadcrumb__list">
           <li>
@@ -48,7 +48,10 @@ const Faq = () => {
                             location to which the item(s) will be delivered,
                             different shipping methods will be available. At
                             checkout, you will be prompted to choose a variety
-                            of shipping methods.
+                            of shipping methods. We dispatch it via courier
+                            merchants including DTDC, Speed Post, Professional
+                            Couriers. Please refer to the section below for
+                            delivery time.
                           </p>
                         </Card.Body>
                       </Accordion.Collapse>
@@ -64,14 +67,7 @@ const Faq = () => {
                       </Card.Header>
                       <Accordion.Collapse eventKey="1">
                         <Card.Body>
-                          <p>
-                            At the moment, we only ship to Canada and the United
-                            States. For international orders, please contact
-                            internationalorders@dynamite.ca. If you have any
-                            questions, please don’t hesitate to contact our
-                            Customer Experience Department by mail or by phone
-                            at 1-888-882-1138 (Canada) and 1-888-342-7243 (USA).
-                          </p>
+                          <p>Yes we ship Internationally</p>
                         </Card.Body>
                       </Accordion.Collapse>
                     </Card>
@@ -108,25 +104,36 @@ const Faq = () => {
                       </Card.Header>
                       <Accordion.Collapse eventKey="3">
                         <Card.Body>
-                          <p>
-                            We ship only on business days. Business days are
-                            from Monday to Friday, excluding holidays. Any order
-                            placed after 12 P.M. ET will be processed the
-                            following business day. Due to a high volume period,
-                            your order may take longer than anticipated. For
-                            remote locations, please add an additional 2-5
-                            business day to each shipping method’s expected
-                            delivery time. If you are not sure whether your
-                            location is remote, please click here for all the
-                            details.
-                          </p>
+                          <Table  bordered >
+                            <thead>
+                              <tr>
+                                <th>REGION</th>
+                                <th>TIME</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>South India</td>
+                                <td>3-7 days*</td>
+                              </tr>
+                              <tr>
+                                <td>North India</td>
+                                <td>7-10 days*</td>
+                              </tr>
+                              <tr>
+                                <td>North East</td>
+                                <td>10-15 days*</td>
+                              </tr>
+                            </tbody>
+                          </Table>
+                          <p>Note*: These times are considered after product is shipped. The processing time is usually 1-2 days.</p>
                         </Card.Body>
                       </Accordion.Collapse>
                     </Card>
                   </Accordion>
                 </div>
 
-                <div className="single-faq space-mb--r100">
+                {/* <div className="single-faq space-mb--r100">
                   <h2 className="faq-title space-mb--20">
                     Payment information
                   </h2>
@@ -202,7 +209,7 @@ const Faq = () => {
                       </Accordion.Collapse>
                     </Card>
                   </Accordion>
-                </div>
+                </div> */}
 
                 <div className="single-faq">
                   <h2 className="faq-title space-mb--20">Orders and returns</h2>
@@ -266,10 +273,8 @@ const Faq = () => {
                       <Accordion.Collapse eventKey="2">
                         <Card.Body>
                           <p>
-                            You can contact our customer support team by
-                            provided email or mobile phone. In case, it’s not
-                            convenient to talk, you can come to our store to
-                            make your request.
+                          You can contact our customer support team by provided email or mobile phone. In case, it’s not convenient to talk, you can come to our store to make your request.
+                          Please click the Contact us menu to have our contact details.
                           </p>
                         </Card.Body>
                       </Accordion.Collapse>

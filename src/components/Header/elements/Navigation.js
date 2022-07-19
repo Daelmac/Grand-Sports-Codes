@@ -6,7 +6,7 @@ const Navigation = () => {
       <ul>
         <li>
           <Link href="/" as={process.env.PUBLIC_URL + "/"}>
-            <a>Home</a>
+            Home 
           </Link>
           {/* <IoIosArrowDown />
           <ul className="sub-menu sub-menu--mega sub-menu--mega--column-5">
@@ -257,7 +257,7 @@ const Navigation = () => {
             href="/shop/left-sidebar"
             as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
           >
-            <a>Products</a>
+            Products
           </Link>
           {/* <IoIosArrowDown /> */}
 
@@ -464,7 +464,7 @@ const Navigation = () => {
         </li>
         <li>
           <Link href="/" as={process.env.PUBLIC_URL + "/"}>
-            <a>My Orders</a>
+            My Orders
           </Link>
           {/* <IoIosArrowDown />
           <ul className="sub-menu sub-menu--mega sub-menu--mega--column-5">
@@ -664,9 +664,33 @@ const Navigation = () => {
             </li>
           </ul> */}
         </li>
-        <li className="position-relative">
+        <li>
+        <Link
+            href="/other/about"
+            as={process.env.PUBLIC_URL + "/other/about"}
+          >
+                <a>About Us</a>
+              </Link>
+        </li>
+        <li>
+              <Link
+                href="/other/contact"
+                as={process.env.PUBLIC_URL + "/other/contact"}
+              >
+                <a>Contact Us</a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/other/faq"
+                as={process.env.PUBLIC_URL + "/other/faq"}
+              >
+                F.A.Q
+              </Link>
+            </li>
+        {/* <li className="position-relative">
           <Link href="/" as={process.env.PUBLIC_URL + "/"}>
-            <a>Pages</a>
+            Pages
           </Link>
           <IoIosArrowDown />
           <ul className="sub-menu sub-menu--one-column">
@@ -675,9 +699,9 @@ const Navigation = () => {
                 href="/other/about"
                 as={process.env.PUBLIC_URL + "/other/about"}
               >
-                About Us
+                <a>About Us</a>
               </Link>
-            </li>
+            </li> */}
             {/* <li>
               <Link
                 href="/other/about-two"
@@ -686,12 +710,12 @@ const Navigation = () => {
                 <a>About Us Two</a>
               </Link>
             </li> */}
-            <li>
+            {/* <li>
               <Link
                 href="/other/contact"
                 as={process.env.PUBLIC_URL + "/other/contact"}
               >
-                Contact Us
+                <a>Contact Us</a>
               </Link>
             </li>
             <li>
@@ -699,10 +723,10 @@ const Navigation = () => {
                 href="/other/faq"
                 as={process.env.PUBLIC_URL + "/other/faq"}
               >
-                <a>F.A.Q</a>
+                F.A.Q
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 href="/other/coming-soon"
                 as={process.env.PUBLIC_URL + "/other/coming-soon"}
@@ -717,9 +741,9 @@ const Navigation = () => {
               >
                 <a>Not Found</a>
               </Link>
-            </li>
-          </ul>
-        </li>
+            </li> */}
+          {/* </ul> */}
+        {/* </li> */}
         {/* <li className="position-relative">
           <Link
             href="/blog/standard-left-sidebar"
