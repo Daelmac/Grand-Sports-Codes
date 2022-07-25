@@ -57,16 +57,16 @@ const ProductModal = (props) => {
       <Modal.Body>
         <Modal.Header closeButton></Modal.Header>
         <div className="product-quickview__image-wrapper">
-             <div >
-                    <div className="single-image">
-                      <img
-                        src={"http://"+product.product_image}
-                        className="img-fluid"
-                        alt=""
-                        style={{minWidth: "450px"}}
-                      />
-                    </div>
-                  </div>
+             <div>
+                <div className="single-image">
+                  <img
+                    src={"http://"+product.product_image}
+                    className="img-fluid"
+                    alt=""
+                    style={{minWidth: "450px"}}
+                  />
+                </div>
+              </div>
           {/* <Swiper {...gallerySwiperParams}> */}
             {/* {product.image &&
               product.image.map((single, key) => {
@@ -92,15 +92,15 @@ const ProductModal = (props) => {
                   {product.product_name}
                 </h2>
                 <div className="product-quickview__price space-mb--20">
-                  {product.discount > 0 ? (
+                  {product.product_discount > 0 ? (
                     <Fragment>
                       <span className="main-price discounted">
-                        ${productprice}
+                      &#8377;{productprice}
                       </span>
-                      <span className="main-price">${discountedprice}</span>
+                      <span className="main-price">&#8377;{discountedprice}</span>
                     </Fragment>
                   ) : (
-                    <span className="main-price">${productprice} </span>
+                    <span className="main-price">&#8377;{productprice} </span>
                   )}
                 </div>
                 {product.rating && product.rating > 0 ? (
@@ -232,9 +232,7 @@ const ProductModal = (props) => {
                         <button
                           onClick={() =>
                             setQuantityCount(
-                              quantityCount < productStock - productCartQty
-                                ? quantityCount + 1
-                                : quantityCount
+                               quantityCount + 1  
                             )
                           }
                           className="qtybutton"

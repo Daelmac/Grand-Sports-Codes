@@ -1,17 +1,17 @@
 import { Container, Row, Col } from "react-bootstrap";
 import {
   getIndividualCategories,
-  getIndividualColors,
-  getProductsIndividualSizes,
-  getIndividualTags,
+  // getIndividualColors,
+  // getProductsIndividualSizes,
+  // getIndividualTags,
   setActiveSort
 } from "../../lib/product";
 
 const ShopFilter = ({ products, getSortParams }) => {
   const categories = getIndividualCategories(products);
-  const colors = getIndividualColors(products);
-  const sizes = getProductsIndividualSizes(products);
-  const tags = getIndividualTags(products);
+  // const colors = getIndividualColors(products);
+  // const sizes = getProductsIndividualSizes(products);
+  // const tags = getIndividualTags(products);
 
   return (
     <div className="shop-advance-filter">
@@ -53,7 +53,7 @@ const ShopFilter = ({ products, getSortParams }) => {
               )}
             </div>
           </Col>
-          <Col lg={3} md={6} className="space-mb-mobile-only--30">
+          {/* <Col lg={3} md={6} className="space-mb-mobile-only--30">
             <div className="single-filter-widget">
               <h2 className="single-filter-widget__title">Colors</h2>
               {colors.length > 0 ? (
@@ -86,8 +86,8 @@ const ShopFilter = ({ products, getSortParams }) => {
                 "No colors found"
               )}
             </div>
-          </Col>
-          <Col lg={3} md={6} className="space-mb-mobile-only--30">
+          </Col> */}
+          {/* <Col lg={3} md={6} className="space-mb-mobile-only--30">
             <div className="single-filter-widget">
               <h2 className="single-filter-widget__title">Sizes</h2>
               {sizes.length > 0 ? (
@@ -121,8 +121,8 @@ const ShopFilter = ({ products, getSortParams }) => {
                 "No sizes found"
               )}
             </div>
-          </Col>
-          <Col lg={3} md={6} className="space-mb-mobile-only--30">
+          </Col> */}
+          {/* <Col lg={3} md={6} className="space-mb-mobile-only--30">
             <div className="single-filter-widget">
               <h2 className="single-filter-widget__title">Tags</h2>
               {tags.length > 0 ? (
@@ -145,7 +145,7 @@ const ShopFilter = ({ products, getSortParams }) => {
                 "No tags found"
               )}
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>

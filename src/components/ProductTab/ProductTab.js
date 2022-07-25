@@ -3,14 +3,18 @@ import Nav from "react-bootstrap/Nav";
 import { Container, Row } from "react-bootstrap";
 import { ProductGridWrapper } from "../ProductThumb";
 import { useEffect, useState } from "react";
-import {getFeaturedProducts} from "../../api/productApi" 
+import {getFeaturedProducts,getNewArrivalProducts,getBestSellerProducts} from "../../api/productApi" 
 const ProductTab = ({}) => {
   const [featuredProducts, setFeaturedProducts] =useState([])
   const [newArrivalProducts, setNewArrivalProducts] =useState([])
   const [bestSellerProducts, setBestSellerProducts] =useState([])
   useEffect(async() =>{
-    const data = await getFeaturedProducts()
-    setFeaturedProducts(data)
+    const featured_products = await getFeaturedProducts()
+    setFeaturedProducts(featured_products)
+    const new_arrival_products = await getNewArrivalProducts()
+    setNewArrivalProducts(new_arrival_products)
+    const best_seller_products = await getBestSellerProducts()
+    setBestSellerProducts(best_seller_products)
   },[])
   return (
     <div className="product-tab space-mb--r100">

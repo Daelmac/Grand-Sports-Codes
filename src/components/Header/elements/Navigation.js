@@ -6,7 +6,7 @@ const Navigation = () => {
       <ul>
         <li>
           <Link href="/" as={process.env.PUBLIC_URL + "/"}>
-            Home 
+            <a>Home</a> 
           </Link>
           {/* <IoIosArrowDown />
           <ul className="sub-menu sub-menu--mega sub-menu--mega--column-5">
@@ -257,7 +257,7 @@ const Navigation = () => {
             href="/shop/left-sidebar"
             as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
           >
-            Products
+            <a>Products</a>
           </Link>
           {/* <IoIosArrowDown /> */}
 
@@ -464,7 +464,7 @@ const Navigation = () => {
         </li>
         <li>
           <Link href="/" as={process.env.PUBLIC_URL + "/"}>
-            My Orders
+            <a>My Orders</a>
           </Link>
           {/* <IoIosArrowDown />
           <ul className="sub-menu sub-menu--mega sub-menu--mega--column-5">
@@ -685,7 +685,7 @@ const Navigation = () => {
                 href="/other/faq"
                 as={process.env.PUBLIC_URL + "/other/faq"}
               >
-                F.A.Q
+                <a>F.A.Q</a>
               </Link>
             </li>
         {/* <li className="position-relative">

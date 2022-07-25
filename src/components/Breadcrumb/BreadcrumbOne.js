@@ -1,23 +1,28 @@
 import { Container, Row, Col } from "react-bootstrap";
 const BreadcrumbOne = ({ children, backgroundImage, pageTitle, className }) => {
   return (
-    <div
-      className={`breadcrumb-area space-pt--70 space-pb--70 ${
+    <img
+      className={`breadcrumb-area ${
         className ? className : ""
       }`}
-      style={{
-        backgroundImage: `url("${process.env.PUBLIC_URL + backgroundImage}")`
-      }}
-    >
-      <Container>
-        <Row>
-          <Col>
-            <h1 className="breadcrumb__title">{pageTitle}</h1>
-            {children}
-          </Col>
-        </Row>
-      </Container>
-    </div>
+      style={{width:"100%",height:"auto"}}
+      src={process.env.PUBLIC_URL + backgroundImage} />
+    //   style={{
+    //     backgroundImage: `url("${process.env.PUBLIC_URL + backgroundImage}")`,
+    //     backgroundRepeat: "no-repeat",
+    //     backgroundSize: "contain",
+    //     backgroundPosition: "center"
+    //   }}
+    // />
+    //   <Container>
+    //     <Row>
+    //       <Col>
+    //         <h1 className="breadcrumb__title"></h1>
+    //         {/* {children} */}
+    //       </Col>
+    //     </Row>
+    //   </Container>
+    // </div>
   );
 };
 

@@ -40,12 +40,12 @@ const ProductGrid = ({
                 process.env.PUBLIC_URL + "/shop/product/" + product.product_id
               }
             >
-              <div className="image-wrap" style={{cursor: 'pointer'}}>
+              <div className="image-wrap" style={{cursor: 'pointer',textAlign: 'center'}}>
                 <img
                   src={"http://"+product.product_image}
                   className="img-fluid"
                   alt={product.product_name}
-                  style={{height:"350px"}}
+                  style={{height:"200px",width:"auto"}}
                 />
                 {/* {product.thumbImage.length > 1 ? (
                   <img
@@ -64,7 +64,7 @@ const ProductGrid = ({
               ) : (
                 ""
               )}
-              {product.new ? <span className="hot">New</span> : ""}
+              {product.product_is_new ? <span className="hot">New</span> : ""}
               {product.product_is_available === false ? (
                 <span className="out-of-stock">out</span>
               ) : (

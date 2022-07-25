@@ -11,7 +11,7 @@ const Faq = () => {
       {/* breadcrumb */}
       <BreadcrumbOne
         pageTitle="F.A.Q"
-        backgroundImage="/assets/images/breadcrumb_banner_final.jpg"
+        backgroundImage="/assets/images/banners/banner-frequently-asked-question.jpg"
       >
         <ul className="breadcrumb__list">
           <li>

@@ -71,7 +71,7 @@ const Wishlist = ({
                       )
 
                       const cartItem = cartItems.filter(
-                        (item) => item.id === product.product_id
+                        (item) => item.product_id === product.product_id
                       )[0];
 
                       return (

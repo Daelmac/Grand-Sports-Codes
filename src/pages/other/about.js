@@ -18,7 +18,7 @@ const About = () => {
       {/* breadcrumb */}
       <BreadcrumbOne
         pageTitle="About"
-        backgroundImage="/assets/images/breadcrumb_banner_final.jpg"
+        backgroundImage="/assets/images/banners/banner-about-us.jpg"
       >
         <ul className="breadcrumb__list">
           <li>

@@ -32,23 +32,23 @@ const ProductGridWrapper = ({
       {products &&
         products.map((product) => {
           const discountedPrice = getDiscountPrice(
-            product.price,
-            product.discount
-          ).toFixed(2);
-          const productPrice = product.price.toFixed(2);
+            product.product_price,
+            product.product_discount
+          )
+          const productPrice = product.product_price
           const cartItem = cartItems.filter(
-            (cartItem) => cartItem.id === product.id
+            (cartItem) => cartItem.product_id === product.product_id
           )[0];
           const wishlistItem = wishlistItems.filter(
-            (wishlistItem) => wishlistItem.id === product.id
+            (wishlistItem) => wishlistItem.product_id === product.product_id
           )[0];
           const compareItem = compareItems.filter(
-            (compareItem) => compareItem.id === product.id
+            (compareItem) => compareItem.product_id === product.product_id
           )[0];
 
           return (
             <ProductGridList
-              key={product.id}
+              key={product.product_id}
               product={product}
               discountedPrice={discountedPrice}
               productPrice={productPrice}

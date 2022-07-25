@@ -29,19 +29,20 @@ const ProductGridList = ({
         <div className="product-grid">
           {/*=======  single product image  =======*/}
           <div className="product-grid__image">
-            <Link
-              href={`/shop/product-basic/[slug]?slug=${product.slug}`}
+          <Link
+              href={`/shop/product/[id]`}
               as={
-                process.env.PUBLIC_URL + "/shop/product-basic/" + product.slug
+                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
               }
             >
-              <a className="image-wrap">
+              <a className="image-wrap"  style={{textAlign: 'center'}}>
                 <img
-                  src={process.env.PUBLIC_URL + product.thumbImage[0]}
+                  src={"http://"+product.product_image}
                   className="img-fluid"
-                  alt={product.name}
+                  alt={product.product_name}
+                  style={{height:"170px",width:"auto"}}
                 />
-                {product.thumbImage.length > 1 ? (
+                {/* {product.thumbImage.length > 1 ? (
                   <img
                     src={process.env.PUBLIC_URL + product.thumbImage[1]}
                     className="img-fluid"
@@ -49,17 +50,17 @@ const ProductGridList = ({
                   />
                 ) : (
                   ""
-                )}
+                )} */}
               </a>
             </Link>
             <div className="product-grid__floating-badges">
-              {product.discount && product.discount > 0 ? (
-                <span className="onsale">-{product.discount}%</span>
+              {product.product_discount && product.product_discount > 0 ? (
+                <span className="onsale">-{product.product_discount}%</span>
               ) : (
                 ""
               )}
-              {product.new ? <span className="hot">New</span> : ""}
-              {product.stock === 0 ? (
+              {product.product_is_new ? <span className="hot">New</span> : ""}
+              {!product.product_is_available ? (
                 <span className="out-of-stock">out</span>
               ) : (
                 ""
@@ -139,15 +140,13 @@ const ProductGridList = ({
           <div className="product-grid__content">
             <div className="title">
               <h3>
-                <Link
-                  href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                  as={
-                    process.env.PUBLIC_URL +
-                    "/shop/product-basic/" +
-                    product.slug
-                  }
-                >
-                  <a>{product.name}</a>
+              <Link
+              href={`/shop/product/[id]`}
+              as={
+                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
+              }
+            >
+                  <a>{product.product_name}</a>
                 </Link>
               </h3>
               {/* add to cart */}
@@ -166,12 +165,11 @@ const ProductGridList = ({
                 >
                   <a>Select Option</a>
                 </Link>
-              ) : product.stock && product.stock > 0 ? (
+              ) : product.product_is_available ? (
                 <button
                   onClick={() => addToCart(product, addToast)}
                   disabled={
-                    cartItem !== undefined &&
-                    cartItem.quantity >= cartItem.stock
+                    cartItem !== undefined 
                   }
                 >
                   {cartItem !== undefined ? "Added to cart" : "Add to cart"}
@@ -181,13 +179,13 @@ const ProductGridList = ({
               )}
             </div>
             <div className="price">
-              {product.discount > 0 ? (
+              {product.product_discount > 0 ? (
                 <Fragment>
-                  <span className="main-price discounted">${productPrice}</span>
-                  <span className="discounted-price">${discountedPrice}</span>
+                  <span className="main-price discounted">&#8377; {productPrice}</span>
+                  <span className="discounted-price">&#8377; {discountedPrice}</span>
                 </Fragment>
               ) : (
-                <span className="main-price">${productPrice}</span>
+                <span className="main-price">&#8377; {productPrice}</span>
               )}
             </div>
           </div>
@@ -196,37 +194,38 @@ const ProductGridList = ({
         <div className="product-list">
           {/*=======  single product image  =======*/}
           <div className="product-list__image">
-            <Link
-              href={`/shop/product-basic/[slug]?slug=${product.slug}`}
+          <Link
+              href={`/shop/product/[id]`}
               as={
-                process.env.PUBLIC_URL + "/shop/product-basic/" + product.slug
+                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
               }
             >
-              <a className="image-wrap">
+              <a className="image-wrap" style={{textAlign: 'center'}}>
                 <img
-                  src={process.env.PUBLIC_URL + product.thumbImage[0]}
+                  src={"http://"+product.product_image}
                   className="img-fluid"
-                  alt={product.name}
+                  alt={product.product_name}
+                  style={{height:"auto",width:"200px"}}
                 />
-                {product.thumbImage.length > 1 ? (
+                {/* {product.thumbImage.length > 1 ? (
                   <img
                     src={process.env.PUBLIC_URL + product.thumbImage[1]}
                     className="img-fluid"
-                    alt={product.name}
+                    alt={product.product_name}
                   />
                 ) : (
                   ""
-                )}
+                )} */}
               </a>
             </Link>
             <div className="product-list__floating-badges">
-              {product.discount && product.discount > 0 ? (
-                <span className="onsale">-{product.discount}%</span>
+              {product.product_discount && product.product_discount > 0 ? (
+                <span className="onsale">-{product.product_discount}%</span>
               ) : (
                 ""
               )}
-              {product.new ? <span className="hot">New</span> : ""}
-              {product.stock === 0 ? (
+              {product.product_is_new ? <span className="hot">New</span> : ""}
+              {!product.product_is_available? (
                 <span className="out-of-stock">out</span>
               ) : (
                 ""
@@ -306,30 +305,28 @@ const ProductGridList = ({
           <div className="product-list__content">
             <div className="title">
               <h3>
-                <Link
-                  href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                  as={
-                    process.env.PUBLIC_URL +
-                    "/shop/product-basic/" +
-                    product.slug
-                  }
-                >
-                  <a>{product.name}</a>
+              <Link
+              href={`/shop/product/[id]`}
+              as={
+                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
+              }
+            >
+                  <a>{product.product_name}</a>
                 </Link>
               </h3>
             </div>
             <div className="price">
-              {product.discount > 0 ? (
+              {product.product_discount > 0 ? (
                 <Fragment>
-                  <span className="main-price discounted">${productPrice}</span>
-                  <span className="discounted-price">${discountedPrice}</span>
+                  <span className="main-price discounted">&#8377; {productPrice}</span>
+                  <span className="discounted-price">&#8377; {discountedPrice}</span>
                 </Fragment>
               ) : (
-                <span className="main-price">${productPrice}</span>
+                <span className="main-price">&#8377; {productPrice}</span>
               )}
             </div>
 
-            <div className="short-description">{product.shortDescription}</div>
+            <div className="short-description">{product.product_description}</div>
             <div className="add-to-cart">
               {/* add to cart */}
               {product.affiliateLink ? (
@@ -353,12 +350,11 @@ const ProductGridList = ({
                     Select Option
                   </a>
                 </Link>
-              ) : product.stock && product.stock > 0 ? (
+              ) : product.product_is_available ? (
                 <button
                   onClick={() => addToCart(product, addToast)}
                   disabled={
-                    cartItem !== undefined &&
-                    cartItem.quantity >= cartItem.stock
+                    cartItem !== undefined
                   }
                   className="lezada-button lezada-button--medium"
                 >

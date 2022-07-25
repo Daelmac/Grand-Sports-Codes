@@ -17,7 +17,7 @@ const Checkout = ({ cartItems }) => {
   return (
     <LayoutTwo>
       {/* breadcrumb */}
-      <BreadcrumbOne
+      {/* <BreadcrumbOne
         pageTitle="Checkout"
         backgroundImage="/assets/images/backgrounds/breadcrumb-bg-1.png"
       >
@@ -30,7 +30,7 @@ const Checkout = ({ cartItems }) => {
 
           <li>Checkout</li>
         </ul>
-      </BreadcrumbOne>
+      </BreadcrumbOne> */}
       <div className="checkout-area space-mt--r130 space-mb--r130">
         <Container>
           {cartItems && cartItems.length >= 1 ? (
@@ -106,30 +106,30 @@ const Checkout = ({ cartItems }) => {
                               <ul>
                                 {cartItems.map((product, i) => {
                                   const discountedPrice = getDiscountPrice(
-                                    product.price,
-                                    product.discount
-                                  ).toFixed(2);
+                                    product.product_price,
+                                    product.product_discount
+                                  )
 
                                   cartTotalPrice +=
                                     discountedPrice * product.quantity;
                                   return (
                                     <li key={i}>
-                                      {product.name} X {product.quantity}{" "}
-                                      <span>${discountedPrice}</span>
+                                      {product.product_name} X {product.quantity}{" "}
+                                      <span>&#8377;{discountedPrice}</span>
                                     </li>
                                   );
                                 })}
                               </ul>
                               <p>
                                 Sub Total{" "}
-                                <span>${cartTotalPrice.toFixed(2)}</span>
+                                <span>&#8377;{cartTotalPrice.toFixed(2)}</span>
                               </p>
                               <p>
-                                Shipping Fee <span>$00.00</span>
+                                Shipping Fee <span>&#8377;00.00</span>
                               </p>
                               <h4>
                                 Grand Total{" "}
-                                <span>${cartTotalPrice.toFixed(2)}</span>
+                                <span>&#8377;{cartTotalPrice.toFixed(2)}</span>
                               </h4>
                             </div>
                           </div>

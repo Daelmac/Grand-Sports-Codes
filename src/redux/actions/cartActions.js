@@ -13,6 +13,7 @@ export const addToCart = (
 ) => {
   return dispatch => {
     if (addToast) {
+      console.log(item,quantityCount)
       addToast("Added To Cart", { appearance: "success", autoDismiss: true });
     }
     dispatch({

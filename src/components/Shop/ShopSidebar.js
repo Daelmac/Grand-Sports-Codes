@@ -3,19 +3,19 @@ import Link from "next/link";
 import { IoIosSearch } from "react-icons/io";
 import {
   getIndividualCategories,
-  getIndividualColors,
-  getIndividualTags,
+  // getIndividualColors,
+  // getIndividualTags,
   setActiveSort,
-  getProducts,
-  getDiscountPrice
+  // getProducts,
+  // getDiscountPrice
 } from "../../lib/product";
 import { ProductRating } from "../Product";
 
 const ShopSidebar = ({ products, getSortParams }) => {
   const categories = getIndividualCategories(products);
-  const colors = getIndividualColors(products);
-  const tags = getIndividualTags(products);
-  const popularProducts = getProducts(products, "decor", "popular", 3);
+  // const colors = getIndividualColors(products);
+  // const tags = getIndividualTags(products);
+  // const popularProducts = getProducts(products, "decor", "popular", 3);
 
   return (
     <div className="shop-sidebar">
@@ -70,7 +70,7 @@ const ShopSidebar = ({ products, getSortParams }) => {
       </div>
 
       {/* color list */}
-      <div className="single-sidebar-widget space-mb--40">
+      {/* <div className="single-sidebar-widget space-mb--40">
         <h2 className="single-sidebar-widget__title space-mb--30">Colors</h2>
         {colors.length > 0 ? (
           <ul className="single-sidebar-widget__list single-sidebar-widget__list--color">
@@ -101,10 +101,10 @@ const ShopSidebar = ({ products, getSortParams }) => {
         ) : (
           "No colors found"
         )}
-      </div>
+      </div> */}
 
       {/* popular products */}
-      <div className="single-sidebar-widget space-mb--40">
+      {/* <div className="single-sidebar-widget space-mb--40">
         <h2 className="single-sidebar-widget__title space-mb--30">
           Popular products
         </h2>
@@ -178,10 +178,10 @@ const ShopSidebar = ({ products, getSortParams }) => {
         ) : (
           "No products found"
         )}
-      </div>
+      </div> */}
 
       {/* tag list */}
-      <div className="single-sidebar-widget">
+      {/* <div className="single-sidebar-widget">
         <h2 className="single-sidebar-widget__title space-mb--30">Tags</h2>
         {tags.length > 0 ? (
           <div className="tag-container">
@@ -202,7 +202,7 @@ const ShopSidebar = ({ products, getSortParams }) => {
         ) : (
           "No tags found"
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

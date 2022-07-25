@@ -60,8 +60,8 @@ const CartOverlay = ({
                         </span>
                         <div className="image">
                           <Link
-                            href={`/shop/product-basic/[slug]?slug=${product.product_id}`}
-                            as={`${process.env.PUBLIC_URL}/shop/product-basic/${product.product_id}`}
+                            href={`/shop/product/[id]?id=${product.product_id}`}
+                            as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
                           >
                             <a>
                               <img
@@ -77,8 +77,8 @@ const CartOverlay = ({
                         <div className="content">
                           <h5>
                             <Link
-                              href={`/shop/product-basic/[slug]?slug=${product.product_id}`}
-                              as={`${process.env.PUBLIC_URL}/shop/product-basic/${product.product_id}`}
+                              href={`/shop/product/[id]?id=${product.product_id}`}
+                              as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
                             >
                               <a>{product.product_name}</a>
                             </Link>
@@ -91,7 +91,7 @@ const CartOverlay = ({
                             </div>
                           ) : (
                             ""
-                          )} */}s
+                          )} */}
                           <p>
                             <span className="cart-count">
                               {product.quantity} x{" "}
@@ -130,7 +130,7 @@ const CartOverlay = ({
               </div>
               {/*=======  free shipping text  =======*/}
               <p className="free-shipping-text">
-                Free Shipping on All Orders Over $100!
+                Free Shipping on All Orders Over &#8377;999!
               </p>
             </div>
           ) : (

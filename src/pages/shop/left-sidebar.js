@@ -7,6 +7,7 @@ import { SlideDown } from "react-slidedown";
 import { LayoutTwo } from "../../components/Layout";
 import { BreadcrumbOne } from "../../components/Breadcrumb";
 import { getSortedProducts } from "../../lib/product";
+import {getAllProducts} from "../../api/productApi" 
 import {
   ShopHeader,
   ShopFilter,
@@ -14,7 +15,8 @@ import {
   ShopProducts
 } from "../../components/Shop";
 
-const LeftSidebar = ({ products }) => {
+const LeftSidebar = () => {
+  const [products, setProducts] = useState([]);
   const [layout, setLayout] = useState("grid four-column");
   const [sortType, setSortType] = useState("");
   const [sortValue, setSortValue] = useState("");
@@ -41,7 +43,10 @@ const LeftSidebar = ({ products }) => {
     setFilterSortType(sortType);
     setFilterSortValue(sortValue);
   };
-
+  useEffect(async() => {
+    const all_products = await getAllProducts()
+    if (all_products) setProducts(all_products)
+  },[])
   useEffect(() => {
     let sortedProducts = getSortedProducts(products, sortType, sortValue);
     const filterSortedProducts = getSortedProducts(
@@ -105,7 +110,7 @@ const LeftSidebar = ({ products }) => {
               <Col lg={9} className="order-1 order-lg-2">
                 {/* shop products */}
                 <ShopProducts layout={layout} products={currentData} />
-
+                {console.log(currentData)}
                 {/* shop product pagination */}
                 <div className="pro-pagination-style">
                   <Paginator

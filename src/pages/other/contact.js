@@ -14,7 +14,7 @@ const Contact = () => {
       {/* breadcrumb */}
       <BreadcrumbOne
         pageTitle="Contact"
-        backgroundImage="/assets/images/breadcrumb_banner_final.jpg"
+        backgroundImage="/assets/images/banners/banner-contact-us.jpg"
       >
         <ul className="breadcrumb__list">
           <li>

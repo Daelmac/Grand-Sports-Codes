@@ -48,6 +48,7 @@ const ProductGridWrapper = ({
           )[0];
 
           return (
+            <>
             <ProductGrid
               key={product.product_id}
               product={product}
@@ -66,6 +67,7 @@ const ProductGridWrapper = ({
               cartItems={cartItems}
               column={column}
             />
+            </>
           );
         })}
     </Fragment>

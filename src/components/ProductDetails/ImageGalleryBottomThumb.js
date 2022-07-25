@@ -9,7 +9,7 @@ import {
 } from "react-icons/io";
 import { Tooltip } from "react-tippy";
 
-const ImageGalleryBottomThumb = ({
+const   ImageGalleryBottomThumb = ({
   product,
   wishlistItem,
   addToast,
@@ -133,11 +133,12 @@ const ImageGalleryBottomThumb = ({
                         </button>
                       </Tooltip>
                     </LightgalleryItem> */}
-                    <div className="single-image">
+                    <div className="single-image" style={{textAlign: 'center'}}>
                       <img
                        src={"http://"+product.product_image}
                         className="img-fluid"
                         alt=""
+                        style={{maxHeight:"400px",width:"auto"}}
                       />
                     </div>
                   </div>

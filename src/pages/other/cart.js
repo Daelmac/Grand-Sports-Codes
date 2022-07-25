@@ -33,7 +33,7 @@ const Cart = ({
   return (
     <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
-      <BreadcrumbOne
+      {/* <BreadcrumbOne
         pageTitle="Cart"
         backgroundImage="/assets/images/backgrounds/breadcrumb-bg-2.jpg"
       >
@@ -46,7 +46,7 @@ const Cart = ({
 
           <li>Cart</li>
         </ul>
-      </BreadcrumbOne>
+      </BreadcrumbOne> */}
 
       {/* cart content */}
       <div className="cart-content space-mt--r130 space-mb--r130">
@@ -79,8 +79,8 @@ const Cart = ({
                         <tr key={i}>
                           <td className="product-thumbnail">
                             <Link
-                              href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                              as={`${process.env.PUBLIC_URL}/shop/product-basic/${product.slug}`}
+                              href={`/shop/product/[id]?id=${product.product_id}`}
+                              as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
                             >
                               <a>
                                 <img
@@ -93,10 +93,10 @@ const Cart = ({
                           </td>
                           <td className="product-name">
                             <Link
-                              href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                              as={`${process.env.PUBLIC_URL}/shop/product-basic/${product.slug}`}
+                              href={`/shop/product/[id]?slug=${product.product_id}`}
+                              as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
                             >
-                              <a>{product.name}</a>
+                              <a>{product.product_name}</a>
                             </Link>
                             {product.selectedProductColor &&
                             product.selectedProductSize ? (
@@ -154,7 +154,7 @@ const Cart = ({
 
                           <td className="total-price">
                             <span className="price">
-                              ${(discountedPrice * product.quantity).toFixed(2)}
+                            &#8377;{(discountedPrice * product.quantity).toFixed(2)}
                             </span>
                           </td>
 
@@ -212,12 +212,12 @@ const Cart = ({
                       <tr>
                         <th>SUBTOTAL</th>
                         <td className="subtotal">
-                          ${cartTotalPrice.toFixed(2)}
+                        &#8377;{cartTotalPrice.toFixed(2)}
                         </td>
                       </tr>
                       <tr>
                         <th>TOTAL</th>
-                        <td className="total">${cartTotalPrice.toFixed(2)}</td>
+                        <td className="total">&#8377;{cartTotalPrice.toFixed(2)}</td>
                       </tr>
                     </tbody>
                   </table>

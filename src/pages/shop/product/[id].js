@@ -41,7 +41,7 @@ const ProductBasic = ({
      const data = await getProductByID(id)
      setProduct(data)
      document.querySelector("body").classList.remove("overflow-hidden");
-  });
+  },[]);
   const { addToast } = useToasts();
   const discountedPrice = getDiscountPrice(
     product.product_price,
