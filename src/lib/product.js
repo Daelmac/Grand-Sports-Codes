@@ -31,7 +31,7 @@ export const getProducts = (products, category, type, limit) => {
 
 // get product discount price
 export const getDiscountPrice = (price, discount) => {
-  return discount && discount > 0 ? price - price * (discount / 100) : price;
+  return discount && discount > 0 ? (price - price * (discount / 100)).toFixed(0) : price;
 };
 
 // get product cart quantity
@@ -104,6 +104,20 @@ export const getSortedProducts = (products, sortType, sortValue) => {
         return sortProducts.sort((a, b) => {
           return a.product_price - b.product_price;
         });
+      }
+    }
+    if (sortType === "typeSort") {
+      let sortProducts = [...products];
+      if (sortValue === "default") {
+        return sortProducts;
+      }
+      if (sortValue === "newProducts") {
+        return sortProducts.filter((product) => product.product_is_new); 
+      }
+      if (sortValue === "featuredProducts") {
+        return sortProducts.filter((product) => product.product_is_featured); 
+      }if (sortValue === "bestSellingProducts") {
+        return sortProducts.filter((product) => product.product_is_best_seller); 
       }
     }
   }

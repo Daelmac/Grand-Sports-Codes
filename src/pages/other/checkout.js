@@ -6,8 +6,10 @@ import { getDiscountPrice } from "../../lib/product";
 import { IoMdCash } from "react-icons/io";
 import { LayoutTwo } from "../../components/Layout";
 import { BreadcrumbOne } from "../../components/Breadcrumb";
+import Router from "next/router";
 
-const Checkout = ({ cartItems }) => {
+const Checkout = ({ cartItems,userDetails }) => {
+  if(!(userDetails && userDetails.role === 'customer')) Router.push('/other/login-register')
   let cartTotalPrice = 0;
 
   useEffect(() => {
@@ -241,7 +243,8 @@ const Checkout = ({ cartItems }) => {
 
 const mapStateToProps = (state) => {
   return {
-    cartItems: state.cartData
+    cartItems: state.cartData,
+    userDetails: state.currentUserData,
   };
 };
 

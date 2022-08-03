@@ -57,9 +57,9 @@ const WishlistOverlay = ({
                           </button>
                         </span>
                         <div className="image">
-                          <Link
-                            href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                            as={`${process.env.PUBLIC_URL}/shop/product-basic/${product.slug}`}
+                        <Link
+                            href={`/shop/product/[id]?id=${product.product_id}`}
+                            as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
                           >
                             <a>
                               <img
@@ -72,10 +72,10 @@ const WishlistOverlay = ({
                         </div>
                         <div className="content">
                           <h5>
-                            <Link
-                              href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                              as={`${process.env.PUBLIC_URL}/shop/product-basic/${product.slug}`}
-                            >
+                          <Link
+                            href={`/shop/product/[id]?id=${product.product_id}`}
+                            as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
+                          >
                               <a>{product.product_name}</a>
                             </Link>
                           </h5>

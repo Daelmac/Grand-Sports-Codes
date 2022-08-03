@@ -6,7 +6,7 @@ import HeaderFive from "./HeaderFive";
 import HeaderSix from "./HeaderSix";
 import HeaderSeven from "./HeaderSeven";
 import HeaderEight from "./HeaderEight";
-
+import AdminHeader from "./AdminHeader";
 export {
   HeaderOne,
   HeaderTwo,
@@ -15,5 +15,6 @@ export {
   HeaderFive,
   HeaderSix,
   HeaderSeven,
-  HeaderEight
+  HeaderEight,
+  AdminHeader
 };

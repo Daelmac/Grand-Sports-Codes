@@ -43,9 +43,9 @@ const ProductBasic = ({
   const discountedPrice = getDiscountPrice(
     product.price,
     product.discount
-  ).toFixed(2);
+  )
 
-  const productPrice = product.price.toFixed(2);
+  const productPrice = product.price
   const cartItem = cartItems.filter(
     (cartItem) => cartItem.id === product.id
   )[0];

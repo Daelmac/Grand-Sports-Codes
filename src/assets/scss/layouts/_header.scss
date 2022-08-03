@@ -1807,4 +1807,67 @@ header {
   }
 }
 
+
+li {
+  &.menu-item-has-children {
+    position: relative;
+
+    display: block;
+    a {
+      display: block;
+    }
+
+    &.active {
+      & > .menu-expand {
+        i {
+          &:before {
+            transform: rotate(0);
+          }
+        }
+      }
+    }
+
+    .menu-expand {
+      line-height: 50px;
+
+      position: absolute;
+      top: -5px;
+      right: auto;
+      left: 95%;
+
+      width: 30px;
+      height: 50px;
+
+      cursor: pointer;
+      text-align: center;
+
+      i {
+        position: relative;
+
+        display: block;
+
+        width: 10px;
+        margin-top: 25px;
+
+        transition: all 250ms ease-out;
+
+        border-bottom: 1px solid;
+        &:before {
+          position: absolute;
+          top: 0;
+
+          display: block;
+
+          width: 100%;
+
+          content: "";
+          transform: rotate(90deg);
+
+          border-bottom: 1px solid;
+        }
+      }
+    }
+  }
+}
+
 /*=====  End of header  ======*/

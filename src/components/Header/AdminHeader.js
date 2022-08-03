@@ -7,21 +7,17 @@ import {
   IoMdPerson,
   IoIosHeartEmpty,
   IoIosCart,
-  IoIosMenu
+  IoIosMenu,
+  IoIosLogOut
 } from "react-icons/io";
 import Navigation from "./elements/Navigation";
 import AboutOverlay from "./elements/AboutOverlay";
 import SearchOverlay from "./elements/SearchOverlay";
 import CartOverlay from "./elements/CartOverlay";
 import WishlistOverlay from "./elements/WishlistOverlay";
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import MobileMenu from "./elements/MobileMenu";
-import { useToasts } from "react-toast-notifications";
-import { setCurrentUser } from "../../redux/actions/userActions";
-import Router from "next/router";
 
-
-const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurrentUser }) => {
+const AdminHeader = ({ aboutOverlay, cartItems, wishlistItems }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -32,12 +28,7 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
   const [offCanvasMobileMenuActive, setOffCanvasMobileMenuActive] = useState(
     false
   );
-  const { addToast } = useToasts();
-  const handleLogout=(e)=>{
-    e.preventDefault();
-    setCurrentUser({},addToast)
-    Router.push("/other/login-register");
-  }
+
   useEffect(() => {
     const header = document.querySelector("header");
     setHeaderTop(header.offsetTop);
@@ -64,39 +55,16 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
           <div className="header-content d-flex align-items-center justify-content-between position-relative space-py-mobile-only--30">
             {/* logo */}
             <div className="header-content__logo d-flex align-items-center space-pr--15">
-              <button
-                onClick={() => {
-                  setOffCanvasAboutActive(true);
-                  document
-                    .querySelector("body")
-                    .classList.add("overflow-hidden");
-                }}
-                className={`${
-                  aboutOverlay === false
-                    ? "d-none"
-                    : "about-overlay-trigger d-none d-lg-block"
-                }`}
-              >
-                <IoIosMenu />
-              </button>
-              <Link href="/" as={process.env.PUBLIC_URL + "/"}>
-                <a>
-                  <img
-                    src={process.env.PUBLIC_URL + "/assets/images/grand_sports_logo.png"}
-                    className="img-fluid"
-                    alt=""
-                  />
-                </a>
-              </Link>
+             
             </div>
 
             {/* navigation */}
-            <Navigation />
+            {/* <Navigation /> */}
 
             {/* icons */}
             <div className="header-content__icons space-pl--15">
               <ul className="d-none d-lg-block">
-                <li>
+                {/* <li>
                   <button
                     onClick={() => {
                       setOffCanvasSearchActive(true);
@@ -107,45 +75,14 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                   >
                     <IoIosSearch />
                   </button>
+                </li> */}
+                <li>
+                    <IoMdPerson />admin@gmail.com
                 </li>
                 <li>
-                  {userDetails && userDetails.role === 'customer'?
-                  <>
-                  {/* <Dropdown>
-      <Dropdown.Toggle>
-      <p ><IoMdPerson />{userDetails.email}</p>
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown> */}
-          <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={<IoMdPerson />}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item>{userDetails.email}</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item  onClick={handleLogout}>Logout</NavDropdown.Item>
-            </NavDropdown>
-                  
-                  </>
-                  :
-                  <Link
-                    href="/other/login-register"
-                    as={process.env.PUBLIC_URL + "/other/login-register"}
-                  >
-                    <a>
-                      <IoMdPerson />
-                    </a>
-                  </Link>
-                  }
-                  
+                <button><IoIosLogOut/>Logout</button> 
                 </li>
-                <li>
+                {/* <li>
                   <button
                     onClick={() => {
                       setOffCanvasWishlistActive(true);
@@ -163,8 +100,8 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                       ""
                     )}
                   </button>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <button
                     onClick={() => {
                       setOffCanvasCartActive(true);
@@ -182,10 +119,10 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                       ""
                     )}
                   </button>
-                </li>
+                </li> */}
               </ul>
 
-              <ul className="d-block d-lg-none">
+              {/* <ul className="d-block d-lg-none">
                 <li>
                   <Link
                     href="/other/wishlist"
@@ -225,59 +162,26 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                     <IoIosMenu />
                   </button>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </Container>
       </header>
 
       {/* about overlay */}
-      {aboutOverlay === false ? (
-        ""
-      ) : (
-        <AboutOverlay
-          activeStatus={offCanvasAboutActive}
-          getActiveStatus={setOffCanvasAboutActive}
-        />
-      )}
       {/* search overlay */}
-      <SearchOverlay
-        activeStatus={offCanvasSearchActive}
-        getActiveStatus={setOffCanvasSearchActive}
-      />
+     
 
       {/* cart overlay */}
-      <CartOverlay
-        activeStatus={offCanvasCartActive}
-        getActiveStatus={setOffCanvasCartActive}
-      />
+      
 
       {/* wishlist overlay */}
-      <WishlistOverlay
-        activeStatus={offCanvasWishlistActive}
-        getActiveStatus={setOffCanvasWishlistActive}
-      />
+     
       {/* Mobile Menu */}
-      <MobileMenu
-        activeStatus={offCanvasMobileMenuActive}
-        getActiveStatus={setOffCanvasMobileMenuActive}
-      />
     </Fragment>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    cartItems: state.cartData,
-    wishlistItems: state.wishlistData,
-    userDetails: state.currentUserData,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-  setCurrentUser: (user, addToast) => {
-      dispatch(setCurrentUser(user, addToast));
-  },
-  };
-};
-export default connect(mapStateToProps,mapDispatchToProps)(HeaderOne);
+
+
+export default AdminHeader;

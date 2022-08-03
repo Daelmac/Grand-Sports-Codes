@@ -35,7 +35,7 @@ const ProductGridWrapper = ({
           const discountedPrice = getDiscountPrice(
             product.product_price,
             product.product_discount
-          ).toFixed(2);
+          )
           const productPrice = product.product_price;
           const cartItem = cartItems.filter(
             (cartItem) => cartItem.id === product.product_id

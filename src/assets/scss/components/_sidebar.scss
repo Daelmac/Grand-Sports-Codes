@@ -1,0 +1,107 @@
+  
+  .list-group-item span {
+    border: solid #222;
+    border-width: 0 1px 1px 0;
+    display: inline;
+    cursor: pointer;
+    padding: 3px;
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+  }
+  
+  .list-group-item a.btn.collapsed span {
+    transform: rotate(40deg);
+    -webkit-transform: rotate(40deg);
+    transition: .3s transform ease-in-out;
+  }
+  
+  .list-group-item a.btn span {
+    transform: rotate(-140deg);
+    -webkit-transform: rotate(-140deg);
+    transition: .3s transform ease-in-out;
+  }
+
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16)ed;
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+  padding: 48px 5px 48px 5px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+.text-header{
+padding-top: 12px;
+text-align: center;
+font-size: 18px;
+font-weight: 500;
+}
+.number-text{
+  font-size: 48px;
+  font-weight: 600;
+}
+.t-yellow{
+  color: #FFB64D;
+}
+.t-green{
+  color: #128b44;
+}
+.t-blue{
+  color: #1100aa;
+}
+.t-purple{
+  color: #2f2c49;
+}
+.t-orange{
+  color: #6d3f04;
+}
+.t-pink{
+  color: #c741d3;
+}
+.t-brown{
+  color: #423407;
+}
+.t-red{
+  color: #ac180d;
+}
+.t-dark-green{
+  color: #08331a;
+}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
@@ -59,16 +60,16 @@ const FooterTwo = ({ footerBgClass }) => {
             <nav className="footer-single-widget__nav">
               <ul>
                 <li>
-                  <a href="#">About us</a>
+                <Link href="/other/about" as={process.env.PUBLIC_URL + "/other/about"}><a>About Us</a></Link>
                 </li>
                 <li>
-                  <a href="#">Store location</a>
+                  <a href="#">Store Location</a>
                 </li>
                 <li>
-                  <a href="#">Contact</a>
+                <Link href="/other/contact" as={process.env.PUBLIC_URL + "/other/contact"}><a>Contact Us</a></Link>
                 </li>
                 <li>
-                  <a href="#">Orders tracking</a>
+                  <a href="#">My Orders</a>
                 </li>
               </ul>
             </nav>
@@ -78,7 +79,7 @@ const FooterTwo = ({ footerBgClass }) => {
             <h5 className="footer-single-widget__title">USEFUL LINKS</h5>
             <nav className="footer-single-widget__nav">
               <ul>
-                <li>
+                {/* <li>
                   <a href="#">Returns</a>
                 </li>
                 <li>
@@ -86,9 +87,12 @@ const FooterTwo = ({ footerBgClass }) => {
                 </li>
                 <li>
                   <a href="#">Size guide</a>
+                </li> */}
+                <li>
+                   <Link href="/other/faq" as={process.env.PUBLIC_URL + "/other/faq"}><a>FAQs</a></Link>
                 </li>
                 <li>
-                  <a href="#">FAQs</a>
+                <Link href="/admin/login" as={process.env.PUBLIC_URL + "/admin/login"}><a>Admin Login</a></Link>
                 </li>
               </ul>
             </nav>
