@@ -1,9 +1,16 @@
 import { Fragment } from "react";
 // import { AdminHeader} from "../Header";
+import { useEffect } from 'react'
 import { FooterOne } from "../Footer";
+import AdminNavbar from "./elements/AdminNavbar";
 import AdminSidebar from "./elements/AdminSidebar";
+import { connect } from "react-redux";
+import Router from "next/router";
 
-const AdminLayout = ({ children, aboutOverlay }) => {
+const AdminLayout = ({ children, userDetails,title }) => {
+  useEffect(() => {
+    if(!(userDetails && userDetails.role === 'admin')) Router.push('/admin/login')
+  })
   return (
     <Fragment>
       {/* <AdminHeader /> */}
@@ -11,6 +18,7 @@ const AdminLayout = ({ children, aboutOverlay }) => {
         <div className="row">
           <AdminSidebar />
           <div className="col-10 offset-2" id="main">
+            <AdminNavbar title={title} />
             {children}
           </div>
         </div>
@@ -20,5 +28,9 @@ const AdminLayout = ({ children, aboutOverlay }) => {
     </Fragment>
   );
 };
-
-export default AdminLayout;
+const mapStateToProps = (state) => {
+  return {
+    userDetails: state.currentUserData,
+  };
+};
+export default connect(mapStateToProps, null)(AdminLayout);

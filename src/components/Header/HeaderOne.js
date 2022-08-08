@@ -124,11 +124,9 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
     </Dropdown> */}
           <NavDropdown
               id="nav-dropdown-dark-example"
-              title={<IoMdPerson />}
+              title={<span><IoMdPerson />{userDetails.user_name}</span>}
               menuVariant="dark"
             >
-              <NavDropdown.Item>{userDetails.email}</NavDropdown.Item>
-              <NavDropdown.Divider />
               <NavDropdown.Item  onClick={handleLogout}>Logout</NavDropdown.Item>
             </NavDropdown>
                   

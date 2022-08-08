@@ -1,21 +1,13 @@
 
 import { AdminLayout } from "../../components/Layout";
-import { useEffect, useState } from 'react'
-import { connect } from "react-redux";
-import Router from "next/router";
-import Card from 'react-bootstrap/Card';
 // import authCheck  from '../../auth'
 
 const Dashboard = ({userDetails}) => {
   // const authenticated = isAdminAuthenticated()
-  useEffect(() => {
-    if(!(userDetails && userDetails.role === 'admin')) Router.push('/admin/login')
-    console.log("userDetails==>",userDetails)
-  })
   return (
-    <AdminLayout>
+    <AdminLayout title="Dashboard">
       <div className="container">
-    <div className="row">
+       <div className="row">
        <div className="col-md-4 col-xl-4">
             <div className="card  order-card">
                 <div className="card-block">
@@ -98,4 +90,4 @@ const mapStateToProps = (state) => {
     userDetails: state.currentUserData,
   };
 };
-export default connect(mapStateToProps, null)(Dashboard); 
+export default Dashboard; 

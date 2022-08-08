@@ -1,40 +1,57 @@
-import { AdminLayout } from "../../components/Layout";
+import { AdminLayout } from "../../../components/Layout";
 import { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Link from "next/link";
 import { MdViewComfy, MdApps, MdList,MdEdit,MdDelete } from "react-icons/md";
 import { IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
-import Paginator from "react-hooks-paginator";
 import { SlideDown } from "react-slidedown";
-import { getSortedProducts } from "../../lib/product";
-import { getAllProducts } from "../../api/productApi";
+import { getSortedProducts } from "../../../lib/product";
+import { getAllProducts } from "../../../api/productApi";
 import DataTable from "react-data-table-component";
 
 import {
-  ShopHeader,
   ShopFilter,
-  ShopSidebar,
-  ShopProducts,
-} from "../../components/Shop";
-const Products = () => {
+} from "../../../components/Shop";
+const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [seatchText,setSeatchText] = useState('')
-  const [layout, setLayout] = useState("grid four-column");
   const [sortType, setSortType] = useState("");
   const [sortValue, setSortValue] = useState("");
   const [filterSortType, setFilterSortType] = useState("");
   const [filterSortValue, setFilterSortValue] = useState("");
-  const [offset, setOffset] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [shopTopFilterStatus, setShopTopFilterStatus] = useState(false);
-  const pageLimit = 20;
   useEffect(async () => {
     const all_products = await getAllProducts();
     if (all_products) setProducts(all_products);
   }, []);
+  const customStyles = {
+    headRow: {
+      style: {
+        border: 'none',
+      },
+    },
+    headCells: {
+      style: {
+        color: '#202124',
+        fontSize: '14px',
+      },
+    },
+    rows: {
+      highlightOnHoverStyle: {
+        backgroundColor: '#fff8f7',
+        borderBottomColor: '#FFFFFF',
+        outline: '1px solid #FFFFFF',
+      },
+    },
+    pagination: {
+      style: {
+        border: 'none',
+      },
+    },
+  };
   const columns = [
     {
       name: "Image",
@@ -61,7 +78,6 @@ const Products = () => {
       cell: (row) =>(<p>{row.product_name}</p>),
       style: {
         fontWeight: "bold",
-        // Width: '40%'
       },
 
     },
@@ -82,9 +98,6 @@ const Products = () => {
       sortable: true,
       width:"13%",
       cell: (row) =>(<p>{row.product_discount}%</p>)
-      // style: {
-      //   // Width: '5%'
-      // },
     },
     {
       name: "Final Price",
@@ -98,9 +111,6 @@ const Products = () => {
         </span>
       ),
       width:"13%"
-      // style: {
-      //   // Width: '5%'
-      // },
     },
     {
       name: "Available",
@@ -115,17 +125,13 @@ const Products = () => {
       width:"10%",
       style: {
         fontWeight: "bold",
-        // Width: '10%'
       },
     },
     {
       name: "Action",
       left: true,
       cell: (row) => (
-        <>
-            {/* <button type="button" class="btn btn-primary"><MdEdit/></button> */}
-            {/* <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button> */}
-            {/* <button type="button" class="btn btn-danger"><MdDelete/></button> */}
+             <>
             <MdEdit color="primary" fontSize="1.5em" class="mr-3" role="button" onClick={(row)=>onEditProduct(row)}/>
             <MdDelete color="red" fontSize="1.5em" role="button" onClick={(row)=>onDeleteProduct(row)}/>
             </>    
@@ -133,7 +139,6 @@ const Products = () => {
       width:"10%",
       style: {
         fontWeight: "bold",
-        // Width: '10%'
       },
     },
   ];
@@ -152,10 +157,6 @@ const Products = () => {
     setFilterSortType(sortType);
     setFilterSortValue(sortValue);
   };
-  useEffect(async () => {
-    const all_products = await getAllProducts();
-    if (all_products) setProducts(all_products);
-  }, []);
   useEffect(() => {
     let sortedProducts = getSortedProducts(products, sortType, sortValue);
     const filterSortedProducts = getSortedProducts(
@@ -175,24 +176,15 @@ const Products = () => {
       setCurrentData(sortedProducts);
     }
     
-  }, [offset, products, sortType, sortValue, filterSortType, filterSortValue,seatchText]);
+  }, [products, sortType, sortValue, filterSortType, filterSortValue,seatchText]);
 
-  // useEffect(() => {
-  //   if(seatchText)
-  //     const filterCurrentData = currentData.filter(
-  //       item => item.product_name && item.product_name.toLowerCase().includes(seatchText.toLowerCase()),
-  //     );
-  //   setCurrentData(filterCurrentData)
-  // },[seatchText])
   return (
-    <AdminLayout>
+    <AdminLayout title="All Products">
       <div className="shop-page-content">
-        {/* shop page header */}
         <Container className={"grid four-column"}>
           <Row className="align-items-center mt-5">
             <Col md={5} className="text-center text-md-left">
               Total Products : {products.length}
-              {/* Showing {currentData.length} of {products.length} result */}
             </Col>
 
             <Col md={7}>
@@ -232,11 +224,17 @@ const Products = () => {
 
         {/* shop page body */}
         <Container className="mt-5">
-          <DataTable columns={columns} data={currentData} pagination />
+          <DataTable
+           columns={columns}
+           data={currentData}
+           customStyles={customStyles}
+            highlightOnHover
+            pointerOnHover
+           pagination />
         </Container>
       </div>
     </AdminLayout>
   );
 };
 
-export default Products;
+export default AllProducts;
