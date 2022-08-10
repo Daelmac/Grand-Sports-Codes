@@ -94,7 +94,7 @@ const CreateCustomer = async (user) => {
 //       } 
 //   };
 
-  const getCustomers = (admin,filter) => {
+  const getCustomers = (admin,filter)=> async dispatch => {
     try {
         let params = new FormData();
         params.append('admin_id',admin?.admin_id)

@@ -171,8 +171,8 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                   </li>
                   <li>
                     <Link
-                      href="/admin/all"
-                      as={process.env.PUBLIC_URL + "/admin/all"}
+                      href="/admin/list"
+                      as={process.env.PUBLIC_URL + "/admin/list"}
                     >
                       <a>All Admins</a>
                     </Link>

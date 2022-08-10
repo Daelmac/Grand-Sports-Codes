@@ -148,37 +148,6 @@ const Login = ({setCurrentUser,userDetails}) => {
                 </form>
               </div>
             </Col>
-            {/* <Col lg={6}>
-              <div className="lezada-form login-form--register">
-                <form>
-                  <Row>
-                    <Col lg={12}>
-                      <div className="section-title--login text-center space-mb--50">
-                        <h2 className="space-mb--20">Register</h2>
-                        <p>If you don’t have an account, register now!</p>
-                      </div>
-                    </Col>
-                    <Col lg={12} className="space-mb--30">
-                      <label htmlFor="regEmail">
-                        Email Address <span className="required">*</span>{" "}
-                      </label>
-                      <input type="text" id="regEmail" required />
-                    </Col>
-                    <Col lg={12} className="space-mb--50">
-                      <label htmlFor="regPassword">
-                        Password <span className="required">*</span>{" "}
-                      </label>
-                      <input type="password" id="regPassword" required />
-                    </Col>
-                    <Col lg={12} className="text-center">
-                      <button className="lezada-button lezada-button--medium">
-                        register
-                      </button>
-                    </Col>
-                  </Row>
-                </form>
-              </div>
-            </Col> */}
           </Row>
         </Container>
       </div>
