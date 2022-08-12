@@ -222,10 +222,10 @@ const NavigationOverlay = ({ activeStatus, getActiveStatus }) => {
                             <ul className="sub-menu">
                               <li>
                                 <Link
-                                  href="/shop/left-sidebar"
+                                  href="/shop/all-products"
                                   as={
                                     process.env.PUBLIC_URL +
-                                    "/shop/left-sidebar"
+                                    "/shop/all-products"
                                   }
                                 >
                                   <a>Left Sidebar</a>
@@ -355,17 +355,17 @@ const NavigationOverlay = ({ activeStatus, getActiveStatus }) => {
                               </li>
                               <li>
                                 <Link
-                                  href="/other/cart"
-                                  as={process.env.PUBLIC_URL + "/other/cart"}
+                                  href="/cart"
+                                  as={process.env.PUBLIC_URL + "/cart"}
                                 >
                                   <a>Shopping Cart</a>
                                 </Link>
                               </li>
                               <li>
                                 <Link
-                                  href="/other/wishlist"
+                                  href="/wishlist"
                                   as={
-                                    process.env.PUBLIC_URL + "/other/wishlist"
+                                    process.env.PUBLIC_URL + "/wishlist"
                                   }
                                 >
                                   <a>Wishlist</a>
@@ -392,9 +392,9 @@ const NavigationOverlay = ({ activeStatus, getActiveStatus }) => {
                             <ul className="sub-menu">
                               <li>
                                 <Link
-                                  href="/other/checkout"
+                                  href="/checkout"
                                   as={
-                                    process.env.PUBLIC_URL + "/other/checkout"
+                                    process.env.PUBLIC_URL + "/checkout"
                                   }
                                 >
                                   <a>Checkout</a>
@@ -423,10 +423,10 @@ const NavigationOverlay = ({ activeStatus, getActiveStatus }) => {
                               </li>
                               <li>
                                 <Link
-                                  href="/other/login-register"
+                                  href="/login-register"
                                   as={
                                     process.env.PUBLIC_URL +
-                                    "/other/login-register"
+                                    "/login-register"
                                   }
                                 >
                                   <a>Login Register</a>
@@ -709,50 +709,26 @@ const NavigationOverlay = ({ activeStatus, getActiveStatus }) => {
                     <ul className="sub-menu">
                       <li>
                         <Link
-                          href="/other/about"
-                          as={process.env.PUBLIC_URL + "/other/about"}
+                          href="/about"
+                          as={process.env.PUBLIC_URL + "/about"}
                         >
                           <a>About Us</a>
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/other/about-two"
-                          as={process.env.PUBLIC_URL + "/other/about-two"}
-                        >
-                          <a>About Us Two</a>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/other/contact"
-                          as={process.env.PUBLIC_URL + "/other/contact"}
+                          href="/contact"
+                          as={process.env.PUBLIC_URL + "/contact"}
                         >
                           <a>Contact Us</a>
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/other/faq"
-                          as={process.env.PUBLIC_URL + "/other/faq"}
+                          href="/faq"
+                          as={process.env.PUBLIC_URL + "/faq"}
                         >
                           <a>F.A.Q</a>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/other/coming-soon"
-                          as={process.env.PUBLIC_URL + "/other/coming-soon"}
-                        >
-                          <a>Coming Soon</a>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/other/not-found"
-                          as={process.env.PUBLIC_URL + "/other/not-found"}
-                        >
-                          <a>Not Found</a>
                         </Link>
                       </li>
                     </ul>

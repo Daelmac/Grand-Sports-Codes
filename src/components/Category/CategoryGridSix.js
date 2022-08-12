@@ -29,8 +29,8 @@ const CategoryGridSix = () => {
                   out the wildest part in your self.
                 </p>
                 <Link
-                  href="/shop/left-sidebar"
-                  as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                  href="/shop/all-products"
+                  as={process.env.PUBLIC_URL + "/shop/all-products"}
                 >
                   <a>SHOP NOW</a>
                 </Link>
@@ -55,8 +55,8 @@ const CategoryGridSix = () => {
               <div className="single-product-category text-center">
                 <div className="single-product-category__image">
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>
                       <img
@@ -71,8 +71,8 @@ const CategoryGridSix = () => {
                   </Link>
                 </div>
                 <Link
-                  href="/shop/left-sidebar"
-                  as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                  href="/shop/all-products"
+                  as={process.env.PUBLIC_URL + "/shop/all-products"}
                 >
                   <a className="single-product-category__title">
                     Bikini <span>( 7 items )</span>
@@ -82,8 +82,8 @@ const CategoryGridSix = () => {
               <div className="single-product-category text-center">
                 <div className="single-product-category__image">
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>
                       <img
@@ -98,8 +98,8 @@ const CategoryGridSix = () => {
                   </Link>
                 </div>
                 <Link
-                  href="/shop/left-sidebar"
-                  as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                  href="/shop/all-products"
+                  as={process.env.PUBLIC_URL + "/shop/all-products"}
                 >
                   <a className="single-product-category__title">
                     Sport Suit <span>( 6 items )</span>
@@ -109,8 +109,8 @@ const CategoryGridSix = () => {
               <div className="single-product-category text-center">
                 <div className="single-product-category__image">
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>
                       <img
@@ -125,8 +125,8 @@ const CategoryGridSix = () => {
                   </Link>
                 </div>
                 <Link
-                  href="/shop/left-sidebar"
-                  as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                  href="/shop/all-products"
+                  as={process.env.PUBLIC_URL + "/shop/all-products"}
                 >
                   <a className="single-product-category__title">
                     One Piece <span>( 5 items )</span>
@@ -136,8 +136,8 @@ const CategoryGridSix = () => {
               <div className="single-product-category text-center">
                 <div className="single-product-category__image">
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>
                       <img
@@ -152,8 +152,8 @@ const CategoryGridSix = () => {
                   </Link>
                 </div>
                 <Link
-                  href="/shop/left-sidebar"
-                  as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                  href="/shop/all-products"
+                  as={process.env.PUBLIC_URL + "/shop/all-products"}
                 >
                   <a className="single-product-category__title">
                     Wet Suits <span>( 4 items )</span>
@@ -163,8 +163,8 @@ const CategoryGridSix = () => {
               <div className="single-product-category text-center">
                 <div className="single-product-category__image">
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>
                       <img
@@ -179,8 +179,8 @@ const CategoryGridSix = () => {
                   </Link>
                 </div>
                 <Link
-                  href="/shop/left-sidebar"
-                  as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                  href="/shop/all-products"
+                  as={process.env.PUBLIC_URL + "/shop/all-products"}
                 >
                   <a className="single-product-category__title">
                     Boyshort Bottoms <span>( 3 items )</span>

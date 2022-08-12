@@ -28,16 +28,16 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                     <div className="title">
                       <p>Women</p>
                       <Link
-                        href="/shop/left-sidebar"
-                        as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                        href="/shop/all-products"
+                        as={process.env.PUBLIC_URL + "/shop/all-products"}
                       >
                         <a>+ Store</a>
                       </Link>
                     </div>
                   </div>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a className="banner-link" />
                   </Link>
@@ -59,16 +59,16 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                     <div className="title">
                       <p>Shoes</p>
                       <Link
-                        href="/shop/left-sidebar"
-                        as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                        href="/shop/all-products"
+                        as={process.env.PUBLIC_URL + "/shop/all-products"}
                       >
                         <a>+ Store</a>
                       </Link>
                     </div>
                   </div>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a className="banner-link" />
                   </Link>
@@ -90,16 +90,16 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                     <div className="title">
                       <p>Sunglass</p>
                       <Link
-                        href="/shop/left-sidebar"
-                        as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                        href="/shop/all-products"
+                        as={process.env.PUBLIC_URL + "/shop/all-products"}
                       >
                         <a>+ Store</a>
                       </Link>
                     </div>
                   </div>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a className="banner-link" />
                   </Link>
@@ -125,16 +125,16 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                     <div className="title">
                       <p>Lookbook ss-20</p>
                       <Link
-                        href="/shop/left-sidebar"
-                        as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                        href="/shop/all-products"
+                        as={process.env.PUBLIC_URL + "/shop/all-products"}
                       >
                         <a>+ Store</a>
                       </Link>
                     </div>
                   </div>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a className="banner-link" />
                   </Link>
@@ -156,16 +156,16 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                     <div className="title">
                       <p>Men</p>
                       <Link
-                        href="/shop/left-sidebar"
-                        as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                        href="/shop/all-products"
+                        as={process.env.PUBLIC_URL + "/shop/all-products"}
                       >
                         <a>+ Store</a>
                       </Link>
                     </div>
                   </div>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a className="banner-link" />
                   </Link>

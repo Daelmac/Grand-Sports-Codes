@@ -11,37 +11,37 @@ const Navigation = () => {
         </li>
         <li>
           <Link
-            href="/shop/left-sidebar"
-            as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+            href="/shop/all-products"
+            as={process.env.PUBLIC_URL + "/shop/all-products"}
           >
             <a>Products</a>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="/" as={process.env.PUBLIC_URL + "/"}>
             <a>My Orders</a>
           </Link>
-        </li>
+        </li> */}
         <li>
         <Link
-            href="/other/about"
-            as={process.env.PUBLIC_URL + "/other/about"}
+            href="/about"
+            as={process.env.PUBLIC_URL + "/about"}
           >
                 <a>About Us</a>
               </Link>
         </li>
         <li>
               <Link
-                href="/other/contact"
-                as={process.env.PUBLIC_URL + "/other/contact"}
+                href="/contact"
+                as={process.env.PUBLIC_URL + "/contact"}
               >
                 <a>Contact Us</a>
               </Link>
             </li>
             <li>
               <Link
-                href="/other/faq"
-                as={process.env.PUBLIC_URL + "/other/faq"}
+                href="/faq"
+                as={process.env.PUBLIC_URL + "/faq"}
               >
                 <a>F.A.Q</a>
               </Link>

@@ -125,8 +125,8 @@ const AdminHeader = ({ aboutOverlay, cartItems, wishlistItems }) => {
               {/* <ul className="d-block d-lg-none">
                 <li>
                   <Link
-                    href="/other/wishlist"
-                    as={process.env.PUBLIC_URL + "/other/wishlist"}
+                    href="/wishlist"
+                    as={process.env.PUBLIC_URL + "/wishlist"}
                   >
                     <a>
                       <IoIosHeartEmpty />
@@ -142,8 +142,8 @@ const AdminHeader = ({ aboutOverlay, cartItems, wishlistItems }) => {
                 </li>
                 <li>
                   <Link
-                    href="/other/cart"
-                    as={process.env.PUBLIC_URL + "/other/cart"}
+                    href="/cart"
+                    as={process.env.PUBLIC_URL + "/cart"}
                   >
                     <a>
                       <IoIosCart />

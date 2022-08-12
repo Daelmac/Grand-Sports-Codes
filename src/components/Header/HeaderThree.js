@@ -96,8 +96,8 @@ const HeaderThree = ({ cartItems, wishlistItems }) => {
                   </li>
                   <li>
                     <Link
-                      href="/other/login-register"
-                      as={process.env.PUBLIC_URL + "/other/login-register"}
+                      href="/login-register"
+                      as={process.env.PUBLIC_URL + "/login-register"}
                     >
                       <a>
                         <IoMdPerson />
@@ -147,8 +147,8 @@ const HeaderThree = ({ cartItems, wishlistItems }) => {
                 <ul className="d-block d-lg-none">
                   <li>
                     <Link
-                      href="/other/wishlist"
-                      as={process.env.PUBLIC_URL + "/other/wishlist"}
+                      href="/wishlist"
+                      as={process.env.PUBLIC_URL + "/wishlist"}
                     >
                       <a>
                         <IoIosHeartEmpty />
@@ -164,8 +164,8 @@ const HeaderThree = ({ cartItems, wishlistItems }) => {
                   </li>
                   <li>
                     <Link
-                      href="/other/cart"
-                      as={process.env.PUBLIC_URL + "/other/cart"}
+                      href="/cart"
+                      as={process.env.PUBLIC_URL + "/cart"}
                     >
                       <a>
                         <IoIosCart />

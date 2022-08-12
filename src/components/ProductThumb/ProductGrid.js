@@ -11,13 +11,13 @@ const ProductGrid = ({
   productPrice,
   cartItem,
   wishlistItem,
-  compareItem,
+  // compareItem,
   bottomSpace,
   addToCart,
   addToWishlist,
   deleteFromWishlist,
-  addToCompare,
-  deleteFromCompare,
+  // addToCompare,
+  // deleteFromCompare,
   addToast,
   cartItems,
   column
@@ -98,7 +98,7 @@ const ProductGrid = ({
               </Tooltip>
 
               {/* add to compare */}
-              <Tooltip
+              {/* <Tooltip
                 title={
                   compareItem !== undefined
                     ? "Added to compare"
@@ -120,7 +120,7 @@ const ProductGrid = ({
                 >
                   <IoIosShuffle />
                 </button>
-              </Tooltip>
+              </Tooltip> */}
 
               {/* quick view */}
               <Tooltip
@@ -209,12 +209,12 @@ const ProductGrid = ({
         cartitems={cartItems}
         cartitem={cartItem}
         wishlistitem={wishlistItem}
-        compareitem={compareItem}
+        // compareitem={compareItem}
         addtocart={addToCart}
         addtowishlist={addToWishlist}
         deletefromwishlist={deleteFromWishlist}
-        addtocompare={addToCompare}
-        deletefromcompare={deleteFromCompare}
+        // addtocompare={addToCompare}
+        // deletefromcompare={deleteFromCompare}
         addtoast={addToast}
       />
     </Fragment>

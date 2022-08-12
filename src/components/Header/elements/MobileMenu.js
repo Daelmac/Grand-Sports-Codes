@@ -20,7 +20,7 @@ const MobileMenu = ({ activeStatus, getActiveStatus }) => {
         <div className="offcanvas-mobile-menu__content-wrapper">
           <div className="offcanvas-mobile-menu__content">
             {/* mobile search */}
-            <MobileMenuSearch />
+            {/* <MobileMenuSearch /> */}
 
             {/* mobile nav menu */}
             <MobileMenuNav getActiveStatus={getActiveStatus} />

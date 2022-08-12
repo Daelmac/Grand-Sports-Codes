@@ -36,7 +36,7 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
   const handleLogout=(e)=>{
     e.preventDefault();
     setCurrentUser({},addToast)
-    Router.push("/other/login-register");
+    Router.push("/login-register");
   }
   useEffect(() => {
     const header = document.querySelector("header");
@@ -111,30 +111,27 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                 <li>
                   {userDetails && userDetails.role === 'customer'?
                   <>
-                  {/* <Dropdown>
-      <Dropdown.Toggle>
-      <p ><IoMdPerson />{userDetails.email}</p>
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown> */}
-          <NavDropdown
+          {/* <NavDropdown
               id="nav-dropdown-dark-example"
               title={<span><IoMdPerson />{userDetails.user_name}</span>}
               menuVariant="dark"
             >
               <NavDropdown.Item  onClick={handleLogout}>Logout</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
+            <Link
+                    href="/my-account"
+                    as={process.env.PUBLIC_URL + "/my-account"}
+                  >
+                    <a>
+                      <IoMdPerson />{userDetails.user_name}
+                    </a>
+                  </Link>
                   
                   </>
                   :
                   <Link
-                    href="/other/login-register"
-                    as={process.env.PUBLIC_URL + "/other/login-register"}
+                    href="/login-register"
+                    as={process.env.PUBLIC_URL + "/login-register"}
                   >
                     <a>
                       <IoMdPerson />
@@ -186,8 +183,8 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
               <ul className="d-block d-lg-none">
                 <li>
                   <Link
-                    href="/other/wishlist"
-                    as={process.env.PUBLIC_URL + "/other/wishlist"}
+                    href="/wishlist"
+                    as={process.env.PUBLIC_URL + "/wishlist"}
                   >
                     <a>
                       <IoIosHeartEmpty />
@@ -203,8 +200,8 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                 </li>
                 <li>
                   <Link
-                    href="/other/cart"
-                    as={process.env.PUBLIC_URL + "/other/cart"}
+                    href="/cart"
+                    as={process.env.PUBLIC_URL + "/cart"}
                   >
                     <a>
                       <IoIosCart />

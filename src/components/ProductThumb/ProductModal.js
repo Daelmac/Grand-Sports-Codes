@@ -13,12 +13,12 @@ const ProductModal = (props) => {
     productprice,
     cartitems,
     wishlistitem,
-    compareitem,
+    // compareitem,
     addtocart,
     addtowishlist,
     deletefromwishlist,
-    addtocompare,
-    deletefromcompare,
+    // addtocompare,
+    // deletefromcompare,
     addtoast
   } = props;
 
@@ -286,7 +286,7 @@ const ProductModal = (props) => {
                         <IoIosHeartEmpty />
                       </button>
 
-                      <button
+                      {/* <button
                         className={`product-quickview__compare space-mr--10 ${
                           compareitem !== undefined ? "active" : ""
                         }`}
@@ -302,7 +302,7 @@ const ProductModal = (props) => {
                         }
                       >
                         <IoIosShuffle />
-                      </button>
+                      </button> */}
                     </div>
                   </Fragment>
                 )}

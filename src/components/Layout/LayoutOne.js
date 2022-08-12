@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { HeaderTwo } from "../Header";
+import { HeaderOne } from "../Header";
 import { FooterOne } from "../Footer";
 
 const LayoutOne = ({ children, aboutOverlay }) => {

@@ -1,4 +1,4 @@
-  import { useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 
 const MobileMenuNav = ({ getActiveStatus }) => {
@@ -6,9 +6,8 @@ const MobileMenuNav = ({ getActiveStatus }) => {
     const offCanvasNav = document.querySelector(
       "#offcanvas-mobile-menu__navigation"
     );
-    const offCanvasNavSubMenu = offCanvasNav.querySelectorAll(
-      ".mobile-sub-menu"
-    );
+    const offCanvasNavSubMenu =
+      offCanvasNav.querySelectorAll(".mobile-sub-menu");
     const anchorLinks = offCanvasNav.querySelectorAll("a");
 
     for (let i = 0; i < offCanvasNavSubMenu.length; i++) {
@@ -51,74 +50,64 @@ const MobileMenuNav = ({ getActiveStatus }) => {
 
         <li className="">
           <Link
-            href="/shop/left-sidebar"
-            as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+            href="/shop/all-products"
+            as={process.env.PUBLIC_URL + "/shop/all-products"}
           >
             <a>Products</a>
           </Link>
         </li>
 
-        <li className="">
+        {/* <li className="">
           <Link href="/">
             <a>My Orders</a>
           </Link>
+        </li> */}
+        <li>
+          <Link href="/about" as={process.env.PUBLIC_URL + "/about"}>
+            <a>About Us</a>
+          </Link>
         </li>
-
-        <li className="menu-item-has-children">
+        <li>
+          <Link href="/contact" as={process.env.PUBLIC_URL + "/contact"}>
+            <a>Contact Us</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/faq" as={process.env.PUBLIC_URL + "/faq"}>
+            <a>F.A.Q</a>
+          </Link>
+        </li>
+        {/* <li className="menu-item-has-children">
           <Link href="/" as={process.env.PUBLIC_URL + "/"}>
             <a>Pages</a>
           </Link>
           <ul className="mobile-sub-menu">
             <li>
               <Link
-                href="/other/about"
-                as={process.env.PUBLIC_URL + "/other/about"}
+                href="/about"
+                as={process.env.PUBLIC_URL + "/about"}
               >
                 <a>About Us</a>
               </Link>
             </li>
             <li>
               <Link
-                href="/other/about-two"
-                as={process.env.PUBLIC_URL + "/other/about-two"}
-              >
-                <a>About Us Two</a>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/other/contact"
-                as={process.env.PUBLIC_URL + "/other/contact"}
+                href="/contact"
+                as={process.env.PUBLIC_URL + "/contact"}
               >
                 <a>Contact Us</a>
               </Link>
             </li>
             <li>
               <Link
-                href="/other/faq"
-                as={process.env.PUBLIC_URL + "/other/faq"}
+                href="/faq"
+                as={process.env.PUBLIC_URL + "/faq"}
               >
                 <a>F.A.Q</a>
               </Link>
             </li>
-            <li>
-              <Link
-                href="/other/coming-soon"
-                as={process.env.PUBLIC_URL + "/other/coming-soon"}
-              >
-                <a>Coming Soon</a>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/other/not-found"
-                as={process.env.PUBLIC_URL + "/other/not-found"}
-              >
-                <a>Not Found</a>
-              </Link>
-            </li>
           </ul>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

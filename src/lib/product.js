@@ -31,7 +31,7 @@ export const getProducts = (products, category, type, limit) => {
 
 // get product discount price
 export const getDiscountPrice = (price, discount) => {
-  return discount && discount > 0 ? (price - price * (discount / 100)).toFixed(0) : price;
+  return discount && discount > 0 ? (price - price * (discount / 100)).toFixed(2) : parseInt(price).toFixed(2);
 };
 
 // get product cart quantity

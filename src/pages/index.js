@@ -7,7 +7,7 @@ import { ImageCta } from "../components/Cta";
 import heroSliderData from "../data/hero-sliders/hero-slider-one.json";
 import imageCtaData from "../data/image-cta/image-cta-one.json";
 
-const Home = ({ newProducts, popularProducts, saleProducts }) => {
+const Home = () => {
   return (
     <LayoutTwo aboutOverlay={false}>
       {/* hero slider */}

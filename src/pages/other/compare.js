@@ -208,8 +208,8 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                       <div className="item-empty-area__text">
                         <p className="space-mb--30">No items to compare</p>
                         <Link
-                          href="/shop/left-sidebar"
-                          as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                          href="/shop/all-products"
+                          as={process.env.PUBLIC_URL + "/shop/all-products"}
                         >
                           <a className="lezada-button lezada-button--medium">
                             Add Items

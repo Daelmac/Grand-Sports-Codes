@@ -48,7 +48,7 @@ const FooterTwo = ({ footerBgClass }) => {
             {/*=======  copyright text  =======*/}
             <div className="footer-single-widget__copyright">
               &copy; {new Date().getFullYear() + " "}
-              <a href="www.daelmac.com" target="_blank">
+              <a href="https://www.daelmac.com" target="_blank">
               Daelmac Software Solutions
               </a>
               <span>All Rights Reserved</span>
@@ -60,17 +60,17 @@ const FooterTwo = ({ footerBgClass }) => {
             <nav className="footer-single-widget__nav">
               <ul>
                 <li>
-                <Link href="/other/about" as={process.env.PUBLIC_URL + "/other/about"}><a>About Us</a></Link>
+                <Link href="/about" as={process.env.PUBLIC_URL + "/about"}><a>About Us</a></Link>
                 </li>
                 <li>
                   <a href="#">Store Location</a>
                 </li>
                 <li>
-                <Link href="/other/contact" as={process.env.PUBLIC_URL + "/other/contact"}><a>Contact Us</a></Link>
+                <Link href="/contact" as={process.env.PUBLIC_URL + "/contact"}><a>Contact Us</a></Link>
                 </li>
-                <li>
+                {/* <li>
                   <a href="#">My Orders</a>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </Col>
@@ -89,7 +89,7 @@ const FooterTwo = ({ footerBgClass }) => {
                   <a href="#">Size guide</a>
                 </li> */}
                 <li>
-                   <Link href="/other/faq" as={process.env.PUBLIC_URL + "/other/faq"}><a>FAQs</a></Link>
+                   <Link href="/faq" as={process.env.PUBLIC_URL + "/faq"}><a>FAQs</a></Link>
                 </li>
                 <li>
                 <Link href="/admin/login" as={process.env.PUBLIC_URL + "/admin/login"}><a>Admin Login</a></Link>
@@ -126,16 +126,16 @@ const FooterTwo = ({ footerBgClass }) => {
             </nav>
           </Col>
 
-          <Col className="footer-single-widget space-mb--50">
+          {/* <Col className="footer-single-widget space-mb--50">
             <div className="footer-subscribe-widget">
               <h2 className="footer-subscribe-widget__title">Subscribe.</h2>
               <p className="footer-subscribe-widget__subtitle">
                 Subscribe to our newsletter to receive news on update.
-              </p>
+              </p> */}
               {/* email subscription */}
-              <SubscribeEmailTwo mailchimpUrl="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" />
+              {/* <SubscribeEmailTwo mailchimpUrl="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" />
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
       <button

@@ -91,8 +91,8 @@ const HeaderFive = ({ aboutOverlay, cartItems, wishlistItems }) => {
               <div className="header-top__right">
                 <div className="signup-link">
                   <Link
-                    href="/other/login-register"
-                    as={process.env.PUBLIC_URL + "/other/login-register"}
+                    href="/login-register"
+                    as={process.env.PUBLIC_URL + "/login-register"}
                   >
                     <a>Signup / Login</a>
                   </Link>
@@ -162,8 +162,8 @@ const HeaderFive = ({ aboutOverlay, cartItems, wishlistItems }) => {
                   </li>
                   <li>
                     <Link
-                      href="/other/login-register"
-                      as={process.env.PUBLIC_URL + "/other/login-register"}
+                      href="/login-register"
+                      as={process.env.PUBLIC_URL + "/login-register"}
                     >
                       <a>
                         <IoMdPerson />
@@ -213,8 +213,8 @@ const HeaderFive = ({ aboutOverlay, cartItems, wishlistItems }) => {
                 <ul className="d-block d-lg-none">
                   <li>
                     <Link
-                      href="/other/wishlist"
-                      as={process.env.PUBLIC_URL + "/other/wishlist"}
+                      href="/wishlist"
+                      as={process.env.PUBLIC_URL + "/wishlist"}
                     >
                       <a>
                         <IoIosHeartEmpty />
@@ -230,8 +230,8 @@ const HeaderFive = ({ aboutOverlay, cartItems, wishlistItems }) => {
                   </li>
                   <li>
                     <Link
-                      href="/other/cart"
-                      as={process.env.PUBLIC_URL + "/other/cart"}
+                      href="/cart"
+                      as={process.env.PUBLIC_URL + "/cart"}
                     >
                       <a>
                         <IoIosCart />

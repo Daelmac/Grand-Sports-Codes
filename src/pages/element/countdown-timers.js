@@ -32,7 +32,7 @@ const CountdownTimers = () => {
           title="Deal of the day"
           backgroundImage="/assets/images/countdown/bg-countdown-1.jpg"
           dateTime="July 07, 2020 12:12:00"
-          url="/shop/left-sidebar"
+          url="/shop/all-products"
           buttonText="Only $39"
           spaceBottomClass="space-mb--r100"
         />
@@ -42,7 +42,7 @@ const CountdownTimers = () => {
           title="Deal of the day"
           backgroundImage="/assets/images/countdown/bg-countdown-2.jpg"
           dateTime="July 07, 2020 12:12:00"
-          url="/shop/left-sidebar"
+          url="/shop/all-products"
           buttonText="Only $39"
           spaceBottomClass="space-mb--r100"
         />
@@ -52,7 +52,7 @@ const CountdownTimers = () => {
           title="Deal of the day"
           image="/assets/images/countdown/countdown-3.jpg"
           dateTime="July 07, 2020 12:12:00"
-          url="/shop/left-sidebar"
+          url="/shop/all-products"
           buttonText="Only $39"
           spaceBottomClass="space-mb--r100"
         />
@@ -62,7 +62,7 @@ const CountdownTimers = () => {
           title="Deal of the day"
           image="/assets/images/countdown/countdown-4.png"
           dateTime="July 07, 2020 12:12:00"
-          url="/shop/left-sidebar"
+          url="/shop/all-products"
           buttonText="Only $39"
           backgroundColorClass="bg-color--grey-two"
         />

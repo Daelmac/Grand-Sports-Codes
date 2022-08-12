@@ -260,8 +260,8 @@ const ProductDescription = ({
                       product.category.map((item, index, arr) => {
                         return (
                           <Link
-                            href="/shop/left-sidebar"
-                            as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                            href="/shop/all-products"
+                            as={process.env.PUBLIC_URL + "/shop/all-products"}
                             key={index}
                           >
                             <a>
@@ -279,8 +279,8 @@ const ProductDescription = ({
                       product.tag.map((item, index, arr) => {
                         return (
                           <Link
-                            href="/shop/left-sidebar"
-                            as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                            href="/shop/all-products"
+                            as={process.env.PUBLIC_URL + "/shop/all-products"}
                             key={index}
                           >
                             <a>

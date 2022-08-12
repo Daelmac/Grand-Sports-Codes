@@ -8,10 +8,10 @@ import {
   addToWishlist,
   deleteFromWishlist
 } from "../../redux/actions/wishlistActions";
-import {
-  addToCompare,
-  deleteFromCompare
-} from "../../redux/actions/compareActions";
+// import {
+//   addToCompare,
+//   deleteFromCompare
+// } from "../../redux/actions/compareActions";
 import ProductGridList from "./ProductGridList";
 
 const ProductGridWrapper = ({
@@ -20,11 +20,11 @@ const ProductGridWrapper = ({
   addToCart,
   addToWishlist,
   deleteFromWishlist,
-  addToCompare,
-  deleteFromCompare,
+  // addToCompare,
+  // deleteFromCompare,
   cartItems,
   wishlistItems,
-  compareItems
+  // compareItems
 }) => {
   const { addToast } = useToasts();
   return (
@@ -42,9 +42,9 @@ const ProductGridWrapper = ({
           const wishlistItem = wishlistItems.filter(
             (wishlistItem) => wishlistItem.product_id === product.product_id
           )[0];
-          const compareItem = compareItems.filter(
-            (compareItem) => compareItem.product_id === product.product_id
-          )[0];
+          // const compareItem = compareItems.filter(
+          //   (compareItem) => compareItem.product_id === product.product_id
+          // )[0];
 
           return (
             <ProductGridList
@@ -54,13 +54,13 @@ const ProductGridWrapper = ({
               productPrice={productPrice}
               cartItem={cartItem}
               wishlistItem={wishlistItem}
-              compareItem={compareItem}
+              // compareItem={compareItem}
               bottomSpace={bottomSpace}
               addToCart={addToCart}
               addToWishlist={addToWishlist}
               deleteFromWishlist={deleteFromWishlist}
-              addToCompare={addToCompare}
-              deleteFromCompare={deleteFromCompare}
+              // addToCompare={addToCompare}
+              // deleteFromCompare={deleteFromCompare}
               addToast={addToast}
               cartItems={cartItems}
             />
@@ -74,7 +74,7 @@ const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    compareItems: state.compareData
+    // compareItems: state.compareData
   };
 };
 
@@ -103,12 +103,12 @@ const mapDispatchToProps = (dispatch) => {
     deleteFromWishlist: (item, addToast) => {
       dispatch(deleteFromWishlist(item, addToast));
     },
-    addToCompare: (item, addToast) => {
-      dispatch(addToCompare(item, addToast));
-    },
-    deleteFromCompare: (item, addToast) => {
-      dispatch(deleteFromCompare(item, addToast));
-    }
+    // addToCompare: (item, addToast) => {
+    //   dispatch(addToCompare(item, addToast));
+    // },
+    // deleteFromCompare: (item, addToast) => {
+    //   dispatch(deleteFromCompare(item, addToast));
+    // }
   };
 };
 

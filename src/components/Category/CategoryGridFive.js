@@ -22,8 +22,8 @@ const CategoryGridFive = () => {
                 <div className="title">
                   <p>Women</p>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>+ Online store</a>
                   </Link>
@@ -31,8 +31,8 @@ const CategoryGridFive = () => {
                 <p className="product-count">999</p>
               </div>
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a className="banner-link" />
               </Link>
@@ -54,8 +54,8 @@ const CategoryGridFive = () => {
                   Organic <br /> Cosmetology
                 </h3>
                 <Link
-                  href="/shop/left-sidebar"
-                  as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                  href="/shop/all-products"
+                  as={process.env.PUBLIC_URL + "/shop/all-products"}
                 >
                   <a className="link">Shop Now</a>
                 </Link>
@@ -78,8 +78,8 @@ const CategoryGridFive = () => {
                 <div className="title">
                   <p>Perfumes</p>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>+ Online store</a>
                   </Link>
@@ -87,8 +87,8 @@ const CategoryGridFive = () => {
                 <p className="product-count">999</p>
               </div>
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a className="banner-link" />
               </Link>
@@ -110,8 +110,8 @@ const CategoryGridFive = () => {
                 <div className="title">
                   <p>For Body</p>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>+ Online store</a>
                   </Link>
@@ -119,8 +119,8 @@ const CategoryGridFive = () => {
                 <p className="product-count">999</p>
               </div>
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a className="banner-link" />
               </Link>

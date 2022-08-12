@@ -13,8 +13,8 @@ const CategoryGridFour = ({ spaceBottomClass }) => {
           <Col md={4}>
             <div className="single-banner single-banner--hoverzoom space-mb--30">
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a>
                   <img
@@ -36,8 +36,8 @@ const CategoryGridFour = ({ spaceBottomClass }) => {
           <Col md={8}>
             <div className="single-banner single-banner--hoverzoom space-mb--30">
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a>
                   <img
@@ -61,8 +61,8 @@ const CategoryGridFour = ({ spaceBottomClass }) => {
           <Col md={8}>
             <div className="single-banner single-banner--hoverzoom space-mb--30">
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a>
                   <img
@@ -86,8 +86,8 @@ const CategoryGridFour = ({ spaceBottomClass }) => {
           <Col md={4}>
             <div className="single-banner single-banner--hoverzoom space-mb--30">
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a>
                   <img

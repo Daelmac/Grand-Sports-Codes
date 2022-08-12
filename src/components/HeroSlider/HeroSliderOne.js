@@ -8,7 +8,7 @@ const HeroSliderOne = ({ sliderData }) => {
     speed: 1000,
     spaceBetween: 200,
     // autoplay: {
-    //   delay: 5000,
+    //   delay: 5000,s
     //   disableOnInteraction: false,
     // },
     watchSlidesVisibility: true,

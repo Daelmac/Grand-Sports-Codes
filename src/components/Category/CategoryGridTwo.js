@@ -26,8 +26,8 @@ const CategoryGridTwo = ({ spaceBottomClass }) => {
                 <div className="title">
                   <p>Women</p>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>+ Online store</a>
                   </Link>
@@ -35,8 +35,8 @@ const CategoryGridTwo = ({ spaceBottomClass }) => {
                 <p className="product-count">999</p>
               </div>
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a className="banner-link" />
               </Link>
@@ -48,8 +48,8 @@ const CategoryGridTwo = ({ spaceBottomClass }) => {
                 <div className="title">
                   <p>Shoes</p>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>+ Online store</a>
                   </Link>
@@ -69,8 +69,8 @@ const CategoryGridTwo = ({ spaceBottomClass }) => {
               </div>
 
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a className="banner-link" />
               </Link>
@@ -92,8 +92,8 @@ const CategoryGridTwo = ({ spaceBottomClass }) => {
                 <div className="title">
                   <p>Bags</p>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>+ Online store</a>
                   </Link>
@@ -101,8 +101,8 @@ const CategoryGridTwo = ({ spaceBottomClass }) => {
                 <p className="product-count">4</p>
               </div>
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a className="banner-link" />
               </Link>
@@ -114,8 +114,8 @@ const CategoryGridTwo = ({ spaceBottomClass }) => {
                 <div className="title">
                   <p>Men</p>
                   <Link
-                    href="/shop/left-sidebar"
-                    as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                    href="/shop/all-products"
+                    as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a>+ Online store</a>
                   </Link>
@@ -135,8 +135,8 @@ const CategoryGridTwo = ({ spaceBottomClass }) => {
               </div>
 
               <Link
-                href="/shop/left-sidebar"
-                as={process.env.PUBLIC_URL + "/shop/left-sidebar"}
+                href="/shop/all-products"
+                as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a className="banner-link" />
               </Link>

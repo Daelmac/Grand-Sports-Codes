@@ -4,20 +4,20 @@
     "image": "assets/images/home-banner/main_slider-1.jpg",
     "subtitle": "ACCESSORIES",
     "title": "Bottle Grinder, <br> Small, 2-Piece",
-    "url": "/shop/left-sidebar"
+    "url": "/shop/all-products"
   },
   {
     "id": "2",
     "image": "assets/images/home-banner/main_slider-2.jpg",
     "subtitle": "HANDMADE",
     "title": "Large, <br> Food board",
-    "url": "/shop/left-sidebar"
+    "url": "/shop/all-products"
   },
   {
     "id": "3",
     "image": "assets/images/home-banner/main_slider-3.jpg",
     "subtitle": "ACCESSORIES",
     "title": "Tribeca Hubert, <br> Pendant",
-    "url": "/shop/left-sidebar"
+    "url": "/shop/all-products"
   }
 ]
