@@ -1,12 +1,7 @@
 // import axios from "../pages/axiosConfig";
 import axios from "axios";
 import {API_BASE_URL} from "../core/utils"
-import handle401 from "../core/errorHandler/handle401"
 import Router from "next/router";
-import store from '../redux/store';
-// import { useToasts } from "react-toast-notifications";
-import { setCurrentUser } from "../redux/actions/userActions";
-// const { addToast } = useToasts();
 
 const getHeaerConfig=(token) => {
   return {headers:{
@@ -131,5 +126,65 @@ const CreateCustomer = async (user) => {
        return null
     } 
   }
+  const updateCustomerAddress = (customer,address)=> async dispatch => {
+    try {
+        let params = new FormData();
+        params.append('customer_id',customer?.customer_id)
+        params.append('address',address)
+        console.log(customer)
+        const result = await axios.post(
+          `${API_BASE_URL}/set_default_billing_address`,params,getHeaerConfig(customer.token)
+          );
+          return result.data
+        } catch (e) { 
+          console.log("Fefew", e);
+          if (e.response.status == 401){
+            dispatch({
+              type: 'SET_CURRENT_USER',
+              payload:{}
+            })
+          }
+          return null 
+    };
+  }
+  const enableCustomer = (admin,customer_id) => async (dispatch)=>{
+    try {
+      let params = new FormData();
+      params.append('customer_id',customer_id)
+      params.append('admin_id',admin.admin_id)
 
-export {Adminlogin,CreateCustomer,CreateAdmin,CustomerLogin,getCustomers,getAdmins}  
+      const result = await axios.post(
+        `${API_BASE_URL}/admin_enable_customer`,params,getHeaerConfig(admin.token)
+        );
+        return result.data
+      } catch (e) { 
+        if (e.response.status == 401){
+          dispatch({
+            type: 'SET_CURRENT_USER',
+            payload:{}
+          })
+        }
+        return null 
+    };
+  }
+  const disableCustomer = (admin,customer_id) => async (dispatch)=>{
+    try {
+      let params = new FormData();
+      params.append('customer_id',customer_id)
+      params.append('admin_id',admin.admin_id)
+    
+      const result = await axios.post(
+        `${API_BASE_URL}/admin_disable_customer`,params,getHeaerConfig(admin.token)
+        );
+        return result.data
+      } catch (e) { 
+        if (e.response.status == 401){
+          dispatch({
+            type: 'SET_CURRENT_USER',
+            payload:{}
+          })
+        }
+        return null 
+    };
+  }
+export {Adminlogin,CreateCustomer,CreateAdmin,CustomerLogin,getCustomers,getAdmins,updateCustomerAddress,enableCustomer,disableCustomer}  

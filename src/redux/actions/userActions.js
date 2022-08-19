@@ -1,5 +1,5 @@
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
-export const LOGOUT_USER = "LOGOUT_USER";
+export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
 
 //login
 export const setCurrentUser = (
@@ -19,3 +19,19 @@ export const setCurrentUser = (
     });
   };
 };
+
+export const update_address = ( 
+  address,
+  addToast
+  )=>{
+    return dispatch => {
+    if (addToast) {
+      addToast("Address updated successfully", { appearance: "success", autoDismiss: true });  
+    }
+    dispatch({
+      type: UPDATE_ADDRESS,
+      payload:address
+    });
+  };
+ 
+}

@@ -63,7 +63,7 @@ const FooterTwo = ({ footerBgClass }) => {
                 <Link href="/about" as={process.env.PUBLIC_URL + "/about"}><a>About Us</a></Link>
                 </li>
                 <li>
-                  <a href="#">Store Location</a>
+                  <a  target="_blank" href="https://www.google.com/maps/place/Grand+Sports/@12.9883723,80.2209383,16.75z/data=!4m5!3m4!1s0x3a525d879217de87:0xc56f845932bde8e7!8m2!3d12.9884378!4d80.2227111">Store Location</a>
                 </li>
                 <li>
                 <Link href="/contact" as={process.env.PUBLIC_URL + "/contact"}><a>Contact Us</a></Link>

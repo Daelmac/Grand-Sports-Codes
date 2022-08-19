@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { IoMdPerson } from "react-icons/io";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { setCurrentUser } from "../../../redux/actions/userActions.js";
 import Router from "next/router";
+import Modal from 'react-bootstrap/Modal';
 
 const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
   const { addToast } = useToasts();
+  const [showLogoutModel, setShowLogoutModel] = useState(false);
+  
+
   useEffect(() => {
     const offCanvasNav = document.querySelector(
       "#offcanvas-mobile-menu__navigation"
@@ -32,7 +36,10 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
       });
     }
   });
-
+  const handleClose = () => setShowLogoutModel(false);
+  const handleShow = () => {
+    setShowLogoutModel(true);
+  };
   const sideMenuExpand = (e) => {
     e.currentTarget.parentElement.classList.toggle("active");
   };
@@ -47,13 +54,16 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
         className="offcanvas-mobile-menu__content-wrapper"
         style={{ height: "100vh" }}
       >
-        <div className="offcanvas-mobile-menu__content px-3 py-5">
+        <div className="offcanvas-mobile-menu__content pl-3 py-5">
           <nav
             className="offcanvas-mobile-menu__navigation"
             id="offcanvas-mobile-menu__navigation"
           >
             <div className="header-content__logo d-flex align-items-center justify-content-center mb-4">
-              <Link href="/admin/dashboard" as={process.env.PUBLIC_URL + "/admin/dashboard"}>
+              <Link
+                href="/admin/dashboard"
+                as={process.env.PUBLIC_URL + "/admin/dashboard"}
+              >
                 <a>
                   <img
                     src={
@@ -77,16 +87,19 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
               </li>
 
               <li className="menu-item-has-children mb-2 ">
-                <Link href="/admin/orders/all" as={process.env.PUBLIC_URL + "/admin/orders/all"}>
+                <Link
+                  href="/admin/orders/all"
+                  as={process.env.PUBLIC_URL + "/admin/orders/all"}
+                >
                   <a>Orders</a>
                 </Link>
                 <ul className="mobile-sub-menu">
                   <li>
                     <Link
-                      href="/admin/orders/pending"
-                      as={process.env.PUBLIC_URL + "/admin/orders/pending"}
+                      href="/admin/orders/receipts"
+                      as={process.env.PUBLIC_URL + "/admin/orders/receipts"}
                     >
-                      <a>Pending Orders</a>
+                      <a>All Receipts</a>
                     </Link>
                   </li>
                   <li>
@@ -94,13 +107,16 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                       href="/admin/orders/all"
                       as={process.env.PUBLIC_URL + "/admin/orders/all"}
                     >
-                      <a>All orders</a>
+                      <a>All Orders</a>
                     </Link>
                   </li>
                 </ul>
               </li>
               <li className="menu-item-has-children mb-2 ">
-                <Link href="/admin/products/all" as={process.env.PUBLIC_URL + "/admin/products/all"}>
+                <Link
+                  href="/admin/products/all"
+                  as={process.env.PUBLIC_URL + "/admin/products/all"}
+                >
                   <a>Products</a>
                 </Link>
                 <ul className="mobile-sub-menu">
@@ -120,7 +136,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                       <a>All Products</a>
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       href="/admin/products/featured"
                       as={process.env.PUBLIC_URL + "/admin/products/featured"}
@@ -143,7 +159,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                     >
                       <a>Best Selling Products</a>
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
               <li className="mb-2">
@@ -155,9 +171,11 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                 </Link>
               </li>
 
-              
               <li className="menu-item-has-children mb-2 ">
-                <Link href="/admin/list" as={process.env.PUBLIC_URL + "/admin/list"}>
+                <Link
+                  href="/admin/list"
+                  as={process.env.PUBLIC_URL + "/admin/list"}
+                >
                   <a>Admins</a>
                 </Link>
                 <ul className="mobile-sub-menu">
@@ -188,10 +206,31 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
               <li className="pt-5 text-center">
                 <button
                   className="lezada-button lezada-button--medium"
-                  onClick={handleLogout}
+                  // onClick={handleLogout}
+                  onClick={handleShow}
                 >
                   Logout
                 </button>
+                <Modal show={showLogoutModel} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Logout</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    Are you sure you want to Logout,
+                    <b>{adminDetails?.email}</b> ?
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button className="cancel-btn-small" onClick={handleClose}>
+                      Cancel
+                    </button>
+                    <button
+                      className="lezada-button lezada-button--small"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </Modal.Footer>
+                </Modal>
               </li>
             </ul>
           </nav>

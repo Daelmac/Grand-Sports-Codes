@@ -60,6 +60,7 @@ const Product = ({userDetails}) => {
     discountErrMsg: "",
     imageErrMsg: "",
     descriptionErrMsg: "",
+    serverErrMsg:""
   });
   const initProduct = () => {
     let productBlank = {
@@ -147,6 +148,7 @@ const Product = ({userDetails}) => {
       discountErrMsg: "",
       imageErrMsg: "",
       descriptionErrMsg: "",
+      serverErrMsg:""
     };
     setproductErrors(errors);
   };

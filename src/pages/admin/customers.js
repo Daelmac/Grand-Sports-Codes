@@ -5,9 +5,11 @@ import Link from "next/link";
 import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
 import { IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
-import { getCustomers } from "../../api/userApi";
+import { getCustomers,disableCustomer,enableCustomer } from "../../api/userApi";
 import DataTable from "react-data-table-component";
 import { useDispatch } from 'react-redux'
+import { useToasts } from "react-toast-notifications";
+
 
 
 const Customers = ({userDetails}) => {
@@ -15,18 +17,20 @@ const Customers = ({userDetails}) => {
   const [currentCustomers, setcurrentCustomers] = useState([]);
   const [seatchText, setSeatchText] = useState("");
   const [filter,setFilter] = useState("all")
+  const [toggleFlag,setToggleFlag] = useState(false);
   const dispatch = useDispatch()
-
+  const { addToast } = useToasts();
+  
   useEffect(async () => {
     let all_customers= await dispatch( getCustomers(userDetails,filter))
     if(all_customers) setCustomers(all_customers)
-  }, [filter]);
+  }, [filter,toggleFlag]);
   useEffect(() => {
     if (seatchText != "") {
       const filterCurrentData = currentCustomers.filter(
         (item) =>
           item.customer_name &&
-          item.customer_name.toLowerCase().includes(seatchText.toLowerCase())
+          (item.customer_name.toLowerCase().includes(seatchText.toLowerCase()) || (item.customer_id.toLowerCase().includes(seatchText.toLowerCase())))
       );
       setcurrentCustomers(filterCurrentData);
     } else {
@@ -38,6 +42,37 @@ const Customers = ({userDetails}) => {
   ]);
   const onDeleteProduct = (product) => {
     console.log("IN Delete==>", product);
+  };
+  const ChnageCustomerStatus = async(e, row) => {
+    if(row.customer_permitted){
+      let response = await dispatch( disableCustomer(userDetails,row.customer_id))
+      if(response?.status === "success"){
+        setToggleFlag(!toggleFlag)
+        addToast("Customer successfully Deactivated.", {
+          appearance: "success",
+          autoDismiss: true,
+        });
+      }
+      else addToast("Some problem occurred,please try again.", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }  
+    else{
+      let response = await dispatch( enableCustomer(userDetails,row.customer_id))
+      if(response.status === "success"){
+        setToggleFlag(!toggleFlag)
+        addToast("Customer successfully Activated.", {
+          appearance: "success",
+          autoDismiss: true,
+        });
+      }
+      else addToast("Some problem occurred,please try again.", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+
   };
   const columns = [
     {
@@ -71,11 +106,26 @@ const Customers = ({userDetails}) => {
       name: "Active",
       left: true,
       cell: (row) => (
-        <span
-          className={row.customer_permitted ? "text-success" : "text-danger"}
-        >
-          {row.customer_permitted ? "Yes" : "No"}
-        </span>
+        <div className="switch-container">
+          <label>
+            <input
+              checked={row.customer_permitted}
+              onChange={(e) => {
+                ChnageCustomerStatus(e, row);
+              }}
+              className="switch"
+              type="checkbox"
+            />
+            <div>
+              <div>{}</div>
+            </div>
+          </label>
+        </div>
+        // <span
+        //   className={row.customer_permitted ? "text-success" : "text-danger"}
+        // >
+        //   {row.customer_permitted ? "Yes" : "No"}
+        // </span>
       ),
       width: "10%",
       style: {

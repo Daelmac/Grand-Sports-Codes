@@ -194,7 +194,7 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
           <li>Customer Login</li>
         </ul>
       </BreadcrumbOne> */}
-      <div className="login-area space-mt--r130 space-mb--r130">
+      <div className="login-area space-mt--80 space-mb--r80">
         <Container>
           <Row>
             <Col lg={6} className="space-mb-mobile-only--50">
