@@ -60,7 +60,7 @@ const ProductModal = (props) => {
              <div>
                 <div className="single-image">
                   <img
-                    src={"http://"+product.product_image}
+                    src={process.env.API_URL+product.product_image}
                     className="img-fluid"
                     alt=""
                     style={{minWidth: "450px"}}

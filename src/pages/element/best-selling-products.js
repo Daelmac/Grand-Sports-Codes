@@ -18,7 +18,9 @@ const BestSellingProducts = ({ products }) => {
       >
         <ul className="breadcrumb__list">
           <li>
-            <Link href="/" as={process.env.PUBLIC_URL + "/"}>
+            <Link href="/" 
+            // as={process.env.PUBLIC_URL + "/"}
+            >
               <a>Home</a>
             </Link>
           </li>
@@ -41,7 +43,7 @@ const BestSellingProducts = ({ products }) => {
             <Col lg={12} className="text-center">
               <Link
                 href="/shop/all-products"
-                as={process.env.PUBLIC_URL + "/shop/all-products"}
+                // as={process.env.PUBLIC_URL + "/shop/all-products"}
               >
                 <a className="lezada-loadmore-button">
                   <IoIosAdd /> SEE MORE ...

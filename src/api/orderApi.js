@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "../core/utils";
+import axioss from "../pages/axiosConfig";
 
 const getHeaerConfig = (token) => {
   return {
@@ -31,19 +32,18 @@ const get_all_purchases =(admin, filter = null) =>async (dispatch) => {
     try {
       let params = new FormData();
       if (filter) params.append("filter_type", filter);
-      const result = await axios.post(
-        `${API_BASE_URL}/show_all_customer_purchases`,
+      const result = await axioss.post(`/show_all_customer_purchases`,
         params,
         getHeaerConfig(admin.token)
       );
       return result.data.purchases;
     } catch (e) {
-      if (e.response.status == 401) {
-        dispatch({
-          type: "SET_CURRENT_USER",
-          payload: {},
-        });
-      }
+      // if (e.response.status == 401) {
+      //   dispatch({
+      //     type: "SET_CURRENT_USER",
+      //     payload: {},
+      //   });
+      // }
       return null;
     }
   };

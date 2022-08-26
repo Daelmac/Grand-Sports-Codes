@@ -18,7 +18,9 @@ const About = () => {
       >
         <ul className="breadcrumb__list">
           <li>
-            <Link href="/" as={process.env.PUBLIC_URL + "/"}>
+            <Link href="/" 
+            // as={process.env.PUBLIC_URL + "/"}
+            >
               Home
             </Link>
           </li>
@@ -141,7 +143,7 @@ const About = () => {
                       </p>
                       <Link
                         href="/shop/all-products"
-                        as={process.env.PUBLIC_URL + "/shop/all-products"}
+                        // as={process.env.PUBLIC_URL + "/shop/all-products"}
                       >
                         <a className="lezada-button lezada-button--medium lezada-button--icon--left">
                           <IoMdAdd /> Visit Our online Store

@@ -205,7 +205,7 @@ const Product = ({userDetails}) => {
                   <div className="image-box">
                     <div className="single-image" style={{textAlign: 'center'}}>
                       <img
-                        src={typeof product["image"] == 'object'?URL.createObjectURL(product.image):"http://"+product.image}
+                        src={typeof product["image"] == 'object'?URL.createObjectURL(product.image):process.env.API_URL+product.image}
                         className="img-fluid"
                         alt=""
                         style={{maxHeight:"300px",width:"auto"}}

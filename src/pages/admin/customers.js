@@ -3,7 +3,7 @@ import { Fragment, useState, useEffect} from "react";
 import { connect } from "react-redux";
 import Link from "next/link";
 import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
-import { IoMdFunnel } from "react-icons/io";
+import { IoIosSearch, IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { getCustomers,disableCustomer,enableCustomer } from "../../api/userApi";
 import DataTable from "react-data-table-component";
@@ -15,7 +15,7 @@ import { useToasts } from "react-toast-notifications";
 const Customers = ({userDetails}) => {
   const [customers, setCustomers] = useState([]);
   const [currentCustomers, setcurrentCustomers] = useState([]);
-  const [seatchText, setSeatchText] = useState("");
+  const [searchText, setSearchText] = useState("");
   const [filter,setFilter] = useState("all")
   const [toggleFlag,setToggleFlag] = useState(false);
   const dispatch = useDispatch()
@@ -26,11 +26,11 @@ const Customers = ({userDetails}) => {
     if(all_customers) setCustomers(all_customers)
   }, [filter,toggleFlag]);
   useEffect(() => {
-    if (seatchText != "") {
+    if (searchText != "") {
       const filterCurrentData = currentCustomers.filter(
         (item) =>
           item.customer_name &&
-          (item.customer_name.toLowerCase().includes(seatchText.toLowerCase()) || (item.customer_id.toLowerCase().includes(seatchText.toLowerCase())))
+          (item.customer_name.toLowerCase().includes(searchText.toLowerCase()) || (item.customer_id.toLowerCase().includes(searchText.toLowerCase())))
       );
       setcurrentCustomers(filterCurrentData);
     } else {
@@ -38,7 +38,7 @@ const Customers = ({userDetails}) => {
     }
   }, [
     customers,
-    seatchText,
+    searchText,
   ]);
   const onDeleteProduct = (product) => {
     console.log("IN Delete==>", product);
@@ -145,13 +145,15 @@ const Customers = ({userDetails}) => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-                <input
-                  type="text"
-                  placeholder="Search.."
-                  className="search mr-5 border border-dark rounded"
-                  onChange={(e) => setSeatchText(e.target.value)}
-                />
-                <div className="single-icon filter-dropdown">
+                <div className="search-widget mr-5">
+                  <form>
+                    <input type="search" placeholder="Search customers ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <button type="button">
+                      <IoIosSearch />
+                    </button>
+                  </form>
+                </div>
+                <div className="single-icon filter-dropdown mt-2">
                   <select
                     onChange={(e) =>
                       setFilter(e.target.value)

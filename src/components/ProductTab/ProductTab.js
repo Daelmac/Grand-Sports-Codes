@@ -10,11 +10,11 @@ const ProductTab = ({}) => {
   const [bestSellerProducts, setBestSellerProducts] =useState([])
   useEffect(async() =>{
     const featured_products = await getFeaturedProducts()
-    setFeaturedProducts(featured_products)
+    if(featured_products) setFeaturedProducts(featured_products)
     const new_arrival_products = await getNewArrivalProducts()
-    setNewArrivalProducts(new_arrival_products)
+    if(new_arrival_products) setNewArrivalProducts(new_arrival_products)
     const best_seller_products = await getBestSellerProducts()
-    setBestSellerProducts(best_seller_products)
+    if(best_seller_products) setBestSellerProducts(best_seller_products)
   },[])
   return (
     <div className="product-tab space-mb--r100">

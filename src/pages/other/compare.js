@@ -66,7 +66,7 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                                       <a className="image">
                                         <img
                                           className="img-fluid"
-                                          src={"http://"+product.product_image}
+                                          src={process.env.API_URL+product.product_image}
                                           alt=""
                                         />
                                       </a>
@@ -139,11 +139,11 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                               <th className="title-column">Price</th>
                               {compareItems.map((product, key) => {
                                 const discountedPrice = getDiscountPrice(
-                                  product.product_price,
-                                  product.product_discount
+                                  product?.product_price,
+                                  product?.product_discount
                                 )
 
-                                const productPrice = product.product_price;
+                                const productPrice = parseInt(product?.product_price).toFixed(2)
                                 return (
                                   <td className="product-price" key={key}>
                                     {product.product_discount > 0 ? (

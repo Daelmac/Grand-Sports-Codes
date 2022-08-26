@@ -79,7 +79,9 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
               >
                 <IoIosMenu />
               </button>
-              <Link href="/" as={process.env.PUBLIC_URL + "/"}>
+              <Link href="/" 
+              // as={process.env.PUBLIC_URL + "/"}
+              >
                 <a>
                   <img
                     src={process.env.PUBLIC_URL + "/assets/images/grand_sports_logo.png"}
@@ -120,7 +122,7 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
             </NavDropdown> */}
             <Link
                     href="/my-account"
-                    as={process.env.PUBLIC_URL + "/my-account"}
+                    // as={process.env.PUBLIC_URL + "/my-account"}
                   >
                     <a>
                       <IoMdPerson />{userDetails.user_name}
@@ -131,7 +133,7 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                   :
                   <Link
                     href="/login-register"
-                    as={process.env.PUBLIC_URL + "/login-register"}
+                    // as={process.env.PUBLIC_URL + "/login-register"}
                   >
                     <a>
                       <IoMdPerson />
@@ -201,7 +203,7 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                 <li>
                   <Link
                     href="/cart"
-                    as={process.env.PUBLIC_URL + "/cart"}
+                    // as={process.env.PUBLIC_URL + "/cart"}
                   >
                     <a>
                       <IoIosCart />

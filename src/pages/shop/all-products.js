@@ -27,6 +27,7 @@ const LeftSidebar = () => {
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [shopTopFilterStatus, setShopTopFilterStatus] = useState(false);
+  const [searchText,setSearchText] = useState("")
 
   const pageLimit = 20;
 
@@ -38,7 +39,9 @@ const LeftSidebar = () => {
     setSortType(sortType);
     setSortValue(sortValue);
   };
-
+  const getSearchParam=(search_text)=>{
+    setSearchText(search_text);
+  }
   const getFilterSortParams = (sortType, sortValue) => {
     setFilterSortType(sortType);
     setFilterSortValue(sortValue);
@@ -56,8 +59,18 @@ const LeftSidebar = () => {
     );
     sortedProducts = filterSortedProducts;
     setSortedProducts(sortedProducts);
-    setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-  }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
+    if (searchText != "") {
+      const filterCurrentData = currentData.filter(
+        (item) =>
+          item.product_name &&
+          item.product_name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setCurrentData(filterCurrentData.slice(offset, offset + pageLimit));
+    } else {
+      setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+    }
+    // setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+  }, [offset, products, sortType, sortValue, filterSortType, filterSortValue,searchText]);
 
   return (
     <LayoutTwo aboutOverlay={false}>
@@ -93,41 +106,47 @@ const LeftSidebar = () => {
         </SlideDown>
 
         {/* shop page body */}
+       
         <div className="shop-page-content__body space-mt--r100 space-mb--r130">
-          <Container>
-            <Row>
-              <Col
-                lg={3}
-                className="order-2 order-lg-1 space-mt-mobile-only--50"
-              >
-                {/* shop sidebar */}
-                <ShopSidebar
-                  products={products}
-                  getSortParams={getSortParams}
-                />
-              </Col>
+        {(sortedProducts.length != 0)?
+         <Container>
+         <Row>
+           <Col
+             lg={3}
+             className="order-2 order-lg-1 space-mt-mobile-only--50"
+           >
+             {/* shop sidebar */}
+             <ShopSidebar
+               products={products}
+               getSortParams={getSortParams}
+               getSearchParam={getSearchParam}
+             />
+           </Col>
 
-              <Col lg={9} className="order-1 order-lg-2">
-                {/* shop products */}
-                <ShopProducts layout={layout} products={currentData} />
-                {console.log(currentData)}
-                {/* shop product pagination */}
-                <div className="pro-pagination-style">
-                  <Paginator
-                    totalRecords={sortedProducts.length}
-                    pageLimit={pageLimit}
-                    pageNeighbours={2}
-                    setOffset={setOffset}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    pageContainerClass="mb-0 mt-0"
-                    pagePrevText="«"
-                    pageNextText="»"
-                  />
-                </div>
-              </Col>
-            </Row>
-          </Container>
+           <Col lg={9} className="order-1 order-lg-2">
+             {/* shop products */}
+             <ShopProducts layout={layout} products={currentData} />
+             {console.log(currentData)}
+             {/* shop product pagination */}
+             <div className="pro-pagination-style">
+               <Paginator
+                 totalRecords={sortedProducts.length}
+                 pageLimit={pageLimit}
+                 pageNeighbours={2}
+                 setOffset={setOffset}
+                 currentPage={currentPage}
+                 setCurrentPage={setCurrentPage}
+                 pageContainerClass="mb-0 mt-0"
+                 pagePrevText="«"
+                 pageNextText="»"
+               />
+             </div>
+           </Col>
+         </Row>
+       </Container>:
+       <span className="d-flex align-items-center justify-content-center">Products not found</span>
+        }
+         
         </div>
       </div>
     </LayoutTwo>

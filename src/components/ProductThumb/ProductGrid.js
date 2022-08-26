@@ -35,17 +35,17 @@ const ProductGrid = ({
           {/*=======  single product image  =======*/}
           <div className="product-grid__image">
             <Link
-              href={`/shop/product/[id]`}
+              href={`shop/product/[id]`}
               as={
                 process.env.PUBLIC_URL + "/shop/product/" + product.product_id
               }
             >
               <div className="image-wrap" style={{cursor: 'pointer',textAlign: 'center'}}>
                 <img
-                  src={"http://"+product.product_image}
+                  src={process.env.API_URL+product.product_image}
                   className="img-fluid"
                   alt={product.product_name}
-                  style={{height:"200px",width:"auto"}}
+                  style={{height:"170px",width:"auto"}}
                 />
                 {/* {product.thumbImage.length > 1 ? (
                   <img
@@ -145,14 +145,12 @@ const ProductGrid = ({
           <div className="product-grid__content">
             <div className="title">
               <h3>
-                <Link
-                  href={`/shop/product-basic/[slug]?slug=${product.product_id}`}
-                  as={
-                    process.env.PUBLIC_URL +
-                    "/shop/product-basic/" +
-                    product.product_id
-                  }
-                >
+              <Link
+              href={`shop/product/[id]`}
+              as={
+                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
+              }
+            >
                   <a>{product.product_name}</a>
                 </Link>
               </h3>
@@ -163,21 +161,18 @@ const ProductGrid = ({
                 </a>
               ) : product.variation && product.variation.length >= 1 ? (
                 <Link
-                  href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                  as={
-                    process.env.PUBLIC_URL +
-                    "/shop/product-basic/" +
-                    product.slug
-                  }
-                >
+                href={`shop/product/[id]`}
+                as={
+                  process.env.PUBLIC_URL + "/shop/product/" + product.product_id
+                }
+              >
                   <a>Select Option</a>
                 </Link>
               ) : product.product_is_available ? (
                 <button
                   onClick={() => addToCart(product, addToast)}
                   disabled={
-                    cartItem !== undefined &&
-                    cartItem.quantity >= cartItem.stock
+                    cartItem !== undefined
                   }
                 >
                   {cartItem !== undefined ? "Added to cart" : "Add to cart"}

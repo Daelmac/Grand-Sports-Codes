@@ -1,4 +1,5 @@
 export const ADD_TO_CART = "ADD_TO_CART";
+export const UPDATE_CART = "UPDATE_CART";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
@@ -47,6 +48,11 @@ export const decreaseQuantity = (item, addToast) => {
     dispatch({ type: DECREASE_QUANTITY, payload: item });
   };
 };
+export const updateCart = (cartData) => {
+  return dispatch => {
+    dispatch({ type: UPDATE_CART, payload: cartData });
+  };
+};
 //delete from cart
 export const deleteFromCart = (item, addToast) => {
   return dispatch => {
@@ -77,5 +83,7 @@ export const cartItemStock = (item, color, size) => {
     return item?.variation
       ?.filter(single => single.color === color)[0]
       ?.size.filter(single => single.name === size)[0].stock;
-  }
+  } 
+  
 };
+

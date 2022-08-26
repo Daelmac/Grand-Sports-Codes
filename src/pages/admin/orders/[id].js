@@ -149,14 +149,14 @@ const Order = ({ userDetails }) => {
                 <div className="image-box">
                   <div className="single-image" style={{ textAlign: "center" }}>
                     <img
-                      src={"http://" + all_orderDetails?.product?.product_image}
+                      src={process.env.API_URL + all_orderDetails?.product?.product_image}
                       className="img-fluid"
                       alt=""
                       style={{ maxHeight: "300px", width: "auto" }}
                     />
                   </div>
                 </div>
-                <div className="product-details">
+                <div className="product-details mt-3">
                   <ul>
                     <li>
                       <strong>Product ID:</strong>

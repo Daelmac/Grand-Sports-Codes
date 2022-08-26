@@ -58,7 +58,7 @@ const ProductTabTwo = ({ newProducts, popularProducts, saleProducts }) => {
           <Col lg={12} className="text-center">
             <Link
               href="/shop/all-products"
-              as={process.env.PUBLIC_URL + "/shop/all-products"}
+              // as={process.env.PUBLIC_URL + "/shop/all-products"}
             >
               <a className="lezada-button lezada-button--medium lezada-button--icon--left">
                 <IoIosAdd />

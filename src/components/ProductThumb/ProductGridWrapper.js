@@ -33,15 +33,15 @@ const ProductGridWrapper = ({
       {products &&
         products.map((product) => {
           const discountedPrice = getDiscountPrice(
-            product.product_price,
-            product.product_discount
+            product?.product_price,
+            product?.product_discount
           )
-          const productPrice = product.product_price;
+          const productPrice = parseInt(product?.product_price).toFixed(2)
           const cartItem = cartItems.filter(
-            (cartItem) => cartItem.product_id === product.product_id
+            (cartItem) => cartItem.product_id === product?.product_id
           )[0];
           const wishlistItem = wishlistItems.filter(
-            (wishlistItem) => wishlistItem.product_id === product.product_id
+            (wishlistItem) => wishlistItem.product_id === product?.product_id
           )[0];
           // const compareItem = compareItems.filter(
           //   (compareItem) => compareItem.id === product.product_id

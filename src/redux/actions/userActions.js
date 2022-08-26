@@ -10,8 +10,13 @@ export const setCurrentUser = (
     if (addToast) {
       console.log("DEdew",userDetails)
       if(Object.keys(userDetails).length === 0) addToast("Logout Successfully", { appearance: "success", autoDismiss: true });
-      else addToast("Login Successfully", { appearance: "success", autoDismiss: true });
-      
+      else {
+        addToast("Login Successfully", { appearance: "success", autoDismiss: true });
+        dispatch({
+          type: "UPDATE_CART",
+          payload:JSON.parse(userDetails?.cart_data || "[]")  
+        })
+      };
     }
     dispatch({
       type: SET_CURRENT_USER,
@@ -28,6 +33,7 @@ export const update_address = (
     if (addToast) {
       addToast("Address updated successfully", { appearance: "success", autoDismiss: true });  
     }
+    console.log("rtghresa3333")
     dispatch({
       type: UPDATE_ADDRESS,
       payload:address

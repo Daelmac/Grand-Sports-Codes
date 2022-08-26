@@ -3,27 +3,24 @@ import { useToasts } from "react-toast-notifications";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
-import { HeaderTwo } from "../../components/Header";
-import {Adminlogin} from "../../api/userApi"
+import {CustomerPasswordReset} from "../api/userApi"
 // import {authenticateAdmin} from "../../auth"
-import { setCurrentUser } from "../../redux/actions/userActions";
-  import Router from "next/router";
+import { LayoutTwo } from "../components/Layout";
+import Router from "next/router";
 
-const Login = ({setCurrentUser,userDetails}) => {
+
+
+const ForgotPassword = ({userDetails}) => {
   useEffect(() => {
-    if(userDetails && userDetails.role === 'admin') Router.push('/admin/dashboard')
-    console.log("userDetails==>",userDetails)
+    if(userDetails && userDetails.role === 'customer') Router.push('/')
   })
     const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const { addToast } = useToasts();
     const [user, setUSer] = useState({
         email: '',  
-        password: ''
-
     });
     const [errors, setErrors] = useState({
         emailErrMsg: "",
-        passwordErrMsg: "",
         serverErrMsg:""
     });
     
@@ -35,22 +32,34 @@ const Login = ({setCurrentUser,userDetails}) => {
     const handleSubmit = async(event)=> {
         event.preventDefault();
         if(validate()){
-            const response = await Adminlogin(user)
-            if(response.status === 'success' && response.role === 'admin'){
-                setCurrentUser(response,addToast)
-                // authenticateAdmin()
-                Router.push("/admin/dashboard");
+            const response = await CustomerPasswordReset(user.email)
+            if(response){
+                if(response.status === 'success'){
+                    addToast(response.status_message, {
+                        appearance: "success",
+                        autoDismiss: true,
+                      });
+                      localStorage.setItem("reset_token",response.reset_token)
+                      Router.push({
+                        pathname: '/update-password',
+                        query: { email: user.email },
+                    }, '/update-password');
+                }
+                else{
+                    setErrors({...errors,"serverErrMsg":response.status_message})
+                }
+
+            }else{
+                addToast("Some problem occurred,please try again.", {
+                    appearance: "error",
+                    autoDismiss: true,
+                    });
             }
-            else{
-                setErrors({...errors,"serverErrMsg":"Invalid email or password.Please try again."})
-            }
-            console.log(response);
         }
       }
     const initValidation = ()=>{
         const errors={
             emailErrMsg: "",
-            passwordErrMsg: "",
             serverErrMsg:""
         };
         setErrors(errors)
@@ -69,17 +78,11 @@ const Login = ({setCurrentUser,userDetails}) => {
               errors["emailErrMsg"] = "Please enter valid email address.";
             }
           }
-      
-          if (!user["password"]) {
-            isValid = false;
-            errors["passwordErrMsg"] = "Please enter your password.";
-          }
-      
           setErrors(errors);
           return isValid;
       }
   return (
-    <Fragment>
+    <LayoutTwo aboutOverlay={false}>
       {/* <HeaderTwo /> */}
       <div className="login-area space-mt--80 space-mb--r80">
         <Container>
@@ -103,7 +106,7 @@ const Login = ({setCurrentUser,userDetails}) => {
                   <Row>
                     <Col lg={12}>
                       <div className="section-title--login text-center space-mb--50">
-                        <h2 className="space-mb--20">Admin Login</h2>
+                        <h2 className="space-mb--20"> Lost your password?</h2>
                         {/* <p>Great to have you back!</p> */}
                       </div>
                     </Col>
@@ -118,37 +121,20 @@ const Login = ({setCurrentUser,userDetails}) => {
                       />
                       <span className="error-text">{errors.emailErrMsg}</span>
                     </Col>
-                    <Col lg={12} className="space-mb--60">
-                      <input 
-                       type="password"
-                       name="password"
-                       value={user.password}
-                       placeholder="Password" 
-                       required  
-                       onChange={handleChange} />
-                      <span className="error-text">{errors.passwordErrMsg}</span>
-                    </Col>
                     <span className="error-text ml-3 mb-3">{errors.serverErrMsg}</span>
                     <Col lg={12} className="space-mb--30">
                       <button className="lezada-button lezada-button--medium" onClick={handleSubmit}>
-                        login
+                        Send Password Reset Pin
                       </button>
                     </Col>
                     <Col>
                       {/* <input type="checkbox" />{" "}
                       <span className="remember-text">Remember me</span> */}
-                      <Link href="/admin/forgot-password" 
-                      // as={process.env.PUBLIC_URL + "/admin/forgot-password"}
-                      >
+                       <Link href="/login-register" 
+                      //  as={process.env.PUBLIC_URL + "/login-register"}
+                       >
                       <a className="reset-pass-link">
-                        Lost your password?
-                      </a>
-                      </Link>
-                      <Link href="/" 
-                      // as={process.env.PUBLIC_URL + "/"}
-                      >
-                      <a className="reset-pass-link">
-                        Back to home page
+                        login ?
                       </a>
                       </Link>
                     </Col>
@@ -159,19 +145,13 @@ const Login = ({setCurrentUser,userDetails}) => {
           </Row>
         </Container>
       </div>
-    </Fragment>
+      </LayoutTwo>
   );
 };
-const mapDispatchToProps = (dispatch) => {
-    return {
-    setCurrentUser: (user, addToast) => {
-        dispatch(setCurrentUser(user, addToast));
-    },
-    };
-};
+
 const mapStateToProps = (state) => {
   return {
     userDetails: state.currentUserData,
   };
 };
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default connect(mapStateToProps,null)(ForgotPassword);

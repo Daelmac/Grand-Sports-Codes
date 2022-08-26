@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment,useEffect } from "react";
 import { IoIosHeartEmpty, IoIosShuffle } from "react-icons/io";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import Link from "next/link";
@@ -11,13 +11,13 @@ const ProductDescription = ({
   discountedPrice,
   cartItems,
   wishlistItem,
-  compareItem,
+  // compareItem,
   addToast,
   addToCart,
   addToWishlist,
   deleteFromWishlist,
-  addToCompare,
-  deleteFromCompare
+  // addToCompare,
+  // deleteFromCompare
 }) => {
   const [selectedProductColor, setSelectedProductColor] = useState(
     product.variation ? product.variation[0].color : ""
@@ -37,8 +37,14 @@ const ProductDescription = ({
     selectedProductSize
   );
 
+  // useEffect(()=>{
+  //   setQuantityCount(productCartQty)
+  // },[])
+
   return (
+    
     <div className="product-content">
+      {console.log(cartItems)}
       {product.rating && product.rating > 0 ? (
         <div className="product-content__rating-wrap d-block d-sm-flex space-mb--20">
           <div className="product-content__rating space-mr--20">
@@ -156,7 +162,9 @@ const ProductDescription = ({
             <div className="cart-plus-minus">
               <button
                 onClick={() =>
-                  setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
+                  setQuantityCount(
+                    quantityCount > 1 ? quantityCount - 1 : 1
+                  )
                 }
                 className="qtybutton"
               >
@@ -171,10 +179,8 @@ const ProductDescription = ({
               <button
                 onClick={() =>
                   setQuantityCount(
-                    quantityCount < productStock - productCartQty
-                      ? quantityCount + 1
-                      : quantityCount
-                  )
+                    quantityCount + 1  
+                 )
                 }
                 className="qtybutton"
               >
@@ -195,7 +201,6 @@ const ProductDescription = ({
                     selectedProductSize
                   )
                 }
-                disabled={productCartQty >= productStock}
                 className="lezada-button lezada-button--medium product-content__cart space-mr--10"
               >
                 Add To Cart
@@ -227,7 +232,7 @@ const ProductDescription = ({
               <IoIosHeartEmpty />
             </button>
 
-            <button
+            {/* <button
               className={`product-content__compare space-mr--10 ${
                 compareItem !== undefined ? "active" : ""
               }`}
@@ -243,7 +248,7 @@ const ProductDescription = ({
               }
             >
               <IoIosShuffle />
-            </button>
+            </button> */}
           </div>
 
           {/* <div className="product-content__other-info space-mt--50">

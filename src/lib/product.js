@@ -38,11 +38,7 @@ export const getDiscountPrice = (price, discount) => {
 export const getProductCartQuantity = (cartItems, product, color, size) => {
   let productInCart = cartItems.filter(
     (single) =>
-      single.product_id === product.product_id &&
-      (single.selectedProductColor
-        ? single.selectedProductColor === color
-        : true) &&
-      (single.selectedProductSize ? single.selectedProductSize === size : true)
+      single.product_id === product.product_id
   )[0];
   if (cartItems.length >= 1 && productInCart) {
     if (product.variation) {

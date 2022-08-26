@@ -3,7 +3,7 @@ import { Fragment, useState, useEffect} from "react";
 import { connect } from "react-redux";
 import Link from "next/link";
 import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete,MdOutlineRemoveR } from "react-icons/md";
-import { IoMdFunnel,IoEye } from "react-icons/io";
+import { IoMdFunnel,IoEye, IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { get_all_receipts } from "../../../api/orderApi";
 import DataTable from "react-data-table-component";
@@ -14,7 +14,7 @@ import Router from "next/router";
 const Receipts = ({userDetails}) => {
   const [receipts, setReceipts] = useState([]);
   const [currentReceipts, setCurrentReceipts] = useState([])
-  const [seatchText, setSeatchText] = useState("");
+  const [searchText, setSearchText] = useState("");
   // const [filter,setFilter] = useState(null)
   const dispatch = useDispatch()
 
@@ -24,11 +24,11 @@ const Receipts = ({userDetails}) => {
   },[]);
 
   useEffect(() => {
-    if (seatchText != "") {
+    if (searchText != "") {
       const filterCurrentData = currentReceipts.filter(
         (item) =>
           item.receipt_id &&
-          item.receipt_id.toLowerCase().includes(seatchText.toLowerCase())
+          item.receipt_id.toLowerCase().includes(searchText.toLowerCase())
       );
       setCurrentReceipts(filterCurrentData);
     } else {
@@ -36,7 +36,7 @@ const Receipts = ({userDetails}) => {
     }
   }, [
     receipts,
-    seatchText,
+    searchText,
   ]);
 
   const onOrderClick = (id) => {
@@ -105,12 +105,15 @@ const Receipts = ({userDetails}) => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-                <input
-                  type="text"
-                  placeholder="Search.."
-                  className="search mr-5 border border-dark rounded"
-                  onChange={(e) => setSeatchText(e.target.value)}
-                />
+
+                <div className="search-widget mr-5">
+                  <form>
+                    <input type="search" placeholder="Search receipts ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <button type="button">
+                      <IoIosSearch />
+                    </button>
+                  </form>
+                </div>
                 {/* <div className="single-icon filter-dropdown">
                   <select
                     onChange={(e) =>

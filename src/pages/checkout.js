@@ -23,19 +23,20 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
   const PincodRegX = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
   const dispatch = useDispatch()
   const { addToast } = useToasts();
-
+  let address=null
+  if (userDetails?.address) address = JSON.parse(userDetails?.address);
   useEffect(() => {
     document.querySelector("body").classList.remove("overflow-hidden");
   });
   const [orderDetails, setOrderDetails] = useState({
-    name: "",
-    phone: "",
-    address_line_1: "",
-    address_line_2: "",
-    country: "",
-    city: "",
-    state: "",
-    pincode: "",
+    name: address?.name || "",
+    phone:address?.phone || "",
+    address_line_1:address?.address_line_1 || "",
+    address_line_2:address?.address_line_2 ||"",
+    country: address?.country || "",
+    city:address?.city || "",
+    state:address?.state || "",
+    pincode:address?.pincode || "",
   });
   const [OrderDetailsError, setOrderDetailsError] = useState({
     nameErrMsg: "",
@@ -60,8 +61,8 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
       let total_receipt_amount=0
       const purchaseData = cartItems.map((product, i) => {
         const discountedPrice = getDiscountPrice(
-          product.product_price,
-          product.product_discount
+          product?.product_price,
+          product?.product_discount
         );
         total_receipt_amount+= discountedPrice * product.quantity;
         cartTotalPrice = discountedPrice * product.quantity;
@@ -346,8 +347,8 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                               <ul>
                                 {cartItems.map((product, i) => {
                                   const discountedPrice = getDiscountPrice(
-                                    product.product_price,
-                                    product.product_discount
+                                    product?.product_price,
+                                    product?.product_discount
                                   );
 
                                   cartTotalPrice +=
@@ -381,7 +382,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                           </div>
                           {/* Payment Method */}
                           <div className="col-12">
-                            <h4 className="checkout-title">Payment Method</h4>
+                            {/* <h4 className="checkout-title">Payment Method</h4>
                             <div className="checkout-payment-method">
                               <div className="single-method">
                                 <input
@@ -443,7 +444,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                                   conditions
                                 </label>
                               </div>
-                            </div>
+                            </div> */}
                             <button
                               className="lezada-button lezada-button--medium space-mt--20"
                               onClick={onOrderDetailsSubmit}
@@ -471,7 +472,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                     </p>
                     <Link
                       href="/shop/all-products"
-                      as={process.env.PUBLIC_URL + "/shop/all-products"}
+                      // as={process.env.PUBLIC_URL + "/shop/all-products"}
                     >
                       <a className="lezada-button lezada-button--medium">
                         Shop Now

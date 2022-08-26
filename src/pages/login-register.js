@@ -245,9 +245,13 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
                     <Col>
                       {/* <input type="checkbox" />{" "} */}
                       {/* <span className="remember-text">Remember me</span> */}
-                      <a href="#" className="reset-pass-link">
+                      <Link href="/forgot-password" 
+                      // as={process.env.PUBLIC_URL + "/forgot-password"}
+                      >
+                      <a className="reset-pass-link">
                         Lost your password?
                       </a>
+                      </Link>
                     </Col>
                   </Row>
                 </form>
@@ -326,7 +330,7 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
                         value={newUser.password}
                         onChange={handleRegisterUserChange}
                         required
-                      />
+                      ></input>
                       <span className="error-text">
                         {newUserErrors.passwordErrMsg}
                       </span>

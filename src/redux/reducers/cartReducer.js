@@ -3,8 +3,12 @@ import {
   ADD_TO_CART,
   DECREASE_QUANTITY,
   DELETE_FROM_CART,
-  DELETE_ALL_FROM_CART
+  DELETE_ALL_FROM_CART,
+  UPDATE_CART
 } from "../actions/cartActions";
+// import { useDispatch } from "react-redux";
+// import {updateCartData} from "../../api/userApi"
+
 
 const initState = [];
 
@@ -105,6 +109,13 @@ const cartReducer = (state = initState, action) => {
       );
     }
   }
+  if(action.type === UPDATE_CART){
+    let product_ids = product.map(a => a.product_id);
+    let updated_cartItems=[]
+    cartItems.map((item) =>{!(product_ids.includes(item.product_id)) && updated_cartItems.push(item)});
+    Array.prototype.push.apply(updated_cartItems,product);
+    return updated_cartItems
+  }
 
   if (action.type === DELETE_FROM_CART) {
     const remainingItems = (cartItems, product) =>
@@ -119,7 +130,6 @@ const cartReducer = (state = initState, action) => {
       return false;
     });
   }
-
   return state;
 };
 

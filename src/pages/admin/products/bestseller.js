@@ -3,7 +3,7 @@ import { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Link from "next/link";
 import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
-import { IoMdFunnel } from "react-icons/io";
+import { IoIosSearch, IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import Paginator from "react-hooks-paginator";
 import { SlideDown } from "react-slidedown";
@@ -19,7 +19,7 @@ import {
 } from "../../../components/Shop";
 const BestSellingProducts = () => {
   const [products, setProducts] = useState([]);
-  const [seatchText, setSeatchText] = useState("");
+  const [searchText, setSearchText] = useState("");
   const [layout, setLayout] = useState("grid four-column");
   const [sortType, setSortType] = useState("");
   const [sortValue, setSortValue] = useState("");
@@ -38,7 +38,7 @@ const BestSellingProducts = () => {
       left: true,
       cell: (row) => (
         <img
-          src={"http://" + row.product_image}
+          src={process.env.API_URL + row.product_image}
           width={60}
           height={60}
           alt="Player"
@@ -149,11 +149,11 @@ const BestSellingProducts = () => {
     );
     sortedProducts = filterSortedProducts;
     setSortedProducts(sortedProducts);
-    if (seatchText != "") {
+    if (searchText != "") {
       const filterCurrentData = currentData.filter(
         (item) =>
           item.product_name &&
-          item.product_name.toLowerCase().includes(seatchText.toLowerCase())
+          item.product_name.toLowerCase().includes(searchText.toLowerCase())
       );
       setCurrentData(filterCurrentData);
     } else {
@@ -165,7 +165,7 @@ const BestSellingProducts = () => {
     sortValue,
     filterSortType,
     filterSortValue,
-    seatchText,
+    searchText,
   ]);
 
   return (
@@ -180,13 +180,15 @@ const BestSellingProducts = () => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-                <input
-                  type="text"
-                  placeholder="Search.."
-                  className="search mr-5 border border-dark rounded"
-                  onChange={(e) => setSeatchText(e.target.value)}
-                />
-                <div className="single-icon advance-filter-icon">
+              <div className="search-widget mr-5">
+                  <form>
+                    <input type="search" placeholder="Search products ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <button type="button">
+                      <IoIosSearch />
+                    </button>
+                  </form>
+                </div>
+                <div className="single-icon advance-filter-icon mt-2">
                   <button
                     onClick={() => setShopTopFilterStatus(!shopTopFilterStatus)}
                     className={shopTopFilterStatus ? "active" : ""}

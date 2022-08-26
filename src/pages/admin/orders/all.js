@@ -3,7 +3,7 @@ import { Fragment, useState, useEffect} from "react";
 import { connect } from "react-redux";
 import Link from "next/link";
 import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete,MdOutlineRemoveR } from "react-icons/md";
-import { IoMdFunnel,IoEye } from "react-icons/io";
+import { IoMdFunnel,IoEye,IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { get_all_purchases } from "../../../api/orderApi";
 import DataTable from "react-data-table-component";
@@ -14,7 +14,7 @@ import Router from "next/router";
 const AllOrders = ({userDetails}) => {
   const [orders, setOrders] = useState([]);
   const [currentOrders, setCurrentOrders] = useState([]);
-  const [seatchText, setSeatchText] = useState("");
+  const [searchText, setSearchText] = useState("");
   const [filter,setFilter] = useState(null)
   const dispatch = useDispatch()
 
@@ -23,11 +23,11 @@ const AllOrders = ({userDetails}) => {
     if(all_purchases) setOrders(all_purchases)
   },[filter]);
   useEffect(() => {
-    if (seatchText != "") {
+    if (searchText != "") {
       const filterCurrentData = currentOrders.filter(
         (item) =>
           item.order_id &&
-          (item.order_id.toLowerCase().includes(seatchText.toLowerCase()) || item.customer_id.toLowerCase().includes(seatchText.toLowerCase()))
+          (item.order_id.toLowerCase().includes(searchText.toLowerCase()) || item?.customer?.id.toLowerCase().includes(searchText.toLowerCase()))
       );
       setCurrentOrders(filterCurrentData);
     } else {
@@ -35,7 +35,7 @@ const AllOrders = ({userDetails}) => {
     }
   }, [
     orders,
-    seatchText,
+    searchText,
   ]);
   const onEditOrder = (e,order) => {
     console.log(order)
@@ -142,13 +142,15 @@ const AllOrders = ({userDetails}) => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-                <input
-                  type="text"
-                  placeholder="Search.."
-                  className="search mr-5 border border-dark rounded"
-                  onChange={(e) => setSeatchText(e.target.value)}
-                />
-                <div className="single-icon filter-dropdown">
+                 <div className="search-widget mr-5">
+                  <form>
+                    <input type="search" placeholder="Search orders ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <button type="button">
+                      <IoIosSearch />
+                    </button>
+                  </form>
+                </div>
+                <div className="single-icon filter-dropdown mt-2">
                   <select
                     onChange={(e) =>
                       setFilter(e.target.value)

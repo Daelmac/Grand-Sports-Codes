@@ -5,15 +5,27 @@ import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../../lib/product";
 import { deleteFromCart } from "../../../redux/actions/cartActions";
+import { useEffect,useState } from "react";
+import {updateCartData} from "../../../api/userApi"
+import { useDispatch } from "react-redux";
 
 const CartOverlay = ({
   activeStatus,
   getActiveStatus,
   cartItems,
+  userDetails,
   deleteFromCart
 }) => {
   let cartTotalPrice = 0;
+  const dispatch = useDispatch();
   const { addToast } = useToasts();
+  useEffect(
+    async()=>{
+      if(userDetails && userDetails.role === "customer"){
+        // console.log("cart overlay",userDetails)
+        await dispatch(updateCartData(userDetails,JSON.stringify(cartItems)));
+      }
+    },[cartItems])
   return (
     <div className={`cart-overlay ${activeStatus ? "active" : ""}`}>
       <div
@@ -43,8 +55,8 @@ const CartOverlay = ({
                 <CustomScroll allowOuterScroll={true}>
                   {cartItems.map((product, i) => {
                     const discountedPrice = getDiscountPrice(
-                      product.product_price,
-                      product.product_discount
+                      product?.product_price,
+                      product?.product_discount
                     )
 
                     cartTotalPrice += discountedPrice * product.quantity;
@@ -66,7 +78,7 @@ const CartOverlay = ({
                             <a>
                               <img
                                 src={
-                                  "http://"+product.product_image
+                                  process.env.API_URL+product.product_image
                                 }
                                 className="img-fluid"
                                 alt=""
@@ -117,13 +129,13 @@ const CartOverlay = ({
               <div className="cart-buttons">
                 <Link
                   href="/cart"
-                  as={process.env.PUBLIC_URL + "/cart"}
+                  // as={process.env.PUBLIC_URL + "/cart"}
                 >
                   view cart
                 </Link>
                 <Link
                   href="/checkout"
-                  as={process.env.PUBLIC_URL + "/checkout"}
+                  // as={process.env.PUBLIC_URL + "/checkout"}
                 >
                   checkout
                 </Link>
@@ -144,7 +156,8 @@ const CartOverlay = ({
 
 const mapStateToProps = (state) => {
   return {
-    cartItems: state.cartData
+    cartItems: state.cartData,
+    userDetails: state.currentUserData,
   };
 };
 

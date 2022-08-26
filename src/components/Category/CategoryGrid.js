@@ -29,7 +29,7 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                       <p>Women</p>
                       <Link
                         href="/shop/all-products"
-                        as={process.env.PUBLIC_URL + "/shop/all-products"}
+                        // as={process.env.PUBLIC_URL + "/shop/all-products"}
                       >
                         <a>+ Store</a>
                       </Link>
@@ -37,7 +37,7 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                   </div>
                   <Link
                     href="/shop/all-products"
-                    as={process.env.PUBLIC_URL + "/shop/all-products"}
+                    // as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a className="banner-link" />
                   </Link>
@@ -60,7 +60,7 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                       <p>Shoes</p>
                       <Link
                         href="/shop/all-products"
-                        as={process.env.PUBLIC_URL + "/shop/all-products"}
+                        // as={process.env.PUBLIC_URL + "/shop/all-products"}
                       >
                         <a>+ Store</a>
                       </Link>
@@ -68,7 +68,7 @@ const CategoryGrid = ({ spaceBottomClass }) => {
                   </div>
                   <Link
                     href="/shop/all-products"
-                    as={process.env.PUBLIC_URL + "/shop/all-products"}
+                    // as={process.env.PUBLIC_URL + "/shop/all-products"}
                   >
                     <a className="banner-link" />
                   </Link>

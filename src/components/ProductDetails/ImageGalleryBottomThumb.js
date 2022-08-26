@@ -118,7 +118,7 @@ const   ImageGalleryBottomThumb = ({
                   <div>
                     {/* <LightgalleryItem
                       group="any"
-                      src={"http://"+product.product_image}
+                      src={process.env.API_URL+product.product_image}
                     >
                       <Tooltip
                         title="Click to enlarge"
@@ -135,7 +135,7 @@ const   ImageGalleryBottomThumb = ({
                     </LightgalleryItem> */}
                     <div className="single-image" style={{textAlign: 'center'}}>
                       <img
-                       src={"http://"+product.product_image}
+                       src={process.env.API_URL+product.product_image}
                         className="img-fluid"
                         alt=""
                         style={{maxHeight:"400px",width:"auto"}}
@@ -151,7 +151,7 @@ const   ImageGalleryBottomThumb = ({
                 <div >
                   <div className="single-image">
                     <img
-                      src={"http://"+product.product_image}
+                      src={process.env.API_URL+product.product_image}
                       className="img-fluid"
                       alt=""
                     />

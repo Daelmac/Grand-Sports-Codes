@@ -24,7 +24,11 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
   const { addToast } = useToasts();
   if (!(userDetails && userDetails.role === "customer"))
     Router.push("/login-register");
-  let address = JSON.parse(userDetails?.address);
+  else
+  console.log("cartData",JSON.parse(userDetails.cart_data))
+  let address=null
+  if (userDetails?.address) address = JSON.parse(userDetails?.address);
+
 
   const [addressEditMode, setAddressEditMode] = useState(false);
   const [addressDetails, setAddressDetails] = useState(
@@ -52,6 +56,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
   });
   const [purchaseDetails, setPurchaseDetails] = useState(null)
   useEffect(async () => {
+    console.log("localStorage.getItem('persist:primary')",JSON.parse(JSON.parse(localStorage.getItem('persist:primary')).currentUserData).token)
     const purchaseData = await dispatch(showCustomerPurchases(userDetails));
     if (purchaseData) {
       setPurchaseDetails(purchaseData);
@@ -226,6 +231,8 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                 </button>
               </Tab.Pane>
               <Tab.Pane eventKey="orders">
+              <div className="my-account-area__content">
+                  <h3>My Orders</h3>
                 {
                   purchaseDetails?.map(purchase=>(
                     <div className="my-cart-wrp mt-2">
@@ -247,12 +254,12 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                         <Card.Header className="p-2s">
                           <div className="order-list-wrp">
                             <span>
-                              order ID: <em>{order.id}</em>
+                              Order ID: <em>{order.id}</em>
                             </span>
                             <div className="order-list-item-desc">
                               <div className="pro-img">
                                   <span>
-                                    <img src={"http://"+order.product.product_image} />
+                                    <img src={process.env.API_URL+order.product.product_image} />
                                   </span>
                                   <div className="pro-name">
                                   {/* <h5>Product Name</h5> */}
@@ -282,7 +289,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                 variant="link"
                                 eventKey="0"
                               >
-                                more info
+                                More info
                               </Accordion.Toggle>
                             </div>
                             </div>
@@ -298,10 +305,10 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                     <strong>{order?.name}</strong>
                                   </p>
                                   <p>
-                                    {addressDetails?.address_line_1},{" "}
-                                    {addressDetails?.address_line_2} <br />
-                                    {addressDetails?.city}, {addressDetails?.state}-
-                                    {addressDetails?.pincode}
+                                    {JSON.parse(order.address)?.address_line_1},{" "}
+                                    {JSON.parse(order.address)?.address_line_2} <br />
+                                    {JSON.parse(order.address)?.city}, {JSON.parse(order.address)?.state},{JSON.parse(order.address)?.country}-
+                                    {JSON.parse(order.address)?.pincode}
                                   </p>
                                   <p>Mobile: {order?.phone}</p>
                              </address>
@@ -311,15 +318,15 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                 <div className="delevary_patner">
                                 <div className="pro-total mb-2">
                                   <h5>Delivery Partner</h5>
-                                  <p>{order?.order_delivery_partner}</p>
+                                  <p className="font-weight-bold">{order?.order_delivery_partner}</p>
                                 </div>
                                 <div className="pro-total">
                                   <h5>Tracking ID</h5>
-                                  <p>{order?.order_tracking_id}</p>
+                                  <p className="font-weight-bold">{order?.order_tracking_id}</p>
                                 </div>
                               </div>:<div></div>
                               }
-                              <button class="lezada-button lezada-button--small">
+                              <button className="lezada-button lezada-button--small">
                                 Cancel Order
                               </button>
                             </div>
@@ -333,7 +340,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                 </div>
                   ))
                 }
-                
+                </div>
               </Tab.Pane>
               <Tab.Pane eventKey="address">
                 <div className="my-account-area__content">
@@ -485,7 +492,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                           <p>
                             {addressDetails?.address_line_1},{" "}
                             {addressDetails?.address_line_2} <br />
-                            {addressDetails?.city}, {addressDetails?.state}-
+                            {addressDetails?.city}, {addressDetails?.state},{addressDetails?.country}-
                             {addressDetails?.pincode}
                           </p>
                           <p>Mobile: {addressDetails?.phone}</p>

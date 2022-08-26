@@ -37,7 +37,7 @@ const ProductGridList = ({
             >
               <a className="image-wrap"  style={{textAlign: 'center'}}>
                 <img
-                  src={"http://"+product.product_image}
+                  src={process.env.API_URL+product.product_image}
                   className="img-fluid"
                   alt={product.product_name}
                   style={{height:"170px",width:"auto"}}
@@ -156,13 +156,11 @@ const ProductGridList = ({
                 </a>
               ) : product.variation && product.variation.length >= 1 ? (
                 <Link
-                  href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                  as={
-                    process.env.PUBLIC_URL +
-                    "/shop/product-basic/" +
-                    product.slug
-                  }
-                >
+              href={`/shop/product/[id]`}
+              as={
+                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
+              }
+            >
                   <a>Select Option</a>
                 </Link>
               ) : product.product_is_available ? (
@@ -202,7 +200,7 @@ const ProductGridList = ({
             >
               <a className="image-wrap" style={{textAlign: 'center'}}>
                 <img
-                  src={"http://"+product.product_image}
+                  src={process.env.API_URL+product.product_image}
                   className="img-fluid"
                   alt={product.product_name}
                   style={{height:"auto",width:"200px"}}
@@ -339,13 +337,11 @@ const ProductGridList = ({
                 </a>
               ) : product.variation && product.variation.length >= 1 ? (
                 <Link
-                  href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                  as={
-                    process.env.PUBLIC_URL +
-                    "/shop/product-basic/" +
-                    product.slug
-                  }
-                >
+              href={`/shop/product/[id]`}
+              as={
+                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
+              }
+            >
                   <a className="lezada-button lezada-button--medium">
                     Select Option
                   </a>

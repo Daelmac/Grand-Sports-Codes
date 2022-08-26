@@ -18,7 +18,9 @@ const NotFound = () => {
                 <h1 className="space-mb--50">Page not found!</h1>
                 <p className="direction-page">
                   PLEASE GO BACK TO{" "}
-                  <Link href="/" as={process.env.PUBLIC_URL + "/"}>
+                  <Link href="/" 
+                  // as={process.env.PUBLIC_URL + "/"}
+                  >
                     homepage
                   </Link>
                 </p>

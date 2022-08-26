@@ -9,55 +9,66 @@ import { BreadcrumbOne } from "../../../components/Breadcrumb";
 import {
   ImageGalleryBottomThumb,
   ProductDescription,
-  ProductDescriptionTab
+  ProductDescriptionTab,
 } from "../../../components/ProductDetails";
 import { addToCart } from "../../../redux/actions/cartActions";
 import {
   addToWishlist,
-  deleteFromWishlist
+  deleteFromWishlist,
 } from "../../../redux/actions/wishlistActions";
-import { useRouter } from 'next/router'
-import {
-  addToCompare,
-  deleteFromCompare
-} from "../../../redux/actions/compareActions";
-import {getProductByID} from "../../../api/productApi"
+import { useRouter } from "next/router";
+// import {
+//   addToCompare,
+//   deleteFromCompare
+// } from "../../../redux/actions/compareActions";
+import { getProductByID } from "../../../api/productApi";
 // import products from "../../../data/products.json";
 
 const ProductBasic = ({
   cartItems,
   wishlistItems,
-  compareItems,
+  // compareItems,
   addToCart,
   addToWishlist,
   deleteFromWishlist,
-  addToCompare,
-  deleteFromCompare
+  // addToCompare,
+  // deleteFromCompare
 }) => {
-  const router = useRouter()
-  const { id } = router.query    
-  const[product ,setProduct]=useState({})
-  useEffect(async() => {
-     const data = await getProductByID(id)
-     setProduct(data)
-     document.querySelector("body").classList.remove("overflow-hidden");
-  },[]);
+  const router = useRouter();
+  const { id } = router.query;
+  const [product, setProduct] = useState({});
   const { addToast } = useToasts();
-  const discountedPrice = getDiscountPrice(
-    product.product_price,
-    product.product_discount
-  )
 
-  const productPrice = product.product_price
+  useEffect(async () => {
+    const data = await getProductByID(id);
+    if(data){
+      if (data.status === "success") {
+        setProduct(data);
+      } 
+    }else{
+      addToast("Some problem occurred,please try again.", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+    document.querySelector("body").classList.remove("overflow-hidden");
+  }, []);
+  
+  const discountedPrice = getDiscountPrice(
+    product?.product_price,
+    product?.product_discount
+  );
+
+  const productPrice = parseInt(product?.product_price).toFixed(2);
   const cartItem = cartItems.filter(
-    (cartItem) => cartItem.id === product.product_id
+    (cartItem) => cartItem.product_id === product?.product_id
   )[0];
   const wishlistItem = wishlistItems.filter(
-    (wishlistItem) => wishlistItem.id === product.product_id
+    (wishlistItem) => wishlistItem.product_id === product?.product_id
   )[0];
-  const compareItem = compareItems.filter(
-    (compareItem) => compareItem.id === product.product_id
-  )[0];
+  // const compareItem = compareItems.filter(
+  //   (compareItem) => compareItem.id === product.product_id
+  // )[0];
 
   return (
     <LayoutTwo aboutOverlay={false}>
@@ -85,47 +96,52 @@ const ProductBasic = ({
       </BreadcrumbOne> */}
 
       {/* product details */}
-      <div className="product-details space-mt--r100 space-mb--r100">
-        <Container>
-          <Row>
-            <Col lg={6} className="space-mb-mobile-only--50">
-              {/* image gallery bottom thumb */}
-              <ImageGalleryBottomThumb
-                product={product}
-                wishlistItem={wishlistItem}
-                addToast={addToast}
-                addToWishlist={addToWishlist}
-                deleteFromWishlist={deleteFromWishlist}
-              />
-            </Col>
+      {console.log(Object.keys(product).length === 0)}
+      <div className="product-details space-mt--r130 space-mb--r130">
+      {(Object.keys(product).length != 0)?
+      <Container>
+        <Row>
+          <Col lg={6} className="space-mb-mobile-only--50">
+            {/* image gallery bottom thumb */}
+            <ImageGalleryBottomThumb
+              product={product}
+              wishlistItem={wishlistItem}
+              addToast={addToast}
+              addToWishlist={addToWishlist}
+              deleteFromWishlist={deleteFromWishlist}
+            />
+          </Col>
 
-            <Col lg={6}>
-              {/* product description */}
-              <ProductDescription
-                product={product}
-                productPrice={productPrice}
-                discountedPrice={discountedPrice}
-                cartItems={cartItems}
-                cartItem={cartItem}
-                wishlistItem={wishlistItem}
-                compareItem={compareItem}
-                addToast={addToast}
-                addToCart={addToCart}
-                addToWishlist={addToWishlist}
-                deleteFromWishlist={deleteFromWishlist}
-                addToCompare={addToCompare}
-                deleteFromCompare={deleteFromCompare}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              {/* product description tab */}
-              <ProductDescriptionTab product={product} />
-            </Col>
-          </Row>
-        </Container>
-      </div>
+          <Col lg={6}>
+            {/* product description */}
+            <ProductDescription
+              product={product}
+              productPrice={productPrice}
+              discountedPrice={discountedPrice}
+              cartItems={cartItems}
+              cartItem={cartItem}
+              wishlistItem={wishlistItem}
+              // compareItem={compareItem}
+              addToast={addToast}
+              addToCart={addToCart}
+              addToWishlist={addToWishlist}
+              deleteFromWishlist={deleteFromWishlist}
+              // addToCompare={addToCompare}
+              // deleteFromCompare={deleteFromCompare}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {/* product description tab */}
+            {/* <ProductDescriptionTab product={product} /> */}
+          </Col>
+        </Row>
+      </Container>
+    :
+    <span className="d-flex align-items-center justify-content-center">Product not found</span>
+    }
+    </div>
     </LayoutTwo>
   );
 };
@@ -134,7 +150,7 @@ const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    compareItems: state.compareData
+    // compareItems: state.compareData
   };
 };
 
@@ -163,14 +179,13 @@ const mapDispatchToProps = (dispatch) => {
     deleteFromWishlist: (item, addToast) => {
       dispatch(deleteFromWishlist(item, addToast));
     },
-    addToCompare: (item, addToast) => {
-      dispatch(addToCompare(item, addToast));
-    },
-    deleteFromCompare: (item, addToast) => {
-      dispatch(deleteFromCompare(item, addToast));
-    }
+    // addToCompare: (item, addToast) => {
+    //   dispatch(addToCompare(item, addToast));
+    // },
+    // deleteFromCompare: (item, addToast) => {
+    //   dispatch(deleteFromCompare(item, addToast));
+    // }
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductBasic);
-

@@ -74,8 +74,8 @@ const Wishlist = ({
                   <tbody>
                     {wishlistItems.map((product, i) => {
                       const discountedPrice = getDiscountPrice(
-                        product.product_price,
-                        product.product_discount
+                        product?.product_price,
+                        product?.product_discount
                       )
 
                       const cartItem = cartItems.filter(
@@ -91,7 +91,7 @@ const Wishlist = ({
                             >
                               <a>
                                 <img
-                                  src={"http://"+product.product_image}
+                                  src={process.env.API_URL+product.product_image}
                                   className="img-fluid"
                                   alt=""
                                 />
@@ -133,9 +133,9 @@ const Wishlist = ({
                               </a>
                             ) : product.variation &&
                               product.variation.length >= 1 ? (
-                              <Link
-                                href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                                as={`${process.env.PUBLIC_URL}/shop/product-basic/${product.slug}`}
+                                <Link
+                                href={`/shop/product/[id]?id=${product.product_id}`}
+                                as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
                               >
                                 <a className="lezada-button lezada-button--medium">
                                   Select option
@@ -215,7 +215,7 @@ const Wishlist = ({
                     <p className="space-mb--30">No items found in wishlist</p>
                     <Link
                       href="/shop/all-products"
-                      as={process.env.PUBLIC_URL + "/shop/all-products"}
+                      // as={process.env.PUBLIC_URL + "/shop/all-products"}
                     >
                       <a className="lezada-button lezada-button--medium">
                         Shop Now

@@ -76,8 +76,8 @@ const Cart = ({
                   <tbody>
                     {cartItems.map((product, i) => {
                       const discountedPrice = getDiscountPrice(
-                        product.product_price,
-                        product.product_discount
+                        product?.product_price,
+                        product?.product_discount
                       )
 
                       cartTotalPrice += discountedPrice * product.quantity;
@@ -90,7 +90,7 @@ const Cart = ({
                             >
                               <a>
                                 <img
-                                  src={"http://"+product.product_image}
+                                  src={process.env.API_URL+product.product_image}
                                   className="img-fluid"
                                   alt=""
                                 />
@@ -230,7 +230,7 @@ const Cart = ({
                   <div className="cart-calculation-button text-center">
                     <Link
                       href="/checkout"
-                      as={process.env.PUBLIC_URL + "/checkout"}
+                      // as={process.env.PUBLIC_URL + "/checkout"}
                     >
                       <a className="lezada-button lezada-button--medium">
                         proceed to checkout
@@ -251,7 +251,7 @@ const Cart = ({
                     <p className="space-mb--30">No items found in cart</p>
                     <Link
                       href="/shop/all-products"
-                      as={process.env.PUBLIC_URL + "/shop/all-products"}
+                      // as={process.env.PUBLIC_URL + "/shop/all-products"}
                     >
                       <a className="lezada-button lezada-button--medium">
                         Shop Now

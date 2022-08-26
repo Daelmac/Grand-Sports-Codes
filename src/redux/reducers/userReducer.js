@@ -16,7 +16,9 @@ const userReducer = (state = initState, action) => {
      return userpayload
   }
   if (action.type === UPDATE_ADDRESS) {
+    console.log("rtghresa")
      userDetails.address = userpayload
+     console.log("userDetails",userDetails)
      return userDetails
   }  
   return state;

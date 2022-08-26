@@ -15,7 +15,9 @@ const Faqs = () => {
       >
         <ul className="breadcrumb__list">
           <li>
-            <Link href="/" as={process.env.PUBLIC_URL + "/"}>
+            <Link href="/" 
+            // as={process.env.PUBLIC_URL + "/"}
+            >
               <a>Home</a>
             </Link>
           </li>

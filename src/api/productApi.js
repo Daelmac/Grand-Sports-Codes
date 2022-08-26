@@ -15,6 +15,7 @@ const getFeaturedProducts = async () => {
     return result.data["featured_products"];
   } catch (e) {
     console.log(e.response);
+    return null
   }
 };
 const getNewArrivalProducts = async () => {
@@ -23,6 +24,7 @@ const getNewArrivalProducts = async () => {
     return result.data["new_products"];
   } catch (e) {
     console.log(e.response);
+    return null
   }
 };
 const getBestSellerProducts = async () => {
@@ -31,6 +33,7 @@ const getBestSellerProducts = async () => {
     return result.data["best_seller_products"];
   } catch (e) {
     console.log(e.response);
+    return null
   }
 };
 const getProductByID = async (id) => {
@@ -50,6 +53,7 @@ const getAllProducts = async () => {
     return result.data["product_data"];
   } catch (e) {
     console.log(e.response);
+    return null
   }
 };
 

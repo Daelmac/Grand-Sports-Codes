@@ -3,7 +3,7 @@ import { Fragment, useState, useEffect} from "react";
 import { connect } from "react-redux";
 import Link from "next/link";
 import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
-import { IoMdFunnel } from "react-icons/io";
+import { IoIosSearch, IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { getAdmins } from "../../api/userApi";
 import DataTable from "react-data-table-component";
@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux'
 const AdminList = ({userDetails}) => {
   const [admins, setAdmins] = useState([]);
   const [currentAdmims, setcurrentAdmins] = useState([]);
-  const [seatchText, setSeatchText] = useState("");
+  const [searchText, setSearchText] = useState("");
   const dispatch = useDispatch()
 
   useEffect(async () => {
@@ -21,11 +21,11 @@ const AdminList = ({userDetails}) => {
     if(all_admins) setAdmins(all_admins)
   },[]);
   useEffect(() => {
-    if (seatchText != "") {
+    if (searchText != "") {
       const filterCurrentData = currentAdmims.filter(
         (item) =>
           item.admin_name &&
-          item.admin_name.toLowerCase().includes(seatchText.toLowerCase())
+          item.admin_name.toLowerCase().includes(searchText.toLowerCase())
       );
       setcurrentAdmins(filterCurrentData);
     } else {
@@ -33,7 +33,7 @@ const AdminList = ({userDetails}) => {
     }
   }, [
     admins,
-    seatchText,
+    searchText,
   ]);
   const onDeleteProduct = (product) => {
     console.log("IN Delete==>", product);
@@ -97,13 +97,17 @@ const AdminList = ({userDetails}) => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-                <input
-                  type="text"
-                  placeholder="Search.."
-                  className="search mr-5 border border-dark rounded"
-                  onChange={(e) => setSeatchText(e.target.value)}
-                />
+  
+                <div className="search-widget mr-5">
+                  <form>
+                    <input type="search" placeholder="Search admins ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <button type="button">
+                      <IoIosSearch />
+                    </button>
+                  </form>
+                </div>
               </div>
+
             </Col>
           </Row>
         </Container>

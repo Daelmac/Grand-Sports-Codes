@@ -15,8 +15,10 @@ withAuthInstance.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.log("GRdfg",error.response)
     if(error.response.status === 401){
-        // localStorage.set()
+        localStorage.clear()
+        console.log("clear")
     }
   }
 );

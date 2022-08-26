@@ -41,7 +41,9 @@ const HeaderTwo = () => {
           <div className="header-content d-flex align-items-center justify-content-between position-relative space-py-mobile-only--30">
             {/* logo */}
             <div className="header-content__logo d-flex align-items-center space-pr--15">
-              <Link href="/" as={process.env.PUBLIC_URL + "/"}>
+              <Link href="/" 
+              // as={process.env.PUBLIC_URL + "/"}
+              >
                 <a>
                   <img
                     src={process.env.PUBLIC_URL + "/assets/images/grand_sports_logo.png"}

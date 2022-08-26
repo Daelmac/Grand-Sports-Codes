@@ -42,8 +42,8 @@ const WishlistOverlay = ({
                 <CustomScroll allowOuterScroll={true}>
                   {wishlistItems.map((product, i) => {
                     const discountedPrice = getDiscountPrice(
-                      product.product_price,
-                      product.product_discount
+                      product?.product_price,
+                      product?.product_discount
                     )
                     return (
                       <div className="single-wishlist-product" key={i}>
@@ -63,7 +63,7 @@ const WishlistOverlay = ({
                           >
                             <a>
                               <img
-                                src={"http://"+product.product_image}
+                                src={process.env.API_URL+product.product_image}
                                 className="img-fluid"
                                 alt=""
                               />
@@ -94,7 +94,7 @@ const WishlistOverlay = ({
               <div className="wishlist-buttons">
                 <Link
                   href="/wishlist"
-                  as={process.env.PUBLIC_URL + "/wishlist"}
+                  // as={process.env.PUBLIC_URL + "/wishlist"}
                 >
                   <a>view wishlist</a>
                 </Link>

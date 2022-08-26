@@ -38,7 +38,8 @@ const FooterTwo = ({ footerBgClass }) => {
             <div className="logo space-mb--35">
               <img
                 src={
-                  process.env.PUBLIC_URL + "/assets/images/grand_sports_logo.png"
+                  process.env.PUBLIC_URL +
+                  "/assets/images/grand_sports_logo.png"
                 }
                 className="img-fluid"
                 alt="logo"
@@ -49,7 +50,7 @@ const FooterTwo = ({ footerBgClass }) => {
             <div className="footer-single-widget__copyright">
               &copy; {new Date().getFullYear() + " "}
               <a href="https://www.daelmac.com" target="_blank">
-              Daelmac Software Solutions
+                Daelmac Software Solutions
               </a>
               <span>All Rights Reserved</span>
             </div>
@@ -60,13 +61,27 @@ const FooterTwo = ({ footerBgClass }) => {
             <nav className="footer-single-widget__nav">
               <ul>
                 <li>
-                <Link href="/about" as={process.env.PUBLIC_URL + "/about"}><a>About Us</a></Link>
+                  <Link href="/about" 
+                  // as={process.env.PUBLIC_URL + "/about"}
+                  >
+                    <a>About Us</a>
+                  </Link>
                 </li>
                 <li>
-                  <a  target="_blank" href="https://www.google.com/maps/place/Grand+Sports/@12.9883723,80.2209383,16.75z/data=!4m5!3m4!1s0x3a525d879217de87:0xc56f845932bde8e7!8m2!3d12.9884378!4d80.2227111">Store Location</a>
+                  <a
+                    target="_blank"
+                    href="https://www.google.com/maps/place/Grand+Sports/@12.9883723,80.2209383,16.75z/data=!4m5!3m4!1s0x3a525d879217de87:0xc56f845932bde8e7!8m2!3d12.9884378!4d80.2227111"
+                  >
+                    Store Location
+                  </a>
                 </li>
                 <li>
-                <Link href="/contact" as={process.env.PUBLIC_URL + "/contact"}><a>Contact Us</a></Link>
+                  <Link
+                    href="/contact"
+                    // as={process.env.PUBLIC_URL + "/contact"}
+                  >
+                    <a>Contact Us</a>
+                  </Link>
                 </li>
                 {/* <li>
                   <a href="#">My Orders</a>
@@ -89,10 +104,19 @@ const FooterTwo = ({ footerBgClass }) => {
                   <a href="#">Size guide</a>
                 </li> */}
                 <li>
-                   <Link href="/faq" as={process.env.PUBLIC_URL + "/faq"}><a>FAQs</a></Link>
+                  <Link href="/faq" 
+                  // as={process.env.PUBLIC_URL + "/faq"}
+                  >
+                    <a>FAQs</a>
+                  </Link>
                 </li>
                 <li>
-                <Link href="/admin/login" as={process.env.PUBLIC_URL + "/admin/login"}><a>Admin Login</a></Link>
+                  <Link
+                    href="/admin/login"
+                    // as={process.env.PUBLIC_URL + "/admin/login"}
+                  >
+                    <a>Admin Login</a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -108,12 +132,18 @@ const FooterTwo = ({ footerBgClass }) => {
                   </a>
                 </li> */}
                 <li>
-                  <a href="https://www.facebook.com/grandsportschennai/" target="_blank">
+                  <a
+                    href="https://www.facebook.com/grandsportschennai/"
+                    target="_blank"
+                  >
                     <FaFacebookF /> Facebook
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.instagram.com/grandsports_/" target="_blank">
+                  <a
+                    href="https://www.instagram.com/grandsports_/"
+                    target="_blank"
+                  >
                     <FaInstagram /> Instagram
                   </a>
                 </li>
@@ -132,8 +162,8 @@ const FooterTwo = ({ footerBgClass }) => {
               <p className="footer-subscribe-widget__subtitle">
                 Subscribe to our newsletter to receive news on update.
               </p> */}
-              {/* email subscription */}
-              {/* <SubscribeEmailTwo mailchimpUrl="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" />
+          {/* email subscription */}
+          {/* <SubscribeEmailTwo mailchimpUrl="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" />
             </div>
           </Col> */}
         </Row>
