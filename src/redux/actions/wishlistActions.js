@@ -1,6 +1,7 @@
 export const ADD_TO_WISHLIST = "ADD_TO_WISHLIST";
 export const DELETE_FROM_WISHLIST = "DELETE_FROM_WISHLIST";
 export const DELETE_ALL_FROM_WISHLIST = "DELETE_ALL_FROM_WISHLIST";
+export const UPDATE_WISHLIST = "UPDATE_WISHLIST";
 
 // add to wishlist
 export const addToWishlist = (item, addToast) => {
@@ -38,5 +39,11 @@ export const deleteAllFromWishlist = addToast => {
       });
     }
     dispatch({ type: DELETE_ALL_FROM_WISHLIST });
+  };
+};
+
+export const updateWishlist = (wishlistData) => {
+  return dispatch => {
+    dispatch({ type: UPDATE_WISHLIST, payload: wishlistData });
   };
 };

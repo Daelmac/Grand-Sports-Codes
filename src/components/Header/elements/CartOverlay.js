@@ -5,9 +5,16 @@ import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../../lib/product";
 import { deleteFromCart } from "../../../redux/actions/cartActions";
-import { useEffect,useState } from "react";
+import { useEffect,useState,useRef  } from "react";
 import {updateCartData} from "../../../api/userApi"
-import { useDispatch } from "react-redux";
+
+const useIsMount = () => {
+  const isMountRef = useRef(true);
+  useEffect(() => {
+    isMountRef.current = false;
+  }, []);
+  return isMountRef.current;
+};
 
 const CartOverlay = ({
   activeStatus,
@@ -17,13 +24,14 @@ const CartOverlay = ({
   deleteFromCart
 }) => {
   let cartTotalPrice = 0;
-  const dispatch = useDispatch();
   const { addToast } = useToasts();
+  const isMount = useIsMount();
   useEffect(
     async()=>{
       if(userDetails && userDetails.role === "customer"){
-        // console.log("cart overlay",userDetails)
-        await dispatch(updateCartData(userDetails,JSON.stringify(cartItems)));
+        if (!isMount) {
+          await updateCartData(userDetails,JSON.stringify(cartItems));
+        }
       }
     },[cartItems])
   return (
@@ -95,15 +103,6 @@ const CartOverlay = ({
                               <a>{product.product_name}</a>
                             </Link>
                           </h5>
-                          {/* {product.selectedProductColor &&
-                          product.selectedProductSize ? (
-                            <div className="cart-item-variation">
-                              <span>Color: {product.selectedProductColor}</span>
-                              <span>Size: {product.selectedProductSize}</span>
-                            </div>
-                          ) : (
-                            ""
-                          )} */}
                           <p>
                             <span className="cart-count">
                               {product.quantity} x{" "}
@@ -141,9 +140,9 @@ const CartOverlay = ({
                 </Link>
               </div>
               {/*=======  free shipping text  =======*/}
-              <p className="free-shipping-text">
+              {/* <p className="free-shipping-text">
                 Free Shipping on All Orders Over &#8377;999!
-              </p>
+              </p> */}
             </div>
           ) : (
             "No items found in cart"

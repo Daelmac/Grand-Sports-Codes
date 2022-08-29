@@ -6,26 +6,29 @@ import { FaCloudDownloadAlt, FaRegEdit } from "react-icons/fa";
 import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
 import { connect } from "react-redux";
-import { updateCustomerAddress } from "../api/userApi";
-import {showCustomerPurchases} from "../api/orderApi"
+import { updateCustomerAddress,changeCustomerPassword } from "../api/userApi";
+import {showCustomerPurchases,cancelCustomerOrder} from "../api/orderApi"
 import { useToasts } from "react-toast-notifications";
-import { useDispatch } from "react-redux";
 import Router from "next/router";
 import { useEffect,useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { update_address, setCurrentUser } from "../redux/actions/userActions";
+import Modal from 'react-bootstrap/Modal';
 
 const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
   const PhoneRegX = /^([+]\d{2})?\d{10}$/;
   const PincodRegX = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
-  const dispatch = useDispatch();
   const { addToast } = useToasts();
+  const [showLogoutModel, setShowLogoutModel] = useState(false);
+  const[showCancelOrderModel, setShowCancelOrderModel] = useState(false)
+  const [cancelOrderResource, setCancelOrderResource] = useState(null)
+  const [cancelOrderflag,setCancelOrderFlag] = useState(false)
+
   if (!(userDetails && userDetails.role === "customer"))
     Router.push("/login-register");
-  else
-  console.log("cartData",JSON.parse(userDetails.cart_data))
+ 
   let address=null
   if (userDetails?.address) address = JSON.parse(userDetails?.address);
 
@@ -55,9 +58,42 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
     serverErrMsg: "",
   });
   const [purchaseDetails, setPurchaseDetails] = useState(null)
+  const handleClose = () => setShowLogoutModel(false);
+  const handleShow = () => {
+    setShowLogoutModel(true);
+  };
+  const handleCancelClose = () => setShowCancelOrderModel(false);
+  const handleCancelShow = (order) => {
+    setCancelOrderResource(order)
+    console.log(order)
+    setShowCancelOrderModel(true);
+  };
+  const cancelOrder=async()=>{
+    handleCancelClose()
+    console.log("order",cancelOrderResource)
+    const response = await cancelCustomerOrder(cancelOrderResource.id);
+    if (response) {
+      if (response.status === "success") {
+        addToast(response.status_message, {
+          appearance: "success",
+          autoDismiss: true,
+        });
+        setCancelOrderFlag(!cancelOrderflag)
+      } else {
+        addToast(response.status_message, {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    } else {
+      addToast("Some problem occurred,please try again.", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+}
   useEffect(async () => {
-    console.log("localStorage.getItem('persist:primary')",JSON.parse(JSON.parse(localStorage.getItem('persist:primary')).currentUserData).token)
-    const purchaseData = await dispatch(showCustomerPurchases(userDetails));
+    const purchaseData = await showCustomerPurchases(userDetails);
     if (purchaseData) {
       setPurchaseDetails(purchaseData);
     } else {
@@ -66,7 +102,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
         autoDismiss: true,
       });
     }
-  }, []);
+  }, [cancelOrderflag]);
   const handleAddressDataChange = async (event) => {
     initAddressDetailsValidation();
     const { name, value } = event.target;
@@ -76,16 +112,10 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
     event.preventDefault();
     if (AddressDetailsValidation()) {
       let address = JSON.stringify(addressDetails);
-      const response = await dispatch(
-        updateCustomerAddress(userDetails, address)
-      );
+      const response = await updateCustomerAddress(userDetails, address);
+
       if (response) {
         if (response.status === "success") {
-          // authenticateAdmin()
-          // addToast("Address updated Successfully", {
-          //   appearance: "success",
-          //   autoDismiss: true,
-          // });
           update_address(address, addToast);
           setAddressEditMode(false);
         } else {
@@ -171,6 +201,82 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
     setCurrentUser({}, addToast);
     Router.push("/login-register");
   };
+
+  const [passwordData, setPasswordData] = useState({
+    currentPassword:"",
+    password: "",
+    confirmPassword: "",
+  });
+  const [passwordDataErrors, setPasswordDataErrors] = useState({
+    currentPasswordMsgErrMsg: "",
+    passwordErrMsg: "",
+    confirmPassword: "",
+    serverErrMsg: "",
+  });
+  const handlePasswordDataChange = async (event) => {
+    initPasswordDataValidation();
+    const { name, value } = event.target;
+    setPasswordData({ ...passwordData, [name]: value });
+  };
+  const onPasswordChange = async (event) => {
+    event.preventDefault();
+    if (PasswordDataValidation()) {
+      console.log(passwordData);
+      const response = await changeCustomerPassword(userDetails,passwordData);
+      if(response){
+        if (response.status === "success") {
+          // authenticateAdmin()
+          addToast("Password changed Successfully", {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        } else {
+          setPasswordDataErrors({
+            ...passwordDataErrors,
+            serverErrMsg: response.status_message,
+          });
+        }
+      }
+      else{
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+  const initPasswordDataValidation = () => {
+    const errors = {
+      currentPasswordMsgErrMsg: "",
+      passwordErrMsg: "",
+      confirmPassword: "",
+      serverErrMsg: "",
+    };
+    setPasswordDataErrors(errors);
+  };
+  const PasswordDataValidation = () => {
+    let errors = {};
+    let isValid = true;
+    if (!passwordData["currentPassword"]) {
+      isValid = false;
+      errors["currentPasswordErrMsg"] = "Please enter your current password";
+    }
+    if (!passwordData["password"] || passwordData["password"].length < 6) {
+      isValid = false;
+      errors["passwordErrMsg"] = "Password must be at least 6 characters.";
+    }
+    if (
+      !passwordData["confirmPassword"] ||
+      passwordData["confirmPassword"] != passwordData["password"]
+    ) {
+      isValid = false;
+      errors["confirmPasswordErrMsg"] =
+        "Password and confirm password must be the same";
+    }
+
+    setPasswordDataErrors(errors);
+    return isValid;
+  };
   return (
     <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
@@ -225,17 +331,37 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                 </div>
                 <button
                   className="lezada-button lezada-button--small mt-2"
-                  onClick={handleLogout}
+                  onClick={handleShow}
                 >
                   Logout
                 </button>
+                <Modal show={showLogoutModel} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Logout</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    Are you sure you want to Logout,
+                    <b>{userDetails?.user_name}</b> ?
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button className="cancel-btn-small" onClick={handleClose}>
+                      Cancel
+                    </button>
+                    <button
+                      className="lezada-button lezada-button--small"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </Modal.Footer>
+                </Modal>
               </Tab.Pane>
               <Tab.Pane eventKey="orders">
               <div className="my-account-area__content">
                   <h3>My Orders</h3>
                 {
                   purchaseDetails?.map(purchase=>(
-                    <div className="my-cart-wrp mt-2">
+                    <div className="my-cart-wrp mt-2" key={purchase?.receipt_id}>
                   <div className="heading">
                     <span>
                       Recipes ID: <em>{purchase?.receipt_id}</em>
@@ -248,7 +374,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                     </span>
                   </div>
                   {purchase.orders?.map(order=>(
-                    <div>
+                    <div key={order.id}>
                     <Accordion>
                       <Card>
                         <Card.Header className="p-2s">
@@ -324,11 +450,11 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                   <h5>Tracking ID</h5>
                                   <p className="font-weight-bold">{order?.order_tracking_id}</p>
                                 </div>
-                              </div>:<div></div>
-                              }
-                              <button className="lezada-button lezada-button--small">
+                              </div>:!(order.order_status == "Cancelled")?<button className="lezada-button lezada-button--small" onClick={()=>handleCancelShow(order)}>
                                 Cancel Order
-                              </button>
+                              </button>:null
+                              }
+                              
                             </div>
                           </Card.Body>
                         </Accordion.Collapse>
@@ -340,6 +466,26 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                 </div>
                   ))
                 }
+                 <Modal show={showCancelOrderModel} onHide={handleCancelClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Cancel Order</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    Are you sure you want to cancel order,
+                    <b>{cancelOrderResource?.product.name}</b> ?
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button className="cancel-btn-small" onClick={handleCancelClose}>
+                      Cancel
+                    </button>
+                    <button
+                      className="lezada-button lezada-button--small"
+                      onClick={cancelOrder}
+                    >
+                      Cancel Order
+                    </button>
+                  </Modal.Footer>
+                  </Modal>
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="address">
@@ -516,42 +662,55 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                   <div className="account-details-form">
                     <form>
                       <Row>
-                        <Col lg={6}>
+                        <Col lg={12}>
                           <div className="single-input-item">
                             <label htmlFor="first-name" className="required">
-                              First Name
+                              Name
                             </label>
-                            <input type="text" id="first-name" />
+                            {/* <input type="text" id="first-name" /> */}
+                            <h5>{userDetails.user_name}</h5>
                           </div>
                         </Col>
-                        <Col lg={6}>
+                        {/* <Col lg={6}>
                           <div className="single-input-item">
                             <label htmlFor="last-name" className="required">
                               Last Name
                             </label>
                             <input type="text" id="last-name" />
                           </div>
-                        </Col>
+                        </Col> */}
                       </Row>
-                      <div className="single-input-item">
+                      {/* <div className="single-input-item">
                         <label htmlFor="display-name" className="required">
                           Display Name
                         </label>
                         <input type="text" id="display-name" />
-                      </div>
+                      </div> */}
                       <div className="single-input-item">
                         <label htmlFor="email" className="required">
                           Email Address
                         </label>
-                        <input type="email" id="email" />
+                        <h5>{userDetails.email}</h5>
                       </div>
-                      <fieldset>
+                      <fieldset> 
                         <legend>Password change</legend>
                         <div className="single-input-item">
                           <label htmlFor="current-pwd" className="required">
                             Current Password
                           </label>
-                          <input type="password" id="current-pwd" />
+                          <input
+                            type="password"
+                            id="currentPassword"
+                            name="currentPassword"
+                            placeholder="current Password"
+                            value={passwordData.currentPassword}
+                            onChange={handlePasswordDataChange}
+                            required
+                            autoComplete="on"
+                          ></input>
+                          <span className="error-text">
+                            {passwordDataErrors.currentPasswordErrMsg}
+                          </span>
                         </div>
                         <div className="row">
                           <div className="col-lg-6">
@@ -559,7 +718,19 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                               <label htmlFor="new-pwd" className="required">
                                 New Password
                               </label>
-                              <input type="password" id="new-pwd" />
+                              <input
+                                type="password"
+                                id="regPassword"
+                                name="password"
+                                placeholder="Password"
+                                value={passwordData.password}
+                                onChange={handlePasswordDataChange}
+                                required
+                                autoComplete="on"
+                              ></input>
+                              <span className="error-text">
+                                {passwordDataErrors.passwordErrMsg}
+                              </span>
                             </div>
                           </div>
                           <div className="col-lg-6">
@@ -567,13 +738,28 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                               <label htmlFor="confirm-pwd" className="required">
                                 Confirm Password
                               </label>
-                              <input type="password" id="confirm-pwd" />
+                              <input
+                                type="password"
+                                id="regConfirmPassword"
+                                name="confirmPassword"
+                                placeholder="Confirm Password"
+                                value={passwordData.confirmPassword}
+                                onChange={handlePasswordDataChange}
+                                required
+                                autoComplete="on"
+                              />
+                              <span className="error-text">
+                                {passwordDataErrors.confirmPasswordErrMsg}
+                          </span>
                             </div>
                           </div>
+                          <span className="error-text ml-3 mb-3">
+                      {passwordDataErrors.serverErrMsg}
+                    </span>
                         </div>
                       </fieldset>
                       <div className="single-input-item">
-                        <button>Save Changes</button>
+                        <button onClick={onPasswordChange}>Save Changes</button>
                       </div>
                     </form>
                   </div>

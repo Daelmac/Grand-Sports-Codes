@@ -3,21 +3,14 @@ import Link from "next/link";
 import { IoIosSearch } from "react-icons/io";
 import {
   getIndividualCategories,
-  // getIndividualColors,
-  // getIndividualTags,
   setActiveSort,
   getProducts,
   getDiscountPrice
 } from "../../lib/product";
-// import {getFeaturedProducts} from "../../api/productApi" 
-import { ProductRating } from "../Product";
+
 
 const ShopSidebar = ({ products, getSortParams,getSearchParam }) => {
   const categories = getIndividualCategories(products);
-  // const [featuredProducts, setFeaturedProducts] =useState([])
-
-  // const colors = getIndividualColors(products);
-  // const tags = getIndividualTags(products);
   const popularProducts = getProducts(products, "", "best_sellers", 5);
 
   return (
@@ -71,40 +64,6 @@ const ShopSidebar = ({ products, getSortParams,getSearchParam }) => {
           "No categories found"
         )}
       </div>
-
-      {/* color list */}
-      {/* <div className="single-sidebar-widget space-mb--40">
-        <h2 className="single-sidebar-widget__title space-mb--30">Colors</h2>
-        {colors.length > 0 ? (
-          <ul className="single-sidebar-widget__list single-sidebar-widget__list--color">
-            {colors.map((color, i) => {
-              return (
-                <li key={i}>
-                  <button
-                    onClick={(e) => {
-                      getSortParams("color", color.colorName);
-                      setActiveSort(e);
-                    }}
-                    style={{ backgroundColor: color.colorCode }}
-                  ></button>
-                </li>
-              );
-            })}
-            <li>
-              <button
-                onClick={(e) => {
-                  getSortParams("color", "");
-                  setActiveSort(e);
-                }}
-              >
-                x
-              </button>
-            </li>
-          </ul>
-        ) : (
-          "No colors found"
-        )}
-      </div> */}
 
       {/* popular products */}
       <div className="single-sidebar-widget space-mb--40">
@@ -165,9 +124,6 @@ const ShopSidebar = ({ products, getSortParams,getSearchParam }) => {
                             <span className="main-price">&#8377;{productPrice}</span>
                           )}
                         </div>
-                        {/* <div className="rating">
-                          <ProductRating ratingValue={product.rating} />
-                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -179,30 +135,6 @@ const ShopSidebar = ({ products, getSortParams,getSearchParam }) => {
           "No products found"
         )}
       </div>
-
-      {/* tag list */}
-      {/* <div className="single-sidebar-widget">
-        <h2 className="single-sidebar-widget__title space-mb--30">Tags</h2>
-        {tags.length > 0 ? (
-          <div className="tag-container">
-            {tags.map((tag, i) => {
-              return (
-                <button
-                  key={i}
-                  onClick={(e) => {
-                    getSortParams("tag", tag);
-                    setActiveSort(e);
-                  }}
-                >
-                  {tag}
-                </button>
-              );
-            })}
-          </div>
-        ) : (
-          "No tags found"
-        )}
-      </div> */}
     </div>
   );
 };

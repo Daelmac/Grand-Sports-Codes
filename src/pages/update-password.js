@@ -185,7 +185,7 @@ const UpdatePassword = ({userDetails}) => {
                       <a className="reset-pass-link">
                         login ?
                       </a>
-                      </Link>
+                      </Link> 
                     </Col>
                   </Row>
                 </form>

@@ -34,7 +34,7 @@ const ImageCta = ({ image, tags, title, url }) => {
             {/*=======  content  =======*/}
             <div className="image-cta__content">
               <h2
-                className="space-mb--30"
+                className="space-mb--30 "
                 dangerouslySetInnerHTML={{ __html: title }}
               />
               <Link href={url} as={process.env.PUBLIC_URL + url}>

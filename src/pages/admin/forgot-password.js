@@ -3,9 +3,7 @@ import { useToasts } from "react-toast-notifications";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
-import { HeaderTwo } from "../../components/Header";
 import {AdminPasswordReset} from "../../api/userApi"
-// import {authenticateAdmin} from "../../auth"
 import Router from "next/router";
 
 

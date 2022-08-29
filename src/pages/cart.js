@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -104,17 +104,6 @@ const Cart = ({
                             >
                               <a>{product.product_name}</a>
                             </Link>
-                            {product.selectedProductColor &&
-                            product.selectedProductSize ? (
-                              <div className="product-variation">
-                                <span>
-                                  Color: {product.selectedProductColor}
-                                </span>
-                                <span>Size: {product.selectedProductSize}</span>
-                              </div>
-                            ) : (
-                              ""
-                            )}
                           </td>
 
                           <td className="product-price">
@@ -141,16 +130,6 @@ const Cart = ({
                                 className="inc qtybutton"
                                 onClick={() =>
                                   addToCart(product, addToast, quantityCount)
-                                }
-                                disabled={
-                                  product !== undefined &&
-                                  product.quantity &&
-                                  product.quantity >=
-                                    cartItemStock(
-                                      product,
-                                      product.selectedProductColor,
-                                      product.selectedProductSize
-                                    )
                                 }
                               >
                                 +

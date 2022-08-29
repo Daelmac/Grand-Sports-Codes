@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 // import { AdminHeader} from "../Header";
 import { useEffect } from 'react'
-import { FooterOne } from "../Footer";
 import AdminNavbar from "./elements/AdminNavbar";
 import AdminSidebar from "./elements/AdminSidebar";
 import { connect } from "react-redux";
@@ -24,7 +23,6 @@ const AdminLayout = ({ children, userDetails,title }) => {
         </div>
       </div>
 
-      {/* <FooterOne /> */}
     </Fragment>
   );
 };

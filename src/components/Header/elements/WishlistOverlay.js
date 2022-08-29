@@ -5,14 +5,35 @@ import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../../lib/product";
 import { deleteFromWishlist } from "../../../redux/actions/wishlistActions";
+import {updateWishlistData} from "../../../api/userApi"
+import { useEffect,useState,useRef  } from "react";
+
+const useIsMount = () => {
+  const isMountRef = useRef(true);
+  useEffect(() => {
+    isMountRef.current = false;
+  }, []);
+  return isMountRef.current;
+};
 
 const WishlistOverlay = ({
   activeStatus,
   getActiveStatus,
   wishlistItems,
-  deleteFromWishlist
+  deleteFromWishlist,
+  userDetails 
 }) => {
   const { addToast } = useToasts();
+  const isMount = useIsMount();
+  
+  useEffect(
+    async()=>{
+      if(userDetails && userDetails.role === "customer"){
+        if (!isMount) {
+          await updateWishlistData(userDetails,JSON.stringify(wishlistItems));
+        }
+      }
+    },[wishlistItems])
   return (
     <div className={`wishlist-overlay ${activeStatus ? "active" : ""}`}>
       <div
@@ -111,7 +132,8 @@ const WishlistOverlay = ({
 
 const mapStateToProps = (state) => {
   return {
-    wishlistItems: state.wishlistData
+    wishlistItems: state.wishlistData,
+    userDetails: state.currentUserData,
   };
 };
 

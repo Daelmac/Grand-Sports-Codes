@@ -8,5 +8,4 @@ const SectionTitleOne = ({ title, subtitle }) => {
     </div>
   );
 };
-
 export default SectionTitleOne;

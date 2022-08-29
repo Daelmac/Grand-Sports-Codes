@@ -22,7 +22,6 @@ import { useRouter } from "next/router";
 //   deleteFromCompare
 // } from "../../../redux/actions/compareActions";
 import { getProductByID } from "../../../api/productApi";
-// import products from "../../../data/products.json";
 
 const ProductBasic = ({
   cartItems,
@@ -77,22 +76,6 @@ const ProductBasic = ({
         pageTitle={product.name}
         backgroundImage="/assets/images/backgrounds/breadcrumb-bg-1.png"
       >
-        <ul className="breadcrumb__list">
-          <li>
-            <Link href="/" as={process.env.PUBLIC_URL + "/"}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/shop/all-products"
-              as={process.env.PUBLIC_URL + "/shop/all-products"}
-            >
-              Shop
-            </Link>
-          </li>
-          <li>{product.product_name}</li>
-        </ul>
       </BreadcrumbOne> */}
 
       {/* product details */}
@@ -134,7 +117,7 @@ const ProductBasic = ({
         <Row>
           <Col>
             {/* product description tab */}
-            {/* <ProductDescriptionTab product={product} /> */}
+            <ProductDescriptionTab product={product} />
           </Col>
         </Row>
       </Container>

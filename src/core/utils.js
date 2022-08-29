@@ -1,5 +1,5 @@
 const API_BASE_URL = "http://127.0.0.1:5003";
-const PRODUCR_CATEGORIES = [
+const PRODUCT_CATEGORIES = [
   "Balls",
   " Bats",
   "Pads",
@@ -14,4 +14,4 @@ const PRODUCR_CATEGORIES = [
   "Flat Cones",
 ];
 
-export { API_BASE_URL,PRODUCR_CATEGORIES };
+export { API_BASE_URL,PRODUCT_CATEGORIES };

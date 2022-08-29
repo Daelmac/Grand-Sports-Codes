@@ -1,22 +1,15 @@
 
 import { AdminLayout } from "../../components/Layout";
-import { useDispatch } from 'react-redux'
-import { connect } from "react-redux";
-import { Fragment, useState, useEffect} from "react";
+import { useState, useEffect} from "react";
 import {get_dashboard_data} from '../../api/dashboardApi'
-import Router from "next/router";
 
-// import authCheck  from '../../auth'
-
-const Dashboard = ({userDetails}) => {
+const Dashboard = () => {
   const [dashbordData, setDashbordData] = useState([]);
-  const dispatch = useDispatch()
 
   useEffect(async () => {
-    let dashboard_data = await dispatch(get_dashboard_data(userDetails))
+    let dashboard_data = await get_dashboard_data()
     if(dashboard_data) setDashbordData(dashboard_data)
   },[]);
-  // const authenticated = isAdminAuthenticated()
   return (
     <AdminLayout title="Dashboard">
       <div className="container">
@@ -98,9 +91,5 @@ const Dashboard = ({userDetails}) => {
    </AdminLayout>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    userDetails: state.currentUserData,
-  };
-};
-export default connect(mapStateToProps, null)(Dashboard); 
+
+export default Dashboard; 

@@ -9,12 +9,9 @@ export const addToCart = (
   item,
   addToast,
   quantityCount,
-  selectedProductColor,
-  selectedProductSize
 ) => {
   return dispatch => {
     if (addToast) {
-      console.log(item,quantityCount)
       addToast("Added To Cart", { appearance: "success", autoDismiss: true });
     }
     dispatch({
@@ -22,16 +19,6 @@ export const addToCart = (
       payload: {
         ...item,
         quantity: quantityCount,
-        selectedProductColor: selectedProductColor
-          ? selectedProductColor
-          : item.selectedProductColor
-          ? item.selectedProductColor
-          : null,
-        selectedProductSize: selectedProductSize
-          ? selectedProductSize
-          : item.selectedProductSize
-          ? item.selectedProductSize
-          : null
       }
     });
   };

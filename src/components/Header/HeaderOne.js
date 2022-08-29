@@ -7,21 +7,16 @@ import {
   IoMdPerson,
   IoIosHeartEmpty,
   IoIosCart,
-  IoIosMenu
+  IoIosMenu,
 } from "react-icons/io";
 import Navigation from "./elements/Navigation";
-import AboutOverlay from "./elements/AboutOverlay";
 import SearchOverlay from "./elements/SearchOverlay";
 import CartOverlay from "./elements/CartOverlay";
 import WishlistOverlay from "./elements/WishlistOverlay";
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import MobileMenu from "./elements/MobileMenu";
 import { useToasts } from "react-toast-notifications";
-import { setCurrentUser } from "../../redux/actions/userActions";
-import Router from "next/router";
 
-
-const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurrentUser }) => {
+const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems, userDetails }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -29,15 +24,10 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
   const [offCanvasSearchActive, setOffCanvasSearchActive] = useState(false);
   const [offCanvasCartActive, setOffCanvasCartActive] = useState(false);
   const [offCanvasWishlistActive, setOffCanvasWishlistActive] = useState(false);
-  const [offCanvasMobileMenuActive, setOffCanvasMobileMenuActive] = useState(
-    false
-  );
+  const [offCanvasMobileMenuActive, setOffCanvasMobileMenuActive] =
+    useState(false);
   const { addToast } = useToasts();
-  const handleLogout=(e)=>{
-    e.preventDefault();
-    setCurrentUser({},addToast)
-    Router.push("/login-register");
-  }
+
   useEffect(() => {
     const header = document.querySelector("header");
     setHeaderTop(header.offsetTop);
@@ -79,12 +69,16 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
               >
                 <IoIosMenu />
               </button>
-              <Link href="/" 
-              // as={process.env.PUBLIC_URL + "/"}
+              <Link
+                href="/"
+                // as={process.env.PUBLIC_URL + "/"}
               >
                 <a>
                   <img
-                    src={process.env.PUBLIC_URL + "/assets/images/grand_sports_logo.png"}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/assets/images/grand_sports_logo.png"
+                    }
                     className="img-fluid"
                     alt=""
                   />
@@ -111,36 +105,28 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
                   </button>
                 </li>
                 <li>
-                  {userDetails && userDetails.role === 'customer'?
-                  <>
-          {/* <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={<span><IoMdPerson />{userDetails.user_name}</span>}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item  onClick={handleLogout}>Logout</NavDropdown.Item>
-            </NavDropdown> */}
-            <Link
-                    href="/my-account"
-                    // as={process.env.PUBLIC_URL + "/my-account"}
-                  >
-                    <a>
-                      <IoMdPerson />{userDetails.user_name}
-                    </a>
-                  </Link>
-                  
-                  </>
-                  :
-                  <Link
-                    href="/login-register"
-                    // as={process.env.PUBLIC_URL + "/login-register"}
-                  >
-                    <a>
-                      <IoMdPerson />
-                    </a>
-                  </Link>
-                  }
-                  
+                  {userDetails && userDetails.role === "customer" ? (
+                    <>
+                      <Link
+                        href="/my-account"
+                        // as={process.env.PUBLIC_URL + "/my-account"}
+                      >
+                        <a>
+                          <IoMdPerson />
+                          {userDetails.user_name}
+                        </a>
+                      </Link>
+                    </>
+                  ) : (
+                    <Link
+                      href="/login-register"
+                      // as={process.env.PUBLIC_URL + "/login-register"}
+                    >
+                      <a>
+                        <IoMdPerson />
+                      </a>
+                    </Link>
+                  )}
                 </li>
                 <li>
                   <button
@@ -228,15 +214,6 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems,userDetails,setCurre
         </Container>
       </header>
 
-      {/* about overlay */}
-      {aboutOverlay === false ? (
-        ""
-      ) : (
-        <AboutOverlay
-          activeStatus={offCanvasAboutActive}
-          getActiveStatus={setOffCanvasAboutActive}
-        />
-      )}
       {/* search overlay */}
       <SearchOverlay
         activeStatus={offCanvasSearchActive}
@@ -270,11 +247,4 @@ const mapStateToProps = (state) => {
     userDetails: state.currentUserData,
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-  setCurrentUser: (user, addToast) => {
-      dispatch(setCurrentUser(user, addToast));
-  },
-  };
-};
-export default connect(mapStateToProps,mapDispatchToProps)(HeaderOne);
+export default connect(mapStateToProps, null)(HeaderOne);

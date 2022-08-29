@@ -11,5 +11,5 @@ const LayoutTwo = ({ children, aboutOverlay, footerBgClass }) => {
     </Fragment>
   );
 };
-
+ 
 export default LayoutTwo;

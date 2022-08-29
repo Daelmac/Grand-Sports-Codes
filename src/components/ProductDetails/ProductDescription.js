@@ -1,8 +1,6 @@
 import { useState, Fragment,useEffect } from "react";
 import { IoIosHeartEmpty, IoIosShuffle } from "react-icons/io";
-import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
-import Link from "next/link";
-import { ProductRating } from "../Product";
+// import { ProductRating } from "../Product";
 import { getProductCartQuantity } from "../../lib/product";
 
 const ProductDescription = ({
@@ -37,10 +35,6 @@ const ProductDescription = ({
     selectedProductSize
   );
 
-  // useEffect(()=>{
-  //   setQuantityCount(productCartQty)
-  // },[])
-
   return (
     
     <div className="product-content">
@@ -48,7 +42,7 @@ const ProductDescription = ({
       {product.rating && product.rating > 0 ? (
         <div className="product-content__rating-wrap d-block d-sm-flex space-mb--20">
           <div className="product-content__rating space-mr--20">
-            <ProductRating ratingValue={product.rating} />
+            {/* <ProductRating ratingValue={product.rating} /> */}
           </div>
           <div className="product-content__rating-count">
             <a href="#">( {product.ratingCount} customer reviews )</a>
@@ -68,94 +62,11 @@ const ProductDescription = ({
           <span className="main-price">&#8377;{productPrice} </span>
         )}
       </div>
-      <div className="product-content__description space-mb--30">
+      {/* <div className="product-content__description space-mb--30">
         <p>{product.product_description}</p>
-      </div>
+      </div> */}
 
-      {product.variation ? (
-        <div className="product-content__size-color">
-          <div className="product-content__size space-mb--20">
-            <div className="product-content__size__title">Size</div>
-            <div className="product-content__size__content">
-              {product.variation &&
-                product.variation.map((single) => {
-                  return single.color === selectedProductColor
-                    ? single.size.map((singleSize, i) => {
-                        return (
-                          <Fragment key={i}>
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={
-                                singleSize.name === selectedProductSize
-                                  ? "checked"
-                                  : ""
-                              }
-                              id={singleSize.name}
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name);
-                                setProductStock(singleSize.stock);
-                                setQuantityCount(1);
-                              }}
-                            />
-                            <label htmlFor={singleSize.name}>
-                              {singleSize.name}
-                            </label>
-                          </Fragment>
-                        );
-                      })
-                    : "";
-                })}
-            </div>
-          </div>
-          <div className="product-content__color space-mb--20">
-            <div className="product-content__color__title">Color</div>
-            <div className="product-content__color__content">
-              {product.variation.map((single, i) => {
-                return (
-                  <Fragment key={i}>
-                    <input
-                      type="radio"
-                      value={single.color}
-                      name="product-color"
-                      id={single.color}
-                      checked={
-                        single.color === selectedProductColor ? "checked" : ""
-                      }
-                      onChange={() => {
-                        setSelectedProductColor(single.color);
-                        setSelectedProductSize(single.size[0].name);
-                        setProductStock(single.size[0].stock);
-                        setQuantityCount(1);
-                      }}
-                    />
-                    <label
-                      htmlFor={single.color}
-                      style={{ backgroundColor: single.colorCode }}
-                    ></label>
-                  </Fragment>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-      {product.affiliateLink ? (
-        <div className="product-content__quality">
-          <div className="product-content__cart btn-hover">
-            <a
-              href={product.affiliateLink}
-              rel="noopener noreferrer"
-              target="_blank"
-              className="lezada-button lezada-button--medium"
-            >
-              Buy Now
-            </a>
-          </div>
-        </div>
-      ) : (
+      
         <Fragment>
           <div className="product-content__quantity space-mb--40">
             <div className="product-content__quantity__title">Quantity</div>
@@ -250,84 +161,8 @@ const ProductDescription = ({
               <IoIosShuffle />
             </button> */}
           </div>
-
-          {/* <div className="product-content__other-info space-mt--50">
-            <table>
-              <tbody>
-                <tr className="single-info">
-                  <td className="title">SKU: </td>
-                  <td className="value">{product.sku}</td>
-                </tr>
-                <tr className="single-info">
-                  <td className="title">Categories: </td>
-                  <td className="value">
-                    {product.category &&
-                      product.category.map((item, index, arr) => {
-                        return (
-                          <Link
-                            href="/shop/all-products"
-                            as={process.env.PUBLIC_URL + "/shop/all-products"}
-                            key={index}
-                          >
-                            <a>
-                              {item + (index !== arr.length - 1 ? ", " : "")}
-                            </a>
-                          </Link>
-                        );
-                      })}
-                  </td>
-                </tr>
-                <tr className="single-info">
-                  <td className="title">Tags: </td>
-                  <td className="value">
-                    {product.tag &&
-                      product.tag.map((item, index, arr) => {
-                        return (
-                          <Link
-                            href="/shop/all-products"
-                            as={process.env.PUBLIC_URL + "/shop/all-products"}
-                            key={index}
-                          >
-                            <a>
-                              {item + (index !== arr.length - 1 ? ", " : "")}
-                            </a>
-                          </Link>
-                        );
-                      })}
-                  </td>
-                </tr>
-                <tr className="single-info">
-                  <td className="title">Share on: </td>
-                  <td className="value">
-                    <ul className="social-icons">
-                      <li>
-                        <a href="https://www.twitter.com">
-                          <FaTwitter />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.facebook.com">
-                          <FaFacebookF />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.instagram.com">
-                          <FaInstagram />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.youtube.com">
-                          <FaYoutube />
-                        </a>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div> */}
         </Fragment>
-      )}
+      
     </div>
   );
 };

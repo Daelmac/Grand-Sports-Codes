@@ -4,11 +4,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import { CreateAdmin} from "../../api/userApi";
 import Router from "next/router";
 import { connect } from "react-redux";
-import { useDispatch } from 'react-redux'
 import { useToasts } from "react-toast-notifications";
 
-const AddAdmin = ({userDetails}) => {
-  const dispatch = useDispatch()
+const AddAdmin = () => {
   const { addToast } = useToasts();
   
   const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -45,10 +43,9 @@ const AddAdmin = ({userDetails}) => {
   const onRegisterAdmin = async (event) => {
     event.preventDefault();
     if (registerUSerValidation()) {
-      const response = await dispatch(CreateAdmin(userDetails,newAdmin));
+      const response = await CreateAdmin(newAdmin);
       if(response){
       if (response.status === "success") {
-        // authenticateAdmin()
         addToast("Registered Successfully.", {
           appearance: "success",
           autoDismiss: true,
@@ -228,9 +225,5 @@ const AddAdmin = ({userDetails}) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    userDetails: state.currentUserData,
-  };
-};
-export default connect(mapStateToProps, null)(AddAdmin);
+
+export default AddAdmin;

@@ -1,5 +1,3 @@
-import { connect } from "react-redux";
-import { getProducts } from "../lib/product";
 import { LayoutTwo } from "../components/Layout";
 import { HeroSliderOne } from "../components/HeroSlider";
 import { ProductTab } from "../components/ProductTab";

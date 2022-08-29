@@ -4,7 +4,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import { IoIosArrowRoundUp } from "react-icons/io";
 import { animateScroll } from "react-scroll";
-import { SubscribeEmailTwo } from "../Newsletter";
 
 const FooterTwo = ({ footerBgClass }) => {
   const [scroll, setScroll] = useState(0);
@@ -61,8 +60,9 @@ const FooterTwo = ({ footerBgClass }) => {
             <nav className="footer-single-widget__nav">
               <ul>
                 <li>
-                  <Link href="/about" 
-                  // as={process.env.PUBLIC_URL + "/about"}
+                  <Link
+                    href="/about"
+                    // as={process.env.PUBLIC_URL + "/about"}
                   >
                     <a>About Us</a>
                   </Link>
@@ -94,18 +94,10 @@ const FooterTwo = ({ footerBgClass }) => {
             <h5 className="footer-single-widget__title">USEFUL LINKS</h5>
             <nav className="footer-single-widget__nav">
               <ul>
-                {/* <li>
-                  <a href="#">Returns</a>
-                </li>
                 <li>
-                  <a href="#">Support Policy</a>
-                </li>
-                <li>
-                  <a href="#">Size guide</a>
-                </li> */}
-                <li>
-                  <Link href="/faq" 
-                  // as={process.env.PUBLIC_URL + "/faq"}
+                  <Link
+                    href="/faq"
+                    // as={process.env.PUBLIC_URL + "/faq"}
                   >
                     <a>FAQs</a>
                   </Link>
@@ -126,11 +118,6 @@ const FooterTwo = ({ footerBgClass }) => {
             <h5 className="footer-single-widget__title">FOLLOW US ON</h5>
             <nav className="footer-single-widget__nav footer-single-widget__nav--social">
               <ul>
-                {/* <li>
-                  <a href="https://www.twitter.com">
-                    <FaTwitter /> Twitter
-                  </a>
-                </li> */}
                 <li>
                   <a
                     href="https://www.facebook.com/grandsportschennai/"
@@ -147,25 +134,17 @@ const FooterTwo = ({ footerBgClass }) => {
                     <FaInstagram /> Instagram
                   </a>
                 </li>
-                {/* <li>
-                  <a href="https://www.youtube.com">
+                <li>
+                  <a
+                    href="https://www.youtube.com/channel/UCkns1WvN-bBtE3vKU1hZfRA"
+                    target="_blank"
+                  >
                     <FaYoutube /> Youtube
                   </a>
-                </li> */}
+                </li>
               </ul>
             </nav>
           </Col>
-
-          {/* <Col className="footer-single-widget space-mb--50">
-            <div className="footer-subscribe-widget">
-              <h2 className="footer-subscribe-widget__title">Subscribe.</h2>
-              <p className="footer-subscribe-widget__subtitle">
-                Subscribe to our newsletter to receive news on update.
-              </p> */}
-          {/* email subscription */}
-          {/* <SubscribeEmailTwo mailchimpUrl="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" />
-            </div>
-          </Col> */}
         </Row>
       </Container>
       <button

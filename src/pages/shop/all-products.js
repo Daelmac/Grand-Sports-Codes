@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
 import Paginator from "react-hooks-paginator";
 import { SlideDown } from "react-slidedown";
 import { LayoutTwo } from "../../components/Layout";
-import { BreadcrumbOne } from "../../components/Breadcrumb";
 import { getSortedProducts } from "../../lib/product";
 import {getAllProducts} from "../../api/productApi" 
 import {
@@ -15,7 +13,7 @@ import {
   ShopProducts
 } from "../../components/Shop";
 
-const LeftSidebar = () => {
+const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [layout, setLayout] = useState("grid four-column");
   const [sortType, setSortType] = useState("");
@@ -29,7 +27,7 @@ const LeftSidebar = () => {
   const [shopTopFilterStatus, setShopTopFilterStatus] = useState(false);
   const [searchText,setSearchText] = useState("")
 
-  const pageLimit = 20;
+  const pageLimit = 12;
 
   const getLayout = (layout) => {
     setLayout(layout);
@@ -107,7 +105,7 @@ const LeftSidebar = () => {
 
         {/* shop page body */}
        
-        <div className="shop-page-content__body space-mt--r100 space-mb--r130">
+        <div className="shop-page-content__body mt-5 space-mb--r130">
         {(sortedProducts.length != 0)?
          <Container>
          <Row>
@@ -146,7 +144,6 @@ const LeftSidebar = () => {
        </Container>:
        <span className="d-flex align-items-center justify-content-center">Products not found</span>
         }
-         
         </div>
       </div>
     </LayoutTwo>
@@ -159,4 +156,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(LeftSidebar);
+export default connect(mapStateToProps)(AllProducts);

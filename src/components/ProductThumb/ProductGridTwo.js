@@ -29,7 +29,7 @@ const ProductGridTwo = ({
         <div className="product-grid product-grid--absolute-content">
           {/*=======  single product image  =======*/}
           <div className="product-grid__image">
-            <Link
+            {/* <Link
               href={`/shop/product-basic/[slug]?slug=${product.slug}`}
               as={
                 process.env.PUBLIC_URL + "/shop/product-basic/" + product.slug
@@ -51,7 +51,7 @@ const ProductGridTwo = ({
                   ""
                 )}
               </a>
-            </Link>
+            </Link> */}
             <div className="product-grid__floating-badges">
               {product.discount && product.discount > 0 ? (
                 <span className="onsale">-{product.discount}%</span>

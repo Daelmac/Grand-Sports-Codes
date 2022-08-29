@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { IoMdPerson } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
@@ -197,16 +196,9 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                   </li>
                 </ul>
               </li>
-              {/* <li className="mt-5 text-center">
-                  <span>
-                    <IoMdPerson />
-                    {adminDetails?.email}
-                  </span>
-              </li> */}
               <li className="pt-5 text-center">
                 <button
                   className="lezada-button lezada-button--medium"
-                  // onClick={handleLogout}
                   onClick={handleShow}
                 >
                   Logout

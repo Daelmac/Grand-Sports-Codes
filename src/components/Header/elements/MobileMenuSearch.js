@@ -1,7 +1,7 @@
 import { IoIosSearch } from "react-icons/io";
 
 const MobileMenuSearch = () => {
-  return (
+  return ( 
     <div className="offcanvas-mobile-menu__search">
       <form>
         <input type="search" placeholder="Search here" />

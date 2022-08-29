@@ -1,8 +1,7 @@
 import { AdminLayout } from "../../../components/Layout";
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Link from "next/link";
-import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete } from "react-icons/md";
 import { IoIosSearch, IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { useToasts } from "react-toast-notifications";
@@ -21,8 +20,6 @@ import {
   removeProduct
 } from "../../../api/productApi";
 import DataTable from "react-data-table-component";
-import { useDispatch } from 'react-redux'
-
 
 import { ShopFilter } from "../../../components/Shop";
 const AllProducts = ({userDetails}) => {
@@ -44,8 +41,6 @@ const AllProducts = ({userDetails}) => {
     setTempProduct(product)
     setShowDeleteModel(true)
   };
-
-  const dispatch = useDispatch()
   const { addToast } = useToasts();
 
   useEffect(async () => {
@@ -54,7 +49,7 @@ const AllProducts = ({userDetails}) => {
   }, [toggleFlag]);
   const NewProducttoggle = async (e, row) => {
     if(row.product_is_new){
-      let response = await dispatch( RemoveNewProduct(userDetails,row.product_id))
+      let response = await RemoveNewProduct(userDetails,row.product_id)
       if(response.status === "success") {
         setToggleFlag(!toggleFlag)
         addToast("Product successfully removed form new product.", {
@@ -68,7 +63,7 @@ const AllProducts = ({userDetails}) => {
         });
     }  
     else{
-      let response = await dispatch( MakeNewProduct(userDetails,row.product_id))
+      let response = await MakeNewProduct(userDetails,row.product_id)
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)
         addToast("Product successfully Added to new product.", {
@@ -84,7 +79,7 @@ const AllProducts = ({userDetails}) => {
   };
   const FeaturedProducttoggle = async(e, row) => {
     if(row.product_is_new){
-      let response = await dispatch( RemoveFeaturedProduct(userDetails,row.product_id))
+      let response = await RemoveFeaturedProduct(userDetails,row.product_id)
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)
         addToast("Product successfully removed form featured product.", {
@@ -98,7 +93,7 @@ const AllProducts = ({userDetails}) => {
       });
     }  
     else{
-      let response = await dispatch( MakeFeaturedProduct(userDetails,row.product_id))
+      let response = await MakeFeaturedProduct(userDetails,row.product_id)
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)
         addToast("Product successfully Added to featured product.", {
@@ -115,7 +110,7 @@ const AllProducts = ({userDetails}) => {
   };
   const BestSellerProducttoggle = async(e, row) => {
     if(row.product_is_new){
-      let response = await dispatch( RemoveBestSellerProduct(userDetails,row.product_id))
+      let response = await RemoveBestSellerProduct(userDetails,row.product_id)
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)
         addToast("Product successfully removed form best selling product.", {
@@ -129,7 +124,7 @@ const AllProducts = ({userDetails}) => {
       });
     }  
     else{
-      let response = await dispatch( MakeBestSellerProduct(userDetails,row.product_id))
+      let response = await MakeBestSellerProduct(userDetails,row.product_id)
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)
         addToast("Product successfully Added to best selling product.", {
@@ -339,7 +334,7 @@ const AllProducts = ({userDetails}) => {
   };
   const onDeleteProduct = async() => {
     setShowDeleteModel(false)
-    let response = await dispatch(removeProduct(userDetails,tempProduct?.product_id))
+    let response = await removeProduct(userDetails,tempProduct?.product_id)
     if(response){
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)

@@ -4,10 +4,13 @@ import { Container, Row } from "react-bootstrap";
 import { ProductGridWrapper } from "../ProductThumb";
 import { useEffect, useState } from "react";
 import {getFeaturedProducts,getNewArrivalProducts,getBestSellerProducts} from "../../api/productApi" 
+
 const ProductTab = ({}) => {
+
   const [featuredProducts, setFeaturedProducts] =useState([])
   const [newArrivalProducts, setNewArrivalProducts] =useState([])
   const [bestSellerProducts, setBestSellerProducts] =useState([])
+
   useEffect(async() =>{
     const featured_products = await getFeaturedProducts()
     if(featured_products) setFeaturedProducts(featured_products)

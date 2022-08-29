@@ -4,7 +4,6 @@ import { IoIosHeartEmpty, IoIosShuffle } from "react-icons/io";
 import Swiper from "react-id-swiper";
 import CustomScroll from "react-custom-scroll";
 import { getProductCartQuantity } from "../../lib/product";
-import { ProductRating } from "../Product";
 
 const ProductModal = (props) => {
   const {
@@ -67,22 +66,6 @@ const ProductModal = (props) => {
                   />
                 </div>
               </div>
-          {/* <Swiper {...gallerySwiperParams}> */}
-            {/* {product.image &&
-              product.image.map((single, key) => {
-                return (
-                  <div key={key}>
-                    <div className="single-image">
-                      <img
-                        src={process.env.PUBLIC_URL + single}
-                        className="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                );
-              })} */}
-          {/* </Swiper> */}
         </div>
         <Row>
           <Col md={7} sm={12} className="ml-auto">
@@ -103,110 +86,9 @@ const ProductModal = (props) => {
                     <span className="main-price">&#8377;{productprice} </span>
                   )}
                 </div>
-                {product.rating && product.rating > 0 ? (
-                  <div className="product-quickview__rating-wrap space-mb--20">
-                    <div className="product-quickview__rating">
-                      <ProductRating ratingValue={product.rating} />
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
                 <div className="product-quickview__description space-mb--30">
                   <p>{product.product_description}</p>
                 </div>
-
-                {product.variation ? (
-                  <div className="product-quickview__size-color">
-                    <div className="product-quickview__size space-mb--20">
-                      <div className="product-quickview__size__title">Size</div>
-                      <div className="product-quickview__size__content">
-                        {product.variation &&
-                          product.variation.map((single) => {
-                            return single.color === selectedProductColor
-                              ? single.size.map((singleSize, i) => {
-                                  return (
-                                    <Fragment key={i}>
-                                      <input
-                                        type="radio"
-                                        value={singleSize.name}
-                                        checked={
-                                          singleSize.name ===
-                                          selectedProductSize
-                                            ? "checked"
-                                            : ""
-                                        }
-                                        id={singleSize.name}
-                                        onChange={() => {
-                                          setSelectedProductSize(
-                                            singleSize.name
-                                          );
-                                          setProductStock(singleSize.stock);
-                                          setQuantityCount(1);
-                                        }}
-                                      />
-                                      <label htmlFor={singleSize.name}>
-                                        {singleSize.name}
-                                      </label>
-                                    </Fragment>
-                                  );
-                                })
-                              : "";
-                          })}
-                      </div>
-                    </div>
-                    <div className="product-quickview__color space-mb--20">
-                      <div className="product-quickview__color__title">
-                        Color
-                      </div>
-                      <div className="product-quickview__color__content">
-                        {product.variation.map((single, i) => {
-                          return (
-                            <Fragment key={i}>
-                              <input
-                                type="radio"
-                                value={single.color}
-                                name="product-color"
-                                id={single.color}
-                                checked={
-                                  single.color === selectedProductColor
-                                    ? "checked"
-                                    : ""
-                                }
-                                onChange={() => {
-                                  setSelectedProductColor(single.color);
-                                  setSelectedProductSize(single.size[0].name);
-                                  setProductStock(single.size[0].stock);
-                                  setQuantityCount(1);
-                                }}
-                              />
-                              <label
-                                htmlFor={single.color}
-                                style={{ backgroundColor: single.colorCode }}
-                              ></label>
-                            </Fragment>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-                {product.affiliateLink ? (
-                  <div className="product-quickview__quality">
-                    <div className="product-quickview__cart btn-hover">
-                      <a
-                        href={product.affiliateLink}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        className="lezada-button lezada-button--medium"
-                      >
-                        Buy Now
-                      </a>
-                    </div>
-                  </div>
-                ) : (
                   <Fragment>
                     <div className="product-quickview__quantity space-mb--20">
                       <div className="product-quickview__quantity__title">
@@ -305,7 +187,7 @@ const ProductModal = (props) => {
                       </button> */}
                     </div>
                   </Fragment>
-                )}
+                
               </div>
             </CustomScroll>
           </Col>

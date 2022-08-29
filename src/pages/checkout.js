@@ -6,10 +6,8 @@ import { getDiscountPrice } from "../lib/product";
 import { IoMdCash } from "react-icons/io";
 import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
-import {updateCustomerAddress} from "../api/userApi"
 import {addPurchases} from "../api/orderApi"
 import { useToasts } from "react-toast-notifications";
-import { useDispatch } from 'react-redux'
 import Router from "next/router";
 import {
   deleteAllFromCart,
@@ -21,7 +19,6 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
   let cartTotalPrice = 0;
   const PhoneRegX = /^([+]\d{2})?\d{10}$/;
   const PincodRegX = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
-  const dispatch = useDispatch()
   const { addToast } = useToasts();
   let address=null
   if (userDetails?.address) address = JSON.parse(userDetails?.address);
@@ -90,7 +87,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
         purchases:purchaseData
       };
       console.log(params);
-      const response = await dispatch(addPurchases(userDetails,params));
+      const response = await addPurchases(params);
         if(response){
         if (response.status === "success") {
           // authenticateAdmin()
@@ -486,7 +483,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
         </Container>
       </div>
     </LayoutTwo>
-  );
+  ); 
 };
 
 const mapStateToProps = (state) => {

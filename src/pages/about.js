@@ -156,14 +156,6 @@ const About = () => {
             </Row>
           </Container>
         </div>
-        {/* testimonial */}
-        {/* <TestimonialOne
-          testimonialData={testimonialData}
-          backgroundImage="/assets/images/backgrounds/testimonials-bg.png"
-        /> */}
-        <div className="space-mb--r100"></div>
-        {/* brand logo */}
-        {/* <BrandLogoOne brandLogoData={brandLogoData} /> */}
       </div>
     </LayoutTwo>
   );

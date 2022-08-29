@@ -105,17 +105,6 @@ const Wishlist = ({
                             >
                               <a>{product.product_name}</a>
                             </Link>
-                            {product.selectedProductColor &&
-                            product.selectedProductSize ? (
-                              <div className="product-variation">
-                                <span>
-                                  Color: {product.selectedProductColor}
-                                </span>
-                                <span>Size: {product.selectedProductSize}</span>
-                              </div>
-                            ) : (
-                              ""
-                            )}
                           </td>
 
                           <td className="product-price">
@@ -123,25 +112,7 @@ const Wishlist = ({
                           </td>
 
                           <td>
-                            {product.affiliateLink ? (
-                              <a
-                                href={product.affiliateLink}
-                                target="_blank"
-                                className="lezada-button lezada-button--medium"
-                              >
-                                Buy now
-                              </a>
-                            ) : product.variation &&
-                              product.variation.length >= 1 ? (
-                                <Link
-                                href={`/shop/product/[id]?id=${product.product_id}`}
-                                as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
-                              >
-                                <a className="lezada-button lezada-button--medium">
-                                  Select option
-                                </a>
-                              </Link>
-                            ) : product.product_is_available ? (
+                            {product.product_is_available ? (
                               <button
                                 onClick={() => addToCart(product, addToast)}
                                 className={` lezada-button lezada-button--medium ${

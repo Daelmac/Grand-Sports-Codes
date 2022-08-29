@@ -3,7 +3,7 @@ const BreadcrumbOne = ({ children, backgroundImage, pageTitle, className }) => {
   return (
     <img
       className={`breadcrumb-area ${
-        className ? className : ""
+        className ? className : "" 
       }`}
       style={{width:"100%",height:"auto"}}
       src={process.env.PUBLIC_URL + backgroundImage} />

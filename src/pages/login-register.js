@@ -369,7 +369,7 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </div> 
     </LayoutTwo>
   );
 };

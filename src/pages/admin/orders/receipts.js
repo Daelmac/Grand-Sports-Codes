@@ -1,25 +1,22 @@
 import { AdminLayout } from "../../../components/Layout";
-import { Fragment, useState, useEffect} from "react";
+import { useState, useEffect} from "react";
 import { connect } from "react-redux";
-import Link from "next/link";
-import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete,MdOutlineRemoveR } from "react-icons/md";
-import { IoMdFunnel,IoEye, IoIosSearch } from "react-icons/io";
+import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { get_all_receipts } from "../../../api/orderApi";
 import DataTable from "react-data-table-component";
-import { useDispatch } from 'react-redux'
 import Router from "next/router";
 
 
-const Receipts = ({userDetails}) => {
+const Receipts = () => {
   const [receipts, setReceipts] = useState([]);
   const [currentReceipts, setCurrentReceipts] = useState([])
   const [searchText, setSearchText] = useState("");
   // const [filter,setFilter] = useState(null)
-  const dispatch = useDispatch()
+ 
 
   useEffect(async () => {
-    let all_receipts = await dispatch(get_all_receipts(userDetails))
+    let all_receipts = await get_all_receipts()
     if(all_receipts) setReceipts(all_receipts)
   },[]);
 
@@ -114,20 +111,6 @@ const Receipts = ({userDetails}) => {
                     </button>
                   </form>
                 </div>
-                {/* <div className="single-icon filter-dropdown">
-                  <select
-                    onChange={(e) =>
-                      setFilter(e.target.value)
-                    }
-                  >
-                    <option value={null}>All</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Confirmed">Confirmed</option>
-                    <option value="Shipped">Shipped</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Cancelled">Cancelled</option>
-                  </select>
-                </div> */}
               </div>
             </Col>
           </Row>
@@ -139,9 +122,5 @@ const Receipts = ({userDetails}) => {
     </AdminLayout>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    userDetails: state.currentUserData,
-  };
-};
-export default connect(mapStateToProps, null)(Receipts);
+
+export default Receipts;

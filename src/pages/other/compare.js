@@ -8,7 +8,6 @@ import { LayoutTwo } from "../../components/Layout";
 import { BreadcrumbOne } from "../../components/Breadcrumb";
 import { deleteFromCompare } from "../../redux/actions/compareActions";
 import { addToCart } from "../../redux/actions/cartActions";
-import { ProductRating } from "../../components/Product";
 import { getDiscountPrice } from "../../lib/product";
 
 const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
@@ -17,7 +16,7 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
   return (
     <LayoutTwo>
       {/* breadcrumb */}
-      <BreadcrumbOne
+      {/* <BreadcrumbOne
         pageTitle="Compare"
         backgroundImage="/assets/images/backgrounds/breadcrumb-bg-1.png"
       >
@@ -30,7 +29,7 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
 
           <li>Compare</li>
         </ul>
-      </BreadcrumbOne>
+      </BreadcrumbOne> */}
       <div className="compare-area space-mt--r130 space-mb--r130">
         <Container>
           <Row>
@@ -60,7 +59,7 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                                       </button>
                                     </div>
                                     <Link
-                                      href={`/shop/product/[id]?slug=${product.product_id}`}
+                                      href={`/shop/product/[id]?id=${product.product_id}`}
                                       as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}
                                     >
                                       <a className="image">
@@ -73,33 +72,14 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                                     </Link>
                                     <div className="product-title">
                                     <Link
-                                      href={`/shop/product/[id]?slug=${product.product_id}`}
+                                      href={`/shop/product/[id]?id=${product.product_id}`}
                                       as={`${process.env.PUBLIC_URL}/shop/product/${product.product_id}`}>
                                     
                                         <a>{product.product_name}</a>
                                       </Link>
                                     </div>
                                     <div className="compare-btn">
-                                      {product.affiliateLink ? (
-                                        <a
-                                          href={product.affiliateLink}
-                                          target="_blank"
-                                          className="lezada-button lezada-button--primary"
-                                        >
-                                          {" "}
-                                          Buy now{" "}
-                                        </a>
-                                      ) : product.variation &&
-                                        product.variation.length >= 1 ? (
-                                        <Link
-                                          href={`/shop/product-basic/[slug]?slug=${product.slug}`}
-                                          as={`${process.env.PUBLIC_URL}/shop/product-basic/${product.slug}`}
-                                        >
-                                          <a className="lezada-button lezada-button--primary">
-                                            Select Option
-                                          </a>
-                                        </Link>
-                                      ) : product.product_is_available ? (
+                                      {product.product_is_available ? (
                                         <button
                                           onClick={() =>
                                             addToCart(product, addToast)
@@ -149,15 +129,15 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                                     {product.product_discount > 0 ? (
                                       <Fragment>
                                         <span className="main-price discounted">
-                                          ${productPrice}
+                                        &#8377;{productPrice}
                                         </span>
                                         <span className="main-price">
-                                          ${discountedPrice}
+                                        &#8377;{discountedPrice}
                                         </span>
                                       </Fragment>
                                     ) : (
                                       <span className="main-price">
-                                        ${productPrice}
+                                        &#8377;{productPrice}
                                       </span>
                                     )}
                                   </td>
@@ -179,19 +159,6 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                                 );
                               })}
                             </tr>
-
-                            {/* <tr>
-                              <th className="title-column">Rating</th>
-                              {compareItems.map((product, key) => {
-                                return (
-                                  <td className="product-rating" key={key}>
-                                    <ProductRating
-                                      ratingValue={product.rating}
-                                    />
-                                  </td>
-                                );
-                              })}
-                            </tr> */}
                           </tbody>
                         </table>
                       </div>

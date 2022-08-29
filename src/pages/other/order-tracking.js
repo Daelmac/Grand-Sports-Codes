@@ -7,7 +7,7 @@ const OrderTracking = () => {
   return (
     <LayoutTwo>
       {/* breadcrumb */}
-      <BreadcrumbOne
+      <BreadcrumbOne 
         pageTitle="Order Tracking"
         backgroundImage="/assets/images/backgrounds/breadcrumb-bg-2.jpg"
       >

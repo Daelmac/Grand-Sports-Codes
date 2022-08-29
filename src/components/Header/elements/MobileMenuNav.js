@@ -43,8 +43,9 @@ const MobileMenuNav = ({ getActiveStatus }) => {
     >
       <ul>
         <li className="">
-          <Link href="/" 
-          // as={process.env.PUBLIC_URL + "/"}
+          <Link
+            href="/"
+            // as={process.env.PUBLIC_URL + "/"}
           >
             <a>Home</a>
           </Link>
@@ -59,28 +60,26 @@ const MobileMenuNav = ({ getActiveStatus }) => {
           </Link>
         </li>
 
-        {/* <li className="">
-          <Link href="/">
-            <a>My Orders</a>
-          </Link>
-        </li> */}
         <li>
-          <Link href="/about" 
-          // as={process.env.PUBLIC_URL + "/about"}
+          <Link
+            href="/about"
+            // as={process.env.PUBLIC_URL + "/about"}
           >
             <a>About Us</a>
           </Link>
         </li>
         <li>
-          <Link href="/contact" 
-          // as={process.env.PUBLIC_URL + "/contact"}
+          <Link
+            href="/contact"
+            // as={process.env.PUBLIC_URL + "/contact"}
           >
             <a>Contact Us</a>
           </Link>
         </li>
         <li>
-          <Link href="/faq" 
-          // as={process.env.PUBLIC_URL + "/faq"}
+          <Link
+            href="/faq"
+            // as={process.env.PUBLIC_URL + "/faq"}
           >
             <a>F.A.Q</a>
           </Link>

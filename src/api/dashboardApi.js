@@ -1,29 +1,11 @@
-import axios from "axios";
-import { API_BASE_URL } from "../core/utils";
-
-const getHeaerConfig = (token) => {
-    return {
-      headers: {
-        "x-access-token": token,
-      },
-    };
-  };
-
-const get_dashboard_data =(admin) =>async (dispatch) => {
+import axios from "../pages/axiosConfig";
+const get_dashboard_data =async() => {
 try {
     const result = await axios.get(
-    `${API_BASE_URL}/get_dashboard_data`,
-    getHeaerConfig(admin.token)
+    `/get_dashboard_data`,
     );
-    return result.data;
+    return result?result.data:null;
 } catch (e) {
-    console.log(e);
-    if (e?.response?.status == 401) {
-    dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-    });
-    }
     return null;
 }
 }

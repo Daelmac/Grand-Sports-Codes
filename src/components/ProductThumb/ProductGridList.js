@@ -42,15 +42,6 @@ const ProductGridList = ({
                   alt={product.product_name}
                   style={{height:"170px",width:"auto"}}
                 />
-                {/* {product.thumbImage.length > 1 ? (
-                  <img
-                    src={process.env.PUBLIC_URL + product.thumbImage[1]}
-                    className="img-fluid"
-                    alt={product.name}
-                  />
-                ) : (
-                  ""
-                )} */}
               </a>
             </Link>
             <div className="product-grid__floating-badges">
@@ -150,20 +141,7 @@ const ProductGridList = ({
                 </Link>
               </h3>
               {/* add to cart */}
-              {product.affiliateLink ? (
-                <a href={product.affiliateLink} target="_blank">
-                  Buy now
-                </a>
-              ) : product.variation && product.variation.length >= 1 ? (
-                <Link
-              href={`/shop/product/[id]`}
-              as={
-                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
-              }
-            >
-                  <a>Select Option</a>
-                </Link>
-              ) : product.product_is_available ? (
+              {product.product_is_available ? (
                 <button
                   onClick={() => addToCart(product, addToast)}
                   disabled={
@@ -205,15 +183,6 @@ const ProductGridList = ({
                   alt={product.product_name}
                   style={{height:"auto",width:"200px"}}
                 />
-                {/* {product.thumbImage.length > 1 ? (
-                  <img
-                    src={process.env.PUBLIC_URL + product.thumbImage[1]}
-                    className="img-fluid"
-                    alt={product.product_name}
-                  />
-                ) : (
-                  ""
-                )} */}
               </a>
             </Link>
             <div className="product-list__floating-badges">
@@ -324,29 +293,10 @@ const ProductGridList = ({
               )}
             </div>
 
-            <div className="short-description">{product.product_description}</div>
+            {/* <div className="short-description">{product.product_description}</div> */}
             <div className="add-to-cart">
               {/* add to cart */}
-              {product.affiliateLink ? (
-                <a
-                  href={product.affiliateLink}
-                  target="_blank"
-                  className="lezada-button lezada-button--medium"
-                >
-                  Buy now
-                </a>
-              ) : product.variation && product.variation.length >= 1 ? (
-                <Link
-              href={`/shop/product/[id]`}
-              as={
-                process.env.PUBLIC_URL + "/shop/product/" + product.product_id
-              }
-            >
-                  <a className="lezada-button lezada-button--medium">
-                    Select Option
-                  </a>
-                </Link>
-              ) : product.product_is_available ? (
+              {product.product_is_available ? (
                 <button
                   onClick={() => addToCart(product, addToast)}
                   disabled={

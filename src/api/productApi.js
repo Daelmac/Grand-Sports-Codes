@@ -1,27 +1,17 @@
-import axios from "axios";
-import { API_BASE_URL } from "../core/utils";
-
-const getHeaerConfig = (token) => {
-  return {
-    headers: {
-      "x-access-token": token,
-    },
-  };
-};
+import axioss from "../pages/axiosConfig"
 
 const getFeaturedProducts = async () => {
   try {
-    const result = await axios.get(`${API_BASE_URL}/featured_products`);
-    return result.data["featured_products"];
+    const result = await axioss.get(`/featured_products`);
+    return result?result.data["featured_products"]:null;
   } catch (e) {
-    console.log(e.response);
-    return null
+    return null;
   }
 };
 const getNewArrivalProducts = async () => {
   try {
-    const result = await axios.get(`${API_BASE_URL}/new_products`);
-    return result.data["new_products"];
+    const result = await axioss.get(`/new_products`);
+    return result?result.data["new_products"]:null;
   } catch (e) {
     console.log(e.response);
     return null
@@ -29,8 +19,8 @@ const getNewArrivalProducts = async () => {
 };
 const getBestSellerProducts = async () => {
   try {
-    const result = await axios.get(`${API_BASE_URL}/best_seller_products`);
-    return result.data["best_seller_products"];
+    const result = await axioss.get(`/best_seller_products`);
+    return result?result.data["best_seller_products"]:null;
   } catch (e) {
     console.log(e.response);
     return null
@@ -40,8 +30,8 @@ const getProductByID = async (id) => {
   try {
     var params = new FormData();
     params.append("product_id", id);
-    const result = await axios.post(`${API_BASE_URL}/single_product`, params);
-    return result.data;
+    const result = await axioss.post(`/single_product`, params);
+    return result?result.data:null;
   } catch (e) {
     console.log(e.response);
     return null
@@ -49,142 +39,100 @@ const getProductByID = async (id) => {
 };
 const getAllProducts = async () => {
   try {
-    const result = await axios.get(`${API_BASE_URL}/all_products`);
-    return result.data["product_data"];
+    const result = await axioss.get(`/all_products`);
+    return result?result.data["product_data"]:null;
   } catch (e) {
     console.log(e.response);
     return null
   }
 };
 
-const MakeFeaturedProduct = (admin, product_id) => async (dispatch) => {
+const MakeFeaturedProduct = async(admin, product_id)  => {
   try {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
     params.append("product_id", product_id);
-    const result = await axios.post(
-      `${API_BASE_URL}/admin_make_featured_product`,
-      params,
-      getHeaerConfig(admin.token)
+    const result = await axioss.post(
+      `/admin_make_featured_product`,
+      params
     );
-    return result.data;
+    return result?result.data:null;
   } catch (e) {
-    if (e.response.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };
-const RemoveFeaturedProduct = (admin, product_id) => async (dispatch) => {
+const RemoveFeaturedProduct = async(admin, product_id)  => {
   try {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
     params.append("product_id", product_id);
-    const result = await axios.post(
-      `${API_BASE_URL}/admin_remove_featured_product`,
+    const result = await axioss.post(
+      `/admin_remove_featured_product`,
       params,
-      getHeaerConfig(admin.token)
     );
-    return result.data;
+    return result?result.data:null;
   } catch (e) {
-    if (e.response.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };
-const MakeNewProduct = (admin, product_id) => async (dispatch) => {
+const MakeNewProduct = async(admin, product_id)  => {
   try {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
     params.append("product_id", product_id);
-    const result = await axios.post(
-      `${API_BASE_URL}/admin_make_new_product`,
-      params,
-      getHeaerConfig(admin.token)
+    const result = await axioss.post(
+      `/admin_make_new_product`,
+      params
     );
-    return result.data;
+    return result?result.data:null;
   } catch (e) {
-    if (e.response.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };
-const RemoveNewProduct = (admin, product_id) => async (dispatch) => {
+const RemoveNewProduct = async(admin, product_id) => {
   try {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
     params.append("product_id", product_id);
-    const result = await axios.post(
-      `${API_BASE_URL}/admin_remove_new_product`,
+    const result = await axioss.post(
+      `/admin_remove_new_product`,
       params,
-      getHeaerConfig(admin.token)
     );
-    return result.data;
+    return result?result.data:null;
   } catch (e) {
-    if (e.response.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };
-const MakeBestSellerProduct = (admin, product_id) => async (dispatch) => {
+const MakeBestSellerProduct = async(admin, product_id)  => {
   try {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
     params.append("product_id", product_id);
-    const result = await axios.post(
-      `${API_BASE_URL}/admin_make_bestseller_product`,
-      params,
-      getHeaerConfig(admin.token)
+    const result = await axioss.post(
+      `/admin_make_bestseller_product`,
+      params
     );
-    return result.data;
+    return result?result.data:null;
   } catch (e) {
-    if (e.response.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };
-const RemoveBestSellerProduct = (admin, product_id) => async (dispatch) => {
+const RemoveBestSellerProduct = async(admin, product_id)  => {
   try {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
     params.append("product_id", product_id);
-    const result = await axios.post(
-      `${API_BASE_URL}/admin_remove_bestseller_product`,
-      params,
-      getHeaerConfig(admin.token)
+    const result = await axioss.post(
+      `/admin_remove_bestseller_product`,
+      params
     );
-    return result.data;
+    return result?result.data:null;
   } catch (e) {
-    if (e.response.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };
 
-const addProduct = (admin, productData) => async (dispatch) => {
+const addProduct = async(admin, productData) =>  {
   try {
     let params = new FormData();
     params.append("owner_id", admin?.admin_id);
@@ -194,23 +142,16 @@ const addProduct = (admin, productData) => async (dispatch) => {
     params.append("product_price", productData.price);
     params.append("product_image", productData.image);
     params.append("product_discount", productData.discount);
-    const result = await axios.post(
-      `${API_BASE_URL}/add_product`,
-      params,
-      getHeaerConfig(admin.token)
+    const result = await axioss.post(
+      `/add_product`,
+      params
     );
-    return result.data;
+     return result?result.data:null;
   } catch (e) {
-    if (e.response.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };
-const editProduct = (admin, productData,product_id) => async (dispatch) => {
+const editProduct = async(admin, productData,product_id) =>  {
   try {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
@@ -222,40 +163,26 @@ const editProduct = (admin, productData,product_id) => async (dispatch) => {
     if(typeof productData.image == 'object') params.append("product_image", productData.image);
     params.append("product_discount", productData.discount);
     params.append("product_is_available", productData.isAvailable ? true : false);
-    const result = await axios.post(
-      `${API_BASE_URL}/admin_edit_product`,
-      params,
-      getHeaerConfig(admin.token)
+    const result = await axioss.post(
+      `/admin_edit_product`,
+      params
     );
-    return result.data;
+    return result?result.data:null;
   } catch (e) {
-    if (e?.response?.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };
-const removeProduct = (admin,product_id) => async (dispatch) => {
+const removeProduct = async(admin,product_id) => {
   try {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
     params.append("product_id", product_id);
-    const result = await axios.post(
-      `${API_BASE_URL}/admin_remove_product`,
-      params,
-      getHeaerConfig(admin.token)
+    const result = await axioss.post(
+      `/admin_remove_product`,
+      params
     );
-    return result.data;
+    return result?result.data:null;
   } catch (e) {
-    if (e?.response?.status == 401) {
-      dispatch({
-        type: "SET_CURRENT_USER",
-        payload: {},
-      });
-    }
     return null;
   }
 };

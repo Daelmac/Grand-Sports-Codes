@@ -20,77 +20,27 @@ const cartReducer = (state = initState, action) => {
     // for non variant products
     console.log("in reducer",cartItems)
     console.log("in reducer product",product)
-    if (product.variation === undefined) {
-      const cartItem = cartItems.filter((item) => item.product_id === product.product_id)[0];
-      if (cartItem === undefined) {
-        return [
-          ...cartItems,
-          {
-            ...product,
-            quantity: product.quantity ? product.quantity : 1,
-            cartItemId: uuidv4()
-          }
-        ];
-      } else {
-        return cartItems.map((item) =>
-          item.cartItemId === cartItem.cartItemId
-            ? {
-                ...item,
-                quantity: product.quantity
-                  ? item.quantity + product.quantity
-                  : item.quantity + 1
-              }
-            : item
-        );
-      }
-      // for variant products
+    const cartItem = cartItems.filter((item) => item.product_id === product.product_id)[0];
+    if (cartItem === undefined) {
+      return [
+        ...cartItems,
+        {
+          ...product,
+          quantity: product.quantity ? product.quantity : 1,
+          cartItemId: uuidv4()
+        }
+      ];
     } else {
-      const cartItem = cartItems.filter(
-        (item) =>
-          item.product_id === product.product_id &&
-          product.selectedProductColor &&
-          product.selectedProductColor === item.selectedProductColor &&
-          product.selectedProductSize &&
-          product.selectedProductSize === item.selectedProductSize &&
-          (product.cartItemId ? product.cartItemId === item.cartItemId : true)
-      )[0];
-
-      if (cartItem === undefined) {
-        return [
-          ...cartItems,
-          {
-            ...product,
-            quantity: product.quantity ? product.quantity : 1,
-            cartItemId: uuidv4()
-          }
-        ];
-      } else if (
-        cartItem !== undefined &&
-        (cartItem.selectedProductColor !== product.selectedProductColor ||
-          cartItem.selectedProductSize !== product.selectedProductSize)
-      ) {
-        return [
-          ...cartItems,
-          {
-            ...product,
-            quantity: product.quantity ? product.quantity : 1,
-            cartItemId: uuidv4()
-          }
-        ];
-      } else {
-        return cartItems.map((item) =>
-          item.cartItemId === cartItem.cartItemId
-            ? {
-                ...item,
-                quantity: product.quantity
-                  ? item.quantity + product.quantity
-                  : item.quantity + 1,
-                selectedProductColor: product.selectedProductColor,
-                selectedProductSize: product.selectedProductSize
-              }
-            : item
-        );
-      }
+      return cartItems.map((item) =>
+        item.cartItemId === cartItem.cartItemId
+          ? {
+              ...item,
+              quantity: product.quantity
+                ? item.quantity + product.quantity
+                : item.quantity + 1
+            }
+          : item
+      );
     }
   }
 

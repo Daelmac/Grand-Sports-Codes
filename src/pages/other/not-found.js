@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
 import { HeaderOne } from "../../components/Header";
 
-const NotFound = () => {
+const NotFound = () => { 
   return (
     <Fragment>
       <HeaderOne />

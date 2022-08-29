@@ -25,5 +25,5 @@ const SearchOverlay = ({ activeStatus, getActiveStatus }) => {
     </div>
   );
 };
-
+ 
 export default SearchOverlay;

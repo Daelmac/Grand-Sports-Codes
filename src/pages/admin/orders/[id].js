@@ -2,24 +2,20 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { AdminLayout } from "../../../components/Layout";
 import { Container, Row, Col } from "react-bootstrap";
-import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery";
-import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
-import { PRODUCR_CATEGORIES } from "../../../core/utils";
+import { LightgalleryProvider } from "react-lightgallery";
 import { connect } from "react-redux";
-import { useDispatch } from "react-redux";
 import { getOrderDetailsByID,editOrderDetails } from "../../../api/orderApi";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
 
-const Order = ({ userDetails }) => {
+const Order = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const { addToast } = useToasts();
   const NumericRegX = /[0-9]*[.]?[0-9]+/;
   const { id } = router.query;
 
   useEffect(async () => {
-    const orderData = await dispatch(getOrderDetailsByID(userDetails, id));
+    const orderData = await getOrderDetailsByID(id);
     if (orderData) {
       setOrderData(orderData);
     } else {
@@ -61,7 +57,7 @@ const Order = ({ userDetails }) => {
   const onOrderDataSubmit = async (event) => {
     event.preventDefault();
     if (OrderDetailsValidation()) {
-        const response = await dispatch(editOrderDetails(userDetails,id,orderDetails));
+        const response = await editOrderDetails(id,orderDetails);
         if(response){
         if (response.status === "success") {
           addToast("Order Details updated Successfully", {
@@ -299,9 +295,4 @@ const Order = ({ userDetails }) => {
     </AdminLayout>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    userDetails: state.currentUserData,
-  };
-};
-export default connect(mapStateToProps, null)(Order);
+export default Order;

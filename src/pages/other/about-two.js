@@ -5,10 +5,8 @@ import ModalVideo from "react-modal-video";
 import { LayoutTwo } from "../../components/Layout";
 import { BreadcrumbOne } from "../../components/Breadcrumb";
 import { SectionTitleOne } from "../../components/SectionTitle";
-import { TestimonialTwo } from "../../components/Testimonial";
-import testimonialTwoData from "../../data/testimonials/testimonial-two.json";
 
-const AboutTwo = () => {
+const AboutTwo = () => { 
   const [modalStatus, isOpen] = useState(false);
   return (
     <LayoutTwo>
@@ -79,10 +77,10 @@ const AboutTwo = () => {
         </div>
 
         {/* testimonial */}
-        <TestimonialTwo
+        {/* <TestimonialTwo
           testimonialData={testimonialTwoData}
           backgroundImage="/assets/images/backgrounds/testimonials-bg.png"
-        />
+        /> */}
         <div className="space-mb--r100"></div>
 
         <div className="about-video-popup">

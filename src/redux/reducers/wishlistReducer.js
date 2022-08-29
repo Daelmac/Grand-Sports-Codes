@@ -1,7 +1,8 @@
 import {
   ADD_TO_WISHLIST,
   DELETE_FROM_WISHLIST,
-  DELETE_ALL_FROM_WISHLIST
+  DELETE_ALL_FROM_WISHLIST,
+  UPDATE_WISHLIST
 } from "../actions/wishlistActions";
 
 const initState = [];
@@ -20,6 +21,14 @@ const wishlistReducer = (state = initState, action) => {
       return wishlistItems;
     }
   }
+  if(action.type === UPDATE_WISHLIST){
+    let product_ids = product.map(a => a.product_id);
+    let updated_wishlistItems=[]
+    wishlistItems.map((item) =>{!(product_ids.includes(item.product_id)) && updated_wishlistItems.push(item)});
+    Array.prototype.push.apply(updated_wishlistItems,product);
+    return updated_wishlistItems
+  }
+
 
   if (action.type === DELETE_FROM_WISHLIST) {
     const remainingItems = (wishlistItems, product) =>

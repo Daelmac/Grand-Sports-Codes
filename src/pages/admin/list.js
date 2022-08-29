@@ -1,23 +1,19 @@
 import { AdminLayout } from "../../components/Layout";
-import { Fragment, useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import { connect } from "react-redux";
-import Link from "next/link";
-import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
-import { IoIosSearch, IoMdFunnel } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { getAdmins } from "../../api/userApi";
 import DataTable from "react-data-table-component";
-import { useDispatch } from 'react-redux'
 
-
-const AdminList = ({userDetails}) => {
+const AdminList = () => {
   const [admins, setAdmins] = useState([]);
   const [currentAdmims, setcurrentAdmins] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const dispatch = useDispatch()
 
   useEffect(async () => {
-    let all_admins = await dispatch(getAdmins(userDetails))
+    let all_admins = await getAdmins()
     if(all_admins) setAdmins(all_admins)
   },[]);
   useEffect(() => {
@@ -66,24 +62,24 @@ const AdminList = ({userDetails}) => {
       width: "30%",
       cell: (row) => <p>{row.admin_email}</p>,
     },
-    {
-      name: "Action",
-      left: true,
-      cell: (row) => (
-        <>
-          <MdDelete
-            color="red"
-            fontSize="1.5em"
-            role="button"
-            onClick={(row) => onDeleteProduct(row)}
-          />
-        </>
-      ),
-      width: "10%",
-      style: {
-        fontWeight: "bold",
-      },
-    },
+    // {
+    //   name: "Action",
+    //   left: true,
+    //   cell: (row) => (
+    //     <>
+    //       <MdDelete
+    //         color="red"
+    //         fontSize="1.5em"
+    //         role="button"
+    //         onClick={(row) => onDeleteProduct(row)}
+    //       />
+    //     </>
+    //   ),
+    //   width: "10%",
+    //   style: {
+    //     fontWeight: "bold",
+    //   },
+    // },
     
   ];
   return (
@@ -118,9 +114,5 @@ const AdminList = ({userDetails}) => {
     </AdminLayout>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    userDetails: state.currentUserData,
-  };
-};
-export default connect(mapStateToProps, null)(AdminList);
+
+export default AdminList;

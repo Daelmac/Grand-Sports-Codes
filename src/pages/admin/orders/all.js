@@ -1,46 +1,40 @@
 import { AdminLayout } from "../../../components/Layout";
-import { Fragment, useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Link from "next/link";
-import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete,MdOutlineRemoveR } from "react-icons/md";
-import { IoMdFunnel,IoEye,IoIosSearch } from "react-icons/io";
+import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { get_all_purchases } from "../../../api/orderApi";
 import DataTable from "react-data-table-component";
-import { useDispatch } from 'react-redux'
 import Router from "next/router";
+import { MdEdit } from "react-icons/md";
 
-
-const AllOrders = ({userDetails}) => {
+const AllOrders = ({ userDetails }) => {
   const [orders, setOrders] = useState([]);
   const [currentOrders, setCurrentOrders] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [filter,setFilter] = useState(null)
-  const dispatch = useDispatch()
+  const [filter, setFilter] = useState(null);
 
   useEffect(async () => {
-    let all_purchases = await dispatch(get_all_purchases(userDetails,filter))
-    if(all_purchases) setOrders(all_purchases)
-  },[filter]);
+    let all_purchases = await get_all_purchases(filter);
+    if (all_purchases) setOrders(all_purchases);
+  }, [filter]);
   useEffect(() => {
     if (searchText != "") {
       const filterCurrentData = currentOrders.filter(
         (item) =>
           item.order_id &&
-          (item.order_id.toLowerCase().includes(searchText.toLowerCase()) || item?.customer?.id.toLowerCase().includes(searchText.toLowerCase()))
+          (item.order_id.toLowerCase().includes(searchText.toLowerCase()) ||
+            item?.customer?.id.toLowerCase().includes(searchText.toLowerCase()))
       );
       setCurrentOrders(filterCurrentData);
     } else {
       setCurrentOrders(orders);
     }
-  }, [
-    orders,
-    searchText,
-  ]);
-  const onEditOrder = (e,order) => {
-    console.log(order)
-    Router.push(`/admin/orders/${order.order_id}`)
-  };;
+  }, [orders, searchText]);
+  const onEditOrder = (e, order) => {
+    console.log(order);
+    Router.push(`/admin/orders/${order.order_id}`);
+  };
   const columns = [
     {
       name: "Order ID",
@@ -59,7 +53,13 @@ const AllOrders = ({userDetails}) => {
       left: true,
       sortable: true,
       width: "10%",
-      cell: (row) => <p>{new Date(row.order_date).toLocaleDateString("en-IN", {timeZone: 'Asia/Kolkata'})}</p>,
+      cell: (row) => (
+        <p>
+          {new Date(row.order_date).toLocaleDateString("en-IN", {
+            timeZone: "Asia/Kolkata",
+          })}
+        </p>
+      ),
     },
     {
       name: "Receipt ID",
@@ -104,13 +104,23 @@ const AllOrders = ({userDetails}) => {
       width: "10%",
       cell: (row) => (
         <div>
-          {row.order_status== "Pending"?<p className="pending-text">{row.order_status}</p>:null}
-          {row.order_status== "Confirmed"?<p className="confirm-text">{row.order_status}</p>:null}
-          {row.order_status== "Shipped"?<p className="shipped-text">{row.order_status}</p>:null}
-          {row.order_status== "Delivered"?<p className="delivered-text">{row.order_status}</p>:null}
-          {row.order_status== "Cancelled"?<p className="cancelled-text">{row.order_status}</p>:null}
+          {row.order_status == "Pending" ? (
+            <p className="pending-text">{row.order_status}</p>
+          ) : null}
+          {row.order_status == "Confirmed" ? (
+            <p className="confirm-text">{row.order_status}</p>
+          ) : null}
+          {row.order_status == "Shipped" ? (
+            <p className="shipped-text">{row.order_status}</p>
+          ) : null}
+          {row.order_status == "Delivered" ? (
+            <p className="delivered-text">{row.order_status}</p>
+          ) : null}
+          {row.order_status == "Cancelled" ? (
+            <p className="cancelled-text">{row.order_status}</p>
+          ) : null}
         </div>
-     ),
+      ),
     },
     {
       name: "Action",
@@ -120,7 +130,7 @@ const AllOrders = ({userDetails}) => {
           <MdEdit
             fontSize="2em"
             role="button"
-            onClick={(e) => onEditOrder(e,row)}
+            onClick={(e) => onEditOrder(e, row)}
           />
         </>
       ),
@@ -129,7 +139,6 @@ const AllOrders = ({userDetails}) => {
         fontWeight: "bold",
       },
     },
-    
   ];
   return (
     <AdminLayout title="All Orders">
@@ -142,20 +151,20 @@ const AllOrders = ({userDetails}) => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-                 <div className="search-widget mr-5">
+                <div className="search-widget mr-5">
                   <form>
-                    <input type="search" placeholder="Search orders ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <input
+                      type="search"
+                      placeholder="Search orders ..."
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
                     <button type="button">
                       <IoIosSearch />
                     </button>
                   </form>
                 </div>
                 <div className="single-icon filter-dropdown mt-2">
-                  <select
-                    onChange={(e) =>
-                      setFilter(e.target.value)
-                    }
-                  >
+                  <select onChange={(e) => setFilter(e.target.value)}>
                     <option value={null}>All</option>
                     <option value="Pending">Pending</option>
                     <option value="Confirmed">Confirmed</option>

@@ -2,6 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { MdViewComfy, MdApps, MdList } from "react-icons/md";
 import { IoMdFunnel } from "react-icons/io";
 import { setActiveLayout } from "../../lib/product";
+
 const ShopHeader = ({
   shopTopFilterStatus,
   setShopTopFilterStatus,

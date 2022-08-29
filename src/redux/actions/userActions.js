@@ -16,6 +16,10 @@ export const setCurrentUser = (
           type: "UPDATE_CART",
           payload:JSON.parse(userDetails?.cart_data || "[]")  
         })
+        dispatch({
+          type: "UPDATE_WISHLIST",
+          payload:JSON.parse(userDetails?.wishlist_data || "[]")  
+        })
       };
     }
     dispatch({

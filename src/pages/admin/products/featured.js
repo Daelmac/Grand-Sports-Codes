@@ -1,22 +1,13 @@
 import { AdminLayout } from "../../../components/Layout";
-import { Fragment, useState, useEffect } from "react";
-import { connect } from "react-redux";
-import Link from "next/link";
-import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
+import { useState, useEffect } from "react";
+import { MdDelete } from "react-icons/md";
 import { IoIosSearch, IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
-import Paginator from "react-hooks-paginator";
 import { SlideDown } from "react-slidedown";
 import { getSortedProducts } from "../../../lib/product";
 import { getFeaturedProducts } from "../../../api/productApi";
 import DataTable from "react-data-table-component";
-import Navbar from 'react-bootstrap/Navbar';
-import {
-  ShopHeader,
-  ShopFilter,
-  ShopSidebar,
-  ShopProducts,
-} from "../../../components/Shop";
+import { ShopFilter } from "../../../components/Shop";
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -139,10 +130,7 @@ const FeaturedProducts = () => {
     setFilterSortType(sortType);
     setFilterSortValue(sortValue);
   };
-  // useEffect(async () => {
-  //   const all_products = await getAllProducts();
-  //   if (all_products) setProducts(all_products);
-  // }, []);
+
   useEffect(() => {
     let sortedProducts = getSortedProducts(products, sortType, sortValue);
     const filterSortedProducts = getSortedProducts(
@@ -183,9 +171,13 @@ const FeaturedProducts = () => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-              <div className="search-widget mr-5">
+                <div className="search-widget mr-5">
                   <form>
-                    <input type="search" placeholder="Search products ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <input
+                      type="search"
+                      placeholder="Search products ..."
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
                     <button type="button">
                       <IoIosSearch />
                     </button>

@@ -176,5 +176,4 @@ const Contact = () => {
     </LayoutTwo>
   );
 };
-
 export default Contact;

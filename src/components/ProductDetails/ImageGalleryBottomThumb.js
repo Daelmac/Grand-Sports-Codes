@@ -1,15 +1,13 @@
 import { Fragment, useEffect, useState } from "react";
-import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery";
-import Swiper from "react-id-swiper";
+import { LightgalleryProvider } from "react-lightgallery";
 import {
   IoIosArrowBack,
   IoIosArrowForward,
-  IoMdExpand,
   IoIosHeartEmpty
 } from "react-icons/io";
 import { Tooltip } from "react-tippy";
 
-const   ImageGalleryBottomThumb = ({
+const ImageGalleryBottomThumb = ({
   product,
   wishlistItem,
   addToast,
@@ -33,43 +31,8 @@ const   ImageGalleryBottomThumb = ({
   }, [gallerySwiper, thumbnailSwiper]);
 
   // swiper slider settings
-  const gallerySwiperParams = {
-    getSwiper: getGallerySwiper,
-    spaceBetween: 10,
-    loopedSlides: 4,
-    loop: true,
-    effect: "fade",
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true
-    }
-  };
 
-  const thumbnailSwiperParams = {
-    getSwiper: getThumbnailSwiper,
-    spaceBetween: 10,
-    slidesPerView: 4,
-    loopedSlides: 4,
-    touchRatio: 0.2,
-    freeMode: true,
-    loop: true,
-    slideToClickedSlide: true,
-    centeredSlides: true,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev"
-    },
-    renderPrevButton: () => (
-      <button className="swiper-button-prev ht-swiper-button-nav">
-        <IoIosArrowBack />
-      </button>
-    ),
-    renderNextButton: () => (
-      <button className="swiper-button-next ht-swiper-button-nav">
-        <IoIosArrowForward />
-      </button>
-    )
-  };
+
   return (
     <Fragment>
       <div className="product-large-image-wrapper space-mb--30">
@@ -99,7 +62,6 @@ const   ImageGalleryBottomThumb = ({
             duration={200}
           >
             <button
-              className=""
               onClick={
                 wishlistItem !== undefined
                   ? () => deleteFromWishlist(product, addToast)
@@ -114,25 +76,7 @@ const   ImageGalleryBottomThumb = ({
           </Tooltip>
         </div>
         <LightgalleryProvider>
-          {/* <Swiper {...gallerySwiperParams}> */}
                   <div>
-                    {/* <LightgalleryItem
-                      group="any"
-                      src={process.env.API_URL+product.product_image}
-                    >
-                      <Tooltip
-                        title="Click to enlarge"
-                        position="left"
-                        trigger="mouseenter"
-                        animation="shift"
-                        arrow={true}
-                        duration={200}
-                      >
-                        <button className="enlarge-icon">
-                          <IoMdExpand />
-                        </button>
-                      </Tooltip>
-                    </LightgalleryItem> */}
                     <div className="single-image" style={{textAlign: 'center'}}>
                       <img
                        src={process.env.API_URL+product.product_image}
@@ -142,23 +86,8 @@ const   ImageGalleryBottomThumb = ({
                       />
                     </div>
                   </div>
-               
-          {/* </Swiper> */}
         </LightgalleryProvider>
       </div>
-      {/* <div className="product-small-image-wrapper">
-        <Swiper {...thumbnailSwiperParams}>
-                <div >
-                  <div className="single-image">
-                    <img
-                      src={process.env.API_URL+product.product_image}
-                      className="img-fluid"
-                      alt=""
-                    />
-                  </div>
-                </div>
-        </Swiper>
-      </div> */}
     </Fragment>
   );
 };

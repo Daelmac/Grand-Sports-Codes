@@ -1,13 +1,10 @@
 import { AdminLayout } from "../../components/Layout";
-import { Fragment, useState, useEffect} from "react";
+import { useState, useEffect} from "react";
 import { connect } from "react-redux";
-import Link from "next/link";
-import { MdViewComfy, MdApps, MdList, MdEdit, MdDelete } from "react-icons/md";
 import { IoIosSearch, IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { getCustomers,disableCustomer,enableCustomer } from "../../api/userApi";
 import DataTable from "react-data-table-component";
-import { useDispatch } from 'react-redux'
 import { useToasts } from "react-toast-notifications";
 
 
@@ -18,11 +15,10 @@ const Customers = ({userDetails}) => {
   const [searchText, setSearchText] = useState("");
   const [filter,setFilter] = useState("all")
   const [toggleFlag,setToggleFlag] = useState(false);
-  const dispatch = useDispatch()
   const { addToast } = useToasts();
   
   useEffect(async () => {
-    let all_customers= await dispatch( getCustomers(userDetails,filter))
+    let all_customers= await getCustomers(userDetails,filter)
     if(all_customers) setCustomers(all_customers)
   }, [filter,toggleFlag]);
   useEffect(() => {
@@ -40,12 +36,9 @@ const Customers = ({userDetails}) => {
     customers,
     searchText,
   ]);
-  const onDeleteProduct = (product) => {
-    console.log("IN Delete==>", product);
-  };
   const ChnageCustomerStatus = async(e, row) => {
     if(row.customer_permitted){
-      let response = await dispatch( disableCustomer(userDetails,row.customer_id))
+      let response = await disableCustomer(userDetails,row.customer_id)
       if(response?.status === "success"){
         setToggleFlag(!toggleFlag)
         addToast("Customer successfully Deactivated.", {
@@ -59,7 +52,7 @@ const Customers = ({userDetails}) => {
       });
     }  
     else{
-      let response = await dispatch( enableCustomer(userDetails,row.customer_id))
+      let response = await enableCustomer(userDetails,row.customer_id)
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)
         addToast("Customer successfully Activated.", {
