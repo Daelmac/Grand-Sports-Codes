@@ -4,10 +4,27 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import { IoIosArrowRoundUp } from "react-icons/io";
 import { animateScroll } from "react-scroll";
+import { connect } from "react-redux";
+import Modal from "react-bootstrap/Modal";
+import {setCurrentUser } from "../../redux/actions/userActions";
+import { useToasts } from "react-toast-notifications";
+import Router from "next/router";
 
-const FooterTwo = ({ footerBgClass }) => {
+const FooterTwo = ({ footerBgClass, userDetails ,setCurrentUser }) => {
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
+  const [showLogoutModel, setShowLogoutModel] = useState(false);
+  const { addToast } = useToasts();
+
+  const handleClose = () => setShowLogoutModel(false);
+  const handleShow = () => {
+    setShowLogoutModel(true);
+  };
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setCurrentUser({}, addToast);
+    Router.push("/login-register");
+  };
 
   useEffect(() => {
     setTop(100);
@@ -62,7 +79,7 @@ const FooterTwo = ({ footerBgClass }) => {
                 <li>
                   <Link
                     href="/about"
-                    // as={process.env.PUBLIC_URL + "/about"}
+                    as={process.env.PUBLIC_URL + "/about"}
                   >
                     <a>About Us</a>
                   </Link>
@@ -78,7 +95,7 @@ const FooterTwo = ({ footerBgClass }) => {
                 <li>
                   <Link
                     href="/contact"
-                    // as={process.env.PUBLIC_URL + "/contact"}
+                    as={process.env.PUBLIC_URL + "/contact"}
                   >
                     <a>Contact Us</a>
                   </Link>
@@ -97,21 +114,49 @@ const FooterTwo = ({ footerBgClass }) => {
                 <li>
                   <Link
                     href="/faq"
-                    // as={process.env.PUBLIC_URL + "/faq"}
+                    as={process.env.PUBLIC_URL + "/faq"}
                   >
                     <a>FAQs</a>
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/admin/login"
-                    // as={process.env.PUBLIC_URL + "/admin/login"}
-                  >
-                    <a>Admin Login</a>
-                  </Link>
+                  {userDetails && userDetails.role === "customer" ? (
+
+                      
+                        <a role="button" onClick={handleShow}>Logout</a>
+                     
+                    
+                  ) : (
+                    <Link
+                      href="/admin/login"
+                      as={process.env.PUBLIC_URL + "/admin/login"}
+                    >
+                      <a>Admin Login</a>
+                    </Link>
+                  )}
                 </li>
               </ul>
             </nav>
+            <Modal show={showLogoutModel} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Logout</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Are you sure you want to Logout,
+                <b>{userDetails?.user_name}</b> ?
+              </Modal.Body>
+              <Modal.Footer>
+                <button className="cancel-btn-small" onClick={handleClose}>
+                  Cancel
+                </button>
+                <button
+                  className="lezada-button lezada-button--small"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </Modal.Footer>
+            </Modal>
           </Col>
 
           <Col className="footer-single-widget space-mb--50">
@@ -156,5 +201,16 @@ const FooterTwo = ({ footerBgClass }) => {
     </footer>
   );
 };
-
-export default FooterTwo;
+const mapStateToProps = (state) => {
+  return {
+    userDetails: state.currentUserData,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentUser: (user, addToast) => {
+      dispatch(setCurrentUser(user, addToast));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(FooterTwo);

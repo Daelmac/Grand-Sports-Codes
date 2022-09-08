@@ -2,6 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { MdViewComfy, MdApps, MdList } from "react-icons/md";
 import { IoMdFunnel } from "react-icons/io";
 import { setActiveLayout } from "../../lib/product";
+import { IoIosSearch } from "react-icons/io";
 
 const ShopHeader = ({
   shopTopFilterStatus,
@@ -11,7 +12,8 @@ const ShopHeader = ({
   productCount,
   getLayout,
   layoutClass,
-  listMode
+  listMode,
+  getSearchParam
 }) => {
   return (
     <div className="shop-header">
@@ -37,6 +39,7 @@ const ShopHeader = ({
 
               <div className="single-icon grid-icons d-none d-lg-block">
                 <button
+                  className="active"
                   onClick={(e) => {
                     getLayout("grid three-column");
                     setActiveLayout(e);
@@ -45,7 +48,7 @@ const ShopHeader = ({
                   <MdApps />
                 </button>
 
-                <button
+                {/* <button
                   className="active"
                   onClick={(e) => {
                     getLayout("grid four-column");
@@ -53,7 +56,7 @@ const ShopHeader = ({
                   }}
                 >
                   <MdViewComfy />
-                </button>
+                </button> */}
                 {listMode === false ? (
                   ""
                 ) : (
@@ -76,6 +79,20 @@ const ShopHeader = ({
                   <IoMdFunnel /> Filter
                 </button>
               </div>
+            </div>
+          </Col>
+          <Col md={8} className="mx-auto my-3">
+            <div className="search-widget mobile-search-widget">
+              <form>
+                <input
+                  type="search"
+                  placeholder="Search products ..."
+                  onChange={(e) => getSearchParam(e.target.value)}
+                />
+                <button type="button">
+                  <IoIosSearch />
+                </button>
+              </form>
             </div>
           </Col>
         </Row>

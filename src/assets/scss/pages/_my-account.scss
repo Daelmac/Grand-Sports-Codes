@@ -36,8 +36,8 @@
 
   &__content {
     padding: 30px;
-
     border: 1px solid $grey--ten;
+    border-radius: 5px;
 
 @include respond(large-mobile) {
       padding: 20px 15px;
@@ -53,9 +53,7 @@
     h3 {
       font-size: 20px;
       font-weight: 600;
-
-      margin-bottom: 25px;
-      padding-bottom: 10px;
+      padding-bottom: 15px;
 
       border-bottom: 1px dashed $grey--eleven;
     }

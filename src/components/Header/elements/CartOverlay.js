@@ -128,13 +128,13 @@ const CartOverlay = ({
               <div className="cart-buttons">
                 <Link
                   href="/cart"
-                  // as={process.env.PUBLIC_URL + "/cart"}
+                  as={process.env.PUBLIC_URL + "/cart"}
                 >
                   view cart
                 </Link>
                 <Link
                   href="/checkout"
-                  // as={process.env.PUBLIC_URL + "/checkout"}
+                  as={process.env.PUBLIC_URL + "/checkout"}
                 >
                   checkout
                 </Link>

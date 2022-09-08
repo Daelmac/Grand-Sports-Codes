@@ -14,7 +14,7 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
   const { addToast } = useToasts();
 
   return (
-    <LayoutTwo>
+    <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
       {/* <BreadcrumbOne
         pageTitle="Compare"
@@ -30,7 +30,15 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
           <li>Compare</li>
         </ul>
       </BreadcrumbOne> */}
-      <div className="compare-area space-mt--r130 space-mb--r130">
+      {/* <Container>
+      <Row>
+        <Col>
+          <h1 className="breadcrumb__title">Compare</h1>
+           </Col>
+         </Row>
+       </Container> */}
+      {/* cart content */}
+      <div className="cart-content mt-2 space-mb--r130">
         <Container>
           <Row>
             <Col>
@@ -45,7 +53,7 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                               <th className="title-column">Product Info</th>
                               {compareItems.map((product, i) => {
                                 const cartItem = cartItems.filter(
-                                  (item) => item.id === product.product_id
+                                  (item) => item.product_id === product.product_id
                                 )[0];
                                 return (
                                   <td className="product-image-title" key={i}>
@@ -67,6 +75,7 @@ const Compare = ({ cartItems, compareItems, addToCart, deleteFromCompare }) => {
                                           className="img-fluid"
                                           src={process.env.API_URL+product.product_image}
                                           alt=""
+                                          style={{height:"170px",width:"170px",objectFit: "contain"}}
                                         />
                                       </a>
                                     </Link>

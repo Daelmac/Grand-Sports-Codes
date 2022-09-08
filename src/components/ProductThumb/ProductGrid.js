@@ -29,7 +29,7 @@ const ProductGrid = ({
       <Col
         lg={column && column === 4 ? 3 : 4}
         md={6}
-        className={bottomSpace ? bottomSpace : ""}
+        className={bottomSpace ? bottomSpace : "" + "card-space"}
       >
         <div className="product-grid">
           {/*=======  single product image  =======*/}
@@ -45,7 +45,7 @@ const ProductGrid = ({
                   src={process.env.API_URL+product.product_image}
                   className="img-fluid"
                   alt={product.product_name}
-                  style={{height:"170px",width:"auto"}}
+                  style={{height:"170px",width:"170px",objectFit: "contain"}}
                 />
               </div>
             </Link>

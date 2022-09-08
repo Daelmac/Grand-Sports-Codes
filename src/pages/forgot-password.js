@@ -91,7 +91,7 @@ const ForgotPassword = ({userDetails}) => {
               <div className="lezada-form login-form">
                 <div className="header-content__logo d-flex align-items-center justify-content-center pb-2">
                     <Link href="/" 
-                    // as={process.env.PUBLIC_URL + "/"}
+                    as={process.env.PUBLIC_URL + "/"}
                     >
                         <a>
                         <img
@@ -131,7 +131,7 @@ const ForgotPassword = ({userDetails}) => {
                       {/* <input type="checkbox" />{" "}
                       <span className="remember-text">Remember me</span> */}
                        <Link href="/login-register" 
-                      //  as={process.env.PUBLIC_URL + "/login-register"}
+                       as={process.env.PUBLIC_URL + "/login-register"}
                        >
                       <a className="reset-pass-link">
                         login ?

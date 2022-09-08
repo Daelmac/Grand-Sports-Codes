@@ -128,7 +128,7 @@ const Customers = ({userDetails}) => {
     
   ];
   return (
-    <AdminLayout title="Featured Products">
+    <AdminLayout title="All customers">
       <div className="shop-page-content">
         <Container className={"grid four-column"}>
           <Row className="align-items-center mt-5">

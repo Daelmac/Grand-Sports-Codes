@@ -1,4 +1,5 @@
 import axioss from "../pages/axiosConfig";
+import {getAuthConfig} from "../core/utils"
 
 const Adminlogin = async (user) => {
   try {
@@ -94,7 +95,7 @@ const CreateAdmin = async(adminData)  => {
     params.append("email", adminData.email);
     params.append("password", adminData.password);
     params.append("username", `${adminData.firstName} ${adminData.lastName}`);
-    const result = await axioss.post(`/create_admin`, params);
+    const result = await axioss.post(`/create_admin`, params,getAuthConfig());
     return result ? result.data : null;
   } catch (e) {
     return null;
@@ -106,7 +107,7 @@ const getCustomers = async(admin, filter) => {
     let params = new FormData();
     params.append("admin_id", admin?.admin_id);
     params.append("filter", filter);
-    const result = await axioss.post(`/all_customers`, params);
+    const result = await axioss.post(`/all_customers`, params,getAuthConfig());
     return result ? result.data.customers : null;
   } catch (e) {
     return null;
@@ -115,7 +116,7 @@ const getCustomers = async(admin, filter) => {
 
 const getAdmins = async() => {
   try {
-    const result = await axioss.get(`/all_admins`);
+    const result = await axioss.get(`/all_admins`,getAuthConfig());
     return result ? result.data.admins : null;
   } catch (e) {
     return null;
@@ -127,7 +128,7 @@ const updateCustomerAddress = async(customer, address) => {
     params.append("customer_id", customer?.customer_id);
     params.append("address", address);
     console.log(customer);
-    const result = await axioss.post(`/set_default_billing_address`, params);
+    const result = await axioss.post(`/set_default_billing_address`, params,getAuthConfig());
     return result ? result.data : null;
   } catch (e) {
     return null;
@@ -139,7 +140,7 @@ const enableCustomer = async(admin, customer_id) => {
     params.append("customer_id", customer_id);
     params.append("admin_id", admin.admin_id);
 
-    const result = await axioss.post(`/admin_enable_customer`, params);
+    const result = await axioss.post(`/admin_enable_customer`, params,getAuthConfig());
     return result ? result.data : null;
   } catch (e) {
     return null;
@@ -151,7 +152,7 @@ const disableCustomer = async(admin, customer_id) =>  {
     params.append("customer_id", customer_id);
     params.append("admin_id", admin.admin_id);
 
-    const result = await axioss.post(`/admin_disable_customer`, params);
+    const result = await axioss.post(`/admin_disable_customer`, params,getAuthConfig());
     return result ? result.data : null;
   } catch (e) {
     return null;
@@ -164,7 +165,7 @@ const updateCartData = async(customer, cartData)  => {
     params.append("customer_id", customer.customer_id);
     params.append("cart_data", cartData);
 
-    const result = await axioss.post(`/update_cart_data`, params);
+    const result = await axioss.post(`/update_cart_data`, params,getAuthConfig());
     return result ? result.data : null;
   } catch (e) {
     return null;
@@ -176,7 +177,7 @@ const updateWishlistData = async(customer, wishlistData) => {
     params.append("customer_id", customer.customer_id);
     params.append("wishlist_data", wishlistData);
 
-    const result = await axioss.post(`/update_wishlist_data`, params);
+    const result = await axioss.post(`/update_wishlist_data`, params,getAuthConfig());
     return result ? result.data : null;
   } catch (e) {
     return null;
@@ -190,7 +191,7 @@ const changeCustomerPassword = async(customer,passwordData) => {
     params.append("current_password", passwordData.currentPassword);
     params.append("new_password", passwordData.password);
 
-    const result = await axioss.post(`/customer_change_password`, params);
+    const result = await axioss.post(`/customer_change_password`, params,getAuthConfig());
     return result ? result.data : null;
   } catch (e) {
     return null;

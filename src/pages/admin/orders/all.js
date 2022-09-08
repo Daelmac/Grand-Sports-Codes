@@ -66,7 +66,7 @@ const AllOrders = ({ userDetails }) => {
       selector: (row) => row.receipt_id,
       left: true,
       sortable: true,
-      width: "15%",
+      width: "14%",
       cell: (row) => <p>{row.receipt_id}</p>,
     },
     {
@@ -74,7 +74,7 @@ const AllOrders = ({ userDetails }) => {
       selector: (row) => row.customer_id,
       left: true,
       sortable: true,
-      width: "15%",
+      width: "14%",
       cell: (row) => <p>{row.customer.id}</p>,
     },
     {
@@ -101,7 +101,7 @@ const AllOrders = ({ userDetails }) => {
       selector: (row) => row.order_status,
       left: true,
       sortable: true,
-      width: "10%",
+      width: "12%",
       cell: (row) => (
         <div>
           {row.order_status == "Pending" ? (
@@ -118,6 +118,9 @@ const AllOrders = ({ userDetails }) => {
           ) : null}
           {row.order_status == "Cancelled" ? (
             <p className="cancelled-text">{row.order_status}</p>
+          ) : null}
+          {row.order_status == "Refunded" ? (
+            <p className="refunded-text">{row.order_status}</p>
           ) : null}
         </div>
       ),
@@ -171,6 +174,7 @@ const AllOrders = ({ userDetails }) => {
                     <option value="Shipped">Shipped</option>
                     <option value="Delivered">Delivered</option>
                     <option value="Cancelled">Cancelled</option>
+                    <option value="Refunded">Refunded</option>
                   </select>
                 </div>
               </div>

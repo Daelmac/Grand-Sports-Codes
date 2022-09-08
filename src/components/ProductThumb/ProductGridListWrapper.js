@@ -8,10 +8,10 @@ import {
   addToWishlist,
   deleteFromWishlist
 } from "../../redux/actions/wishlistActions";
-// import {
-//   addToCompare,
-//   deleteFromCompare
-// } from "../../redux/actions/compareActions";
+import {
+  addToCompare,
+  deleteFromCompare
+} from "../../redux/actions/compareActions";
 import ProductGridList from "./ProductGridList";
 
 const ProductGridWrapper = ({

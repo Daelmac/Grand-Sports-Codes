@@ -4,7 +4,7 @@ import {
   setActiveSort
 } from "../../lib/product";
 
-const ShopFilter = ({ products, getSortParams }) => {
+const ShopFilter = ({ products, getSortParams , setShopTopFilterStatus,shopTopFilterStatus}) => {
   const categories = getIndividualCategories(products);
 
 
@@ -23,6 +23,7 @@ const ShopFilter = ({ products, getSortParams }) => {
                       onClick={(e) => {
                         getSortParams("category", "");
                         setActiveSort(e);
+                        setShopTopFilterStatus(!shopTopFilterStatus)
                       }}
                     >
                       All categories
@@ -35,6 +36,7 @@ const ShopFilter = ({ products, getSortParams }) => {
                           onClick={(e) => {
                             getSortParams("category", category);
                             setActiveSort(e);
+                            setShopTopFilterStatus(!shopTopFilterStatus)
                           }}
                         >
                           {category}
@@ -46,6 +48,60 @@ const ShopFilter = ({ products, getSortParams }) => {
               ) : (
                 "No categories found"
               )}
+            </div>
+          </Col>
+          <Col lg={3} md={6} className="space-mb-mobile-only--30">
+            <div className="single-filter-widget">
+              <h2 className="single-filter-widget__title">Types</h2>
+           
+                <ul className="single-filter-widget__list">
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        getSortParams("typeSort", "default");
+                        setActiveSort(e);
+                        setShopTopFilterStatus(!shopTopFilterStatus)
+                      }}
+                    >
+                     All
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        getSortParams("typeSort", "newProducts");
+                        setActiveSort(e);
+                        setShopTopFilterStatus(!shopTopFilterStatus)
+                      }}
+                    >
+                     New Products
+                    </button>
+                  </li>   
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        getSortParams("typeSort", "featuredProducts");
+                        setActiveSort(e);
+                        setShopTopFilterStatus(!shopTopFilterStatus)
+                      }}
+                    >
+                     Featured Products
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        getSortParams("typeSort", "bestSellingProducts");
+                        setActiveSort(e);
+                        setShopTopFilterStatus(!shopTopFilterStatus)
+                      }}
+                    >
+                     Best Selling products
+                    </button>
+                  </li>
+    
+                
+                </ul>
             </div>
           </Col>
         </Row>

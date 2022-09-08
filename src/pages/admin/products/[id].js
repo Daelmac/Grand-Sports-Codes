@@ -52,7 +52,7 @@ const Product = ({ userDetails }) => {
     discount: "",
     image: "",
     description: "",
-    isAvailable: true,
+    isAvailable:null,
   });
   const [productErrors, setproductErrors] = useState({
     nameErrMsg: "",
@@ -318,7 +318,7 @@ const Product = ({ userDetails }) => {
                       id="productAvailable"
                       name="isAvailable"
                       value={product.isAvailable}
-                      onSelect={handleProductDataChange}
+                      onChange={handleProductDataChange}
                     >
                       <option value={true}>Yes</option>
                       <option value={false}>No</option>

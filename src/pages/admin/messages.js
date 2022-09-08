@@ -4,64 +4,84 @@ import { connect } from "react-redux";
 import { MdDelete } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
-import { getAdmins } from "../../api/userApi";
+import { get_all_messages } from "../../api/messagesApi";
 import DataTable from "react-data-table-component";
 
-const AdminList = () => {
-  const [admins, setAdmins] = useState([]);
-  const [currentAdmims, setcurrentAdmins] = useState([]);
+const Messages = () => {
+  const [messages, setMessages] = useState([]);
+  const [currentMessages, setcurrentMessages] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   useEffect(async () => {
-    let all_admins = await getAdmins()
-    if(all_admins) setAdmins(all_admins)
+    let all_messages = await get_all_messages()
+    if(all_messages) setMessages(all_messages)
   },[]);
   useEffect(() => {
     if (searchText != "") {
-      const filterCurrentData = currentAdmims.filter(
+      const filterCurrentData = currentMessages.filter(
         (item) =>
-          item.admin_name &&
-          item.admin_name.toLowerCase().includes(searchText.toLowerCase())
+        item.name &&
+          (item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            item?.email.toLowerCase().includes(searchText.toLowerCase()))
       );
-      setcurrentAdmins(filterCurrentData);
+      setcurrentMessages(filterCurrentData);
     } else {
-      setcurrentAdmins(admins);
+      setcurrentMessages(messages);
     }
   }, [
-    admins,
+    messages,
     searchText,
   ]);
-  const onDeleteProduct = (product) => {
-    console.log("IN Delete==>", product);
-  };
   const columns = [
     {
-      name: "Id",
-      selector: (row) => row.admin_id,
+      name: "Date",
+      selector: (row) => row.date,
       left: true,
       sortable: true,
-      width: "30%",
-      cell: (row) => <p>{row.admin_id}</p>,
+      width: "10%",
+      cell: (row) => (
+        <p>
+          {new Date(row.date).toLocaleDateString("en-IN", {
+            timeZone: "Asia/Kolkata",
+          })}
+        </p>
+      ),
     },
     {
       name: "Name",
-      selector: (row) => row.admin_name,
+      selector: (row) => row.name,
       left: true,
       sortable: true,
-      width: "30%",
-      cell: (row) => <p>{row.admin_name}</p>,
+      width: "15%",
+      cell: (row) => <p>{row.name}</p>,
       style: {
         fontWeight: "bold",
       },
     },
     {
       name: "Email",
-      selector: (row) => row.admin_email,
+      selector: (row) => row.email,
       left: true,
       sortable: true,
-      width: "30%",
-      cell: (row) => <p>{row.admin_email}</p>,
+      width: "20%",
+      cell: (row) => <p>{row.email}</p>,
     },
+    {
+        name: "Subject",
+        selector: (row) => row.subject,
+        left: true,
+        sortable: true,
+        width: "15%",
+        cell: (row) => <p>{row.subject}</p>,
+      },
+      {
+        name: "Message",
+        selector: (row) => row.message,
+        left: true,
+        sortable: true,
+        width: "40%",
+        cell: (row) => <p>{row.message}</p>,
+      },
     // {
     //   name: "Action",
     //   left: true,
@@ -83,12 +103,12 @@ const AdminList = () => {
     
   ];
   return (
-    <AdminLayout title="All Admins">
+    <AdminLayout title="All messages">
       <div className="shop-page-content">
         <Container className={"grid four-column"}>
           <Row className="align-items-center mt-5">
             <Col md={5} className="text-center text-md-left">
-              Total Admins : {admins.length}
+              Total Messages : {messages.length}
             </Col>
 
             <Col md={7}>
@@ -96,7 +116,7 @@ const AdminList = () => {
   
                 <div className="search-widget mr-5">
                   <form>
-                    <input type="search" placeholder="Search admins ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <input type="search" placeholder="Search messages ..."  onChange={(e) => setSearchText(e.target.value)}/>
                     <button type="button">
                       <IoIosSearch />
                     </button>
@@ -108,11 +128,11 @@ const AdminList = () => {
           </Row>
         </Container>
         <Container className="mt-5">
-          <DataTable columns={columns} data={currentAdmims} pagination />
+          <DataTable columns={columns} data={currentMessages} pagination />
         </Container>
       </div>
     </AdminLayout>
   );
 };
 
-export default AdminList;
+export default Messages;

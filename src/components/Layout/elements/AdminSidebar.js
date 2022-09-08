@@ -61,7 +61,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
             <div className="header-content__logo d-flex align-items-center justify-content-center mb-4">
               <Link
                 href="/admin/dashboard"
-                // as={process.env.PUBLIC_URL + "/admin/dashboard"}
+                as={process.env.PUBLIC_URL + "/admin/dashboard"}
               >
                 <a>
                   <img
@@ -79,7 +79,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
               <li className="mb-2">
                 <Link
                   href="/admin/dashboard"
-                  // as={process.env.PUBLIC_URL + "/admin/dashboard"}
+                  as={process.env.PUBLIC_URL + "/admin/dashboard"}
                 >
                   <a>Dashboard</a>
                 </Link>
@@ -88,7 +88,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
               <li className="menu-item-has-children mb-2 ">
                 <Link
                   href="/admin/orders/all"
-                  // as={process.env.PUBLIC_URL + "/admin/orders/all"}
+                  as={process.env.PUBLIC_URL + "/admin/orders/all"}
                 >
                   <a>Orders</a>
                 </Link>
@@ -96,7 +96,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                   <li>
                     <Link
                       href="/admin/orders/receipts"
-                      // as={process.env.PUBLIC_URL + "/admin/orders/receipts"}
+                      as={process.env.PUBLIC_URL + "/admin/orders/receipts"}
                     >
                       <a>All Receipts</a>
                     </Link>
@@ -104,7 +104,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                   <li>
                     <Link
                       href="/admin/orders/all"
-                      // as={process.env.PUBLIC_URL + "/admin/orders/all"}
+                      as={process.env.PUBLIC_URL + "/admin/orders/all"}
                     >
                       <a>All Orders</a>
                     </Link>
@@ -114,7 +114,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
               <li className="menu-item-has-children mb-2 ">
                 <Link
                   href="/admin/products/all"
-                  // as={process.env.PUBLIC_URL + "/admin/products/all"}
+                  as={process.env.PUBLIC_URL + "/admin/products/all"}
                 >
                   <a>Products</a>
                 </Link>
@@ -122,7 +122,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                   <li>
                     <Link
                       href="/admin/products/add"
-                      // as={process.env.PUBLIC_URL + "/admin/products/add"}
+                      as={process.env.PUBLIC_URL + "/admin/products/add"}
                     >
                       <a>Add Product</a>
                     </Link>
@@ -164,16 +164,23 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
               <li className="mb-2">
                 <Link
                   href="/admin/customers"
-                  // as={process.env.PUBLIC_URL + "/admin/customers"}
+                  as={process.env.PUBLIC_URL + "/admin/customers"}
                 >
                   <a>Customers</a>
                 </Link>
               </li>
-
+              <li className="mb-2">
+                <Link
+                  href="/admin/messages"
+                  as={process.env.PUBLIC_URL + "/admin/customers"}
+                >
+                  <a>Messages</a>
+                </Link>
+              </li>
               <li className="menu-item-has-children mb-2 ">
                 <Link
                   href="/admin/list"
-                  // as={process.env.PUBLIC_URL + "/admin/list"}
+                  as={process.env.PUBLIC_URL + "/admin/list"}
                 >
                   <a>Admins</a>
                 </Link>
@@ -181,7 +188,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                   <li>
                     <Link
                       href="/admin/add"
-                      // as={process.env.PUBLIC_URL + "/admin/add"}
+                      as={process.env.PUBLIC_URL + "/admin/add"}
                     >
                       <a>Add Admin</a>
                     </Link>
@@ -189,7 +196,7 @@ const AdminSidebar = ({ setCurrentUser, adminDetails }) => {
                   <li>
                     <Link
                       href="/admin/list"
-                      // as={process.env.PUBLIC_URL + "/admin/list"}
+                      as={process.env.PUBLIC_URL + "/admin/list"}
                     >
                       <a>All Admins</a>
                     </Link>

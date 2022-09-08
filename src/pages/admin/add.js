@@ -110,7 +110,7 @@ const AddAdmin = () => {
     return isValid;
   };
   return (
-    <AdminLayout title="craete Admin">
+    <AdminLayout title="Create Admin">
       <div className="login-area">
         <Container>
           <Row>

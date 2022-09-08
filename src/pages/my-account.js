@@ -2,7 +2,7 @@ import Link from "next/link";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaCloudDownloadAlt, FaRegEdit } from "react-icons/fa";
+import { FaRegEdit } from "react-icons/fa";
 import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
 import { connect } from "react-redux";
@@ -16,6 +16,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { update_address, setCurrentUser } from "../redux/actions/userActions";
 import Modal from 'react-bootstrap/Modal';
+import {COUNTRY_LIST} from "../core/utils"
 
 const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
   const PhoneRegX = /^([+]\d{2})?\d{10}$/;
@@ -299,7 +300,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
           <Tab.Container defaultActiveKey="dashboard">
             <Nav
               variant="pills"
-              className="my-account-area__navigation space-mb--r60"
+              className="my-account-area__navigation space-mb--r"
             >
               <Nav.Item>
                 <Nav.Link eventKey="dashboard">Dashboard</Nav.Link>
@@ -330,7 +331,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                   </p>
                 </div>
                 <button
-                  className="lezada-button lezada-button--small mt-2"
+                  className="lezada-button lezada-button--small mt-4"
                   onClick={handleShow}
                 >
                   Logout
@@ -373,9 +374,9 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                       Order Date: <em>{new Date(purchase?.date).toLocaleDateString("en-IN", {timeZone: 'Asia/Kolkata'})}</em>
                     </span>
                   </div>
-                  {purchase.orders?.map(order=>(
+                  <Accordion>
+                  {purchase.orders?.map((order,index)=>(
                     <div key={order.id}>
-                    <Accordion>
                       <Card>
                         <Card.Header className="p-2s">
                           <div className="order-list-wrp">
@@ -389,31 +390,39 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                   </span>
                                   <div className="pro-name">
                                   {/* <h5>Product Name</h5> */}
+                                  <Link
+                              href={`/shop/product/[id]?id=${order.product_id}`}
+                              as={`${process.env.PUBLIC_URL}/shop/product/${order.product_id}`}
+                            >
+                              <a>
                                   <p>{order.product.name}</p>
+                                  </a></Link>
                                 </div>
                               </div>
                               <div className="d-flex">
                               <div className="pro-qut">
                                 <h5>Quantity</h5>
-                                <p className="font-weight-bold">{order.quantity}</p>
+                                <p className="bold-text">{order.quantity}</p>
+                              </div>
+                              
+                              <div className="pro-total">
+                                <h5>Order Amount</h5>
+                                <p className="bold-text">&#8377;{order.total_amount}</p>
                               </div>
                               <div className="pro-status">
-                                <h5>Status</h5>
+                                {/* <h5>Status</h5> */}
                                 {order.order_status == "Pending"?<p className="pending-text">{order.order_status}</p>:null}
                                 {order.order_status == "Confirmed"?<p className="confirm-text">{order.order_status}</p>:null}
                                 {order.order_status == "Shipped"?<p className="shipped-text">{order.order_status}</p>:null}
                                 {order.order_status == "Delivered"?<p className="delivered-text">{order.order_status}</p>:null}
                                 {order.order_status == "Cancelled"?<p className="cancelled-text">{order.order_status}</p>:null}
+                                {order.order_status == "Refunded"?<p className="refunded-text">{order.order_status}</p>:null}
                                 {/* <p>{order.order_status}</p> */}
-                              </div>
-                              <div className="pro-total">
-                                <h5>Order Amount</h5>
-                                <p className="font-weight-bold">&#8377;{order.total_amount}</p>
                               </div>
                               <Accordion.Toggle
                                 as={Button}
                                 variant="link"
-                                eventKey="0"
+                                eventKey={index+1}
                               >
                                 More info
                               </Accordion.Toggle>
@@ -421,7 +430,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                             </div>
                           </div>
                         </Card.Header>
-                        <Accordion.Collapse eventKey="0">
+                        <Accordion.Collapse eventKey={index+1}>
                           <Card.Body>
                             <div className="order-list-item-desc more_details_order">
                               <div className="pro-total">
@@ -444,11 +453,11 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                 <div className="delevary_patner">
                                 <div className="pro-total mb-2">
                                   <h5>Delivery Partner</h5>
-                                  <p className="font-weight-bold">{order?.order_delivery_partner}</p>
+                                  <p className="bold-text">{order?.order_delivery_partner}</p>
                                 </div>
                                 <div className="pro-total">
                                   <h5>Tracking ID</h5>
-                                  <p className="font-weight-bold">{order?.order_tracking_id}</p>
+                                  <p className="bold-text">{order?.order_tracking_id}</p>
                                 </div>
                               </div>:!(order.order_status == "Cancelled")?<button className="lezada-button lezada-button--small" onClick={()=>handleCancelShow(order)}>
                                 Cancel Order
@@ -459,9 +468,9 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                           </Card.Body>
                         </Accordion.Collapse>
                       </Card>
-                    </Accordion>
                   </div>
                   ))}
+                  </Accordion>
                   
                 </div>
                   ))
@@ -494,7 +503,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                   {addressEditMode ? (
                     <div className="lezada-form">
                       <form className="checkout-form">
-                        <div className="row row-40">
+                        <div className="row row-40 mt-5">
                           <div className="col-lg-7 space-mb--20">
                             {/* Billing Address */}
                             <div id="billing-form" className="space-mb--40">
@@ -556,13 +565,8 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                     value={addressDetails.country}
                                     onChange={handleAddressDataChange}
                                   >
-                                    <option value="Bangladesh">
-                                      Bangladesh
-                                    </option>
-                                    <option value="China">China</option>
-                                    <option value="Australia">Australia</option>
-                                    <option value="India">India</option>
-                                    <option value="Japan">Japan</option>
+                                    <option value="">Please select a country</option>
+                                     {COUNTRY_LIST.map(country =>(<option value={country} key={country}>{country}</option>) )}
                                   </select>
                                   <span className="error-text">
                                     {AddressDetailsError.countryErrMsg}

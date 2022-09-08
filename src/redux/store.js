@@ -12,9 +12,20 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export function initializeStore() {
-  return createStore(
-    persistedReducer,
-    composeWithDevTools(applyMiddleware(thunkMiddleware))
-  );
-}
+// export function initializeStore() {
+//   return createStore(
+//     persistedReducer,
+//     composeWithDevTools(applyMiddleware(thunkMiddleware))
+//   );
+// }
+
+let store;
+export const initializeStore = () => {
+    store = createStore(
+      persistedReducer,
+      composeWithDevTools(applyMiddleware(thunkMiddleware))
+    );
+return store;
+};
+
+export {store}

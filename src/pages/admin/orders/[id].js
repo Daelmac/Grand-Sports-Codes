@@ -230,6 +230,7 @@ const Order = () => {
                       <option value="Shipped">Shipped</option>
                       <option value="Delivered">Delivered</option>
                       <option value="Cancelled">Cancelled</option>
+                      <option value="Refunded">Refunded</option>
                     </select>
                     <span className="error-text">
                       {orderDetailsErrors.order_statusErrMsg}

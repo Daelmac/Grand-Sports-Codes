@@ -12,25 +12,25 @@ const NotFound = () => {
       >
         <Container>
           <Row>
-            <Col lg={6}>
+            <Col lg={12}>
               <div className="nothing-found-content">
                 <h1>Oops!</h1>
                 <h1 className="space-mb--50">Page not found!</h1>
                 <p className="direction-page">
                   PLEASE GO BACK TO{" "}
                   <Link href="/" 
-                  // as={process.env.PUBLIC_URL + "/"}
+                  as={process.env.PUBLIC_URL + "/"}
                   >
                     homepage
                   </Link>
                 </p>
               </div>
             </Col>
-            <Col lg={6}>
+            {/* <Col lg={6}>
           <img
           src={"/assets/images/not-found.gif"}> 
           </img>
-        </Col>
+        </Col> */}
           </Row>
         </Container>
         

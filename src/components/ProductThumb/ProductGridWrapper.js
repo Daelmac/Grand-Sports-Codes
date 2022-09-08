@@ -20,11 +20,11 @@ const ProductGridWrapper = ({
   addToCart,
   addToWishlist,
   deleteFromWishlist,
-  addToCompare,
-  deleteFromCompare,
+  // addToCompare,
+  // deleteFromCompare,
   cartItems,
   wishlistItems,
-  compareItems,
+  // compareItems,
   column
 }) => {
   const { addToast } = useToasts();
@@ -44,7 +44,7 @@ const ProductGridWrapper = ({
             (wishlistItem) => wishlistItem.product_id === product?.product_id
           )[0];
           // const compareItem = compareItems.filter(
-          //   (compareItem) => compareItem.id === product.product_id
+          //   (compareItem) => compareItem.product_id === product.product_id
           // )[0];
 
           return (

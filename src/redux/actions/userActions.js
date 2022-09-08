@@ -7,9 +7,13 @@ export const setCurrentUser = (
   addToast,
 ) => {
   return dispatch => {
+   //try this to clear all local storage
     if (addToast) {
-      console.log("DEdew",userDetails)
-      if(Object.keys(userDetails).length === 0) addToast("Logout Successfully", { appearance: "success", autoDismiss: true });
+      if(Object.keys(userDetails).length === 0){
+        addToast("Logout Successfully", { appearance: "success", autoDismiss: true });
+        dispatch({ type: "DELETE_ALL_FROM_CART" })
+        dispatch({ type: "DELETE_ALL_FROM_WISHLIST" });
+      }
       else {
         addToast("Login Successfully", { appearance: "success", autoDismiss: true });
         dispatch({
@@ -22,6 +26,7 @@ export const setCurrentUser = (
         })
       };
     }
+
     dispatch({
       type: SET_CURRENT_USER,
       payload:userDetails

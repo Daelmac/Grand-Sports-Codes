@@ -42,7 +42,7 @@ const HeaderTwo = () => {
             {/* logo */}
             <div className="header-content__logo d-flex align-items-center space-pr--15">
               <Link href="/" 
-              // as={process.env.PUBLIC_URL + "/"}
+              as={process.env.PUBLIC_URL + "/"}
               >
                 <a>
                   <img

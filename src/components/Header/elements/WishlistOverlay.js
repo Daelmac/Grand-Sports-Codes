@@ -115,7 +115,7 @@ const WishlistOverlay = ({
               <div className="wishlist-buttons">
                 <Link
                   href="/wishlist"
-                  // as={process.env.PUBLIC_URL + "/wishlist"}
+                  as={process.env.PUBLIC_URL + "/wishlist"}
                 >
                   <a>view wishlist</a>
                 </Link>

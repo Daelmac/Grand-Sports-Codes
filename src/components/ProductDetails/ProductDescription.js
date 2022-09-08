@@ -38,19 +38,6 @@ const ProductDescription = ({
   return (
     
     <div className="product-content">
-      {console.log(cartItems)}
-      {product.rating && product.rating > 0 ? (
-        <div className="product-content__rating-wrap d-block d-sm-flex space-mb--20">
-          <div className="product-content__rating space-mr--20">
-            {/* <ProductRating ratingValue={product.rating} /> */}
-          </div>
-          <div className="product-content__rating-count">
-            <a href="#">( {product.ratingCount} customer reviews )</a>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
       <h2 className="product-content__title space-mb--20">{product.product_name}</h2>
       <div className="product-content__price space-mb--20">
         {product.product_discount > 0 ? (

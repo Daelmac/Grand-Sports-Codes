@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 const AdminNavbar = ({ title,adminDetails }) => {
  
   return (
-    <Navbar style={{backgroundColor:"#f1f1f1"}}>
+    <Navbar style={{backgroundColor:"#f1f1f1", marginBottom:"10px"}}>
               <Container>
                 <Navbar.Brand href="#">{title}</Navbar.Brand>
                 <Navbar.Toggle />

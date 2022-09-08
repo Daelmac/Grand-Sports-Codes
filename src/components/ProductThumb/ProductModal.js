@@ -55,19 +55,22 @@ const ProductModal = (props) => {
     >
       <Modal.Body>
         <Modal.Header closeButton></Modal.Header>
-        <div className="product-quickview__image-wrapper">
+        <div className="main-card-body">
+        <Row>
+          <Col md={5} sm={12}>
+          <div className="product-quickview__image-wrapper">
              <div>
                 <div className="single-image">
                   <img
                     src={process.env.API_URL+product.product_image}
                     className="img-fluid"
                     alt=""
-                    style={{minWidth: "450px"}}
+                     
                   />
                 </div>
               </div>
         </div>
-        <Row>
+          </Col>
           <Col md={7} sm={12} className="ml-auto">
             <CustomScroll allowOuterScroll={true}>
               <div className="product-quickview__content">
@@ -90,7 +93,7 @@ const ProductModal = (props) => {
                   <p>{product.product_description}</p>
                 </div>
                   <Fragment>
-                    <div className="product-quickview__quantity space-mb--20">
+                    <div className="product-quickview__quantity space-mb--30">
                       <div className="product-quickview__quantity__title">
                         Quantity
                       </div>
@@ -192,6 +195,9 @@ const ProductModal = (props) => {
             </CustomScroll>
           </Col>
         </Row>
+
+        </div>
+        
       </Modal.Body>
     </Modal>
   );

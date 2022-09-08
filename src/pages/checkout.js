@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -8,10 +8,13 @@ import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
 import {addPurchases} from "../api/orderApi"
 import { useToasts } from "react-toast-notifications";
+import SelectSearch from 'react-select-search';
 import Router from "next/router";
+import {COUNTRY_LIST} from "../core/utils"
 import {
   deleteAllFromCart,
 } from "../redux/actions/cartActions.js";
+import PayPal from "../components/Payment/paypal"
 
 const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
   if (!(userDetails && userDetails.role === "customer"))
@@ -25,6 +28,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
   useEffect(() => {
     document.querySelector("body").classList.remove("overflow-hidden");
   });
+  const [checkout, setCheckout] = useState(false);
   const [orderDetails, setOrderDetails] = useState({
     name: address?.name || "",
     phone:address?.phone || "",
@@ -280,12 +284,9 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                                 value={orderDetails.country}
                                 onChange={handleOrdertDataChange}
                               >
-                                <option value="Bangladesh">Bangladesh</option>
-                                <option value="China">China</option>
-                                <option value="Australia">Australia</option>
-                                <option value="India">India</option>
-                                <option value="Japan">Japan</option>
-                              </select>
+                                <option value="">Please select a country</option>
+                                {COUNTRY_LIST.map(country =>(<option value={country} key={country}>{country}</option>) )}
+                              </select> 
                               <span className="error-text">
                                 {OrderDetailsError.countryErrMsg}
                               </span>
@@ -378,77 +379,21 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                             </div>
                           </div>
                           {/* Payment Method */}
+                          {(checkout === true) 
+                            ? <div  className="col-12">
+                              <PayPal />
+                            </div> 
+                              :
                           <div className="col-12">
-                            {/* <h4 className="checkout-title">Payment Method</h4>
-                            <div className="checkout-payment-method">
-                              <div className="single-method">
-                                <input
-                                  type="radio"
-                                  id="payment_check"
-                                  name="payment-method"
-                                  defaultValue="check"
-                                />
-                                <label htmlFor="payment_check">
-                                  Check Payment
-                                </label>
-                              </div>
-                              <div className="single-method">
-                                <input
-                                  type="radio"
-                                  id="payment_bank"
-                                  name="payment-method"
-                                  defaultValue="bank"
-                                />
-                                <label htmlFor="payment_bank">
-                                  Direct Bank Transfer
-                                </label>
-                              </div>
-                              <div className="single-method">
-                                <input
-                                  type="radio"
-                                  id="payment_cash"
-                                  name="payment-method"
-                                  defaultValue="cash"
-                                />
-                                <label htmlFor="payment_cash">
-                                  Cash on Delivery
-                                </label>
-                              </div>
-                              <div className="single-method">
-                                <input
-                                  type="radio"
-                                  id="payment_paypal"
-                                  name="payment-method"
-                                  defaultValue="paypal"
-                                />
-                                <label htmlFor="payment_paypal">Paypal</label>
-                              </div>
-                              <div className="single-method">
-                                <input
-                                  type="radio"
-                                  id="payment_payoneer"
-                                  name="payment-method"
-                                  defaultValue="payoneer"
-                                />
-                                <label htmlFor="payment_payoneer">
-                                  Payoneer
-                                </label>
-                              </div>
-                              <div className="single-method">
-                                <input type="checkbox" id="accept_terms" />
-                                <label htmlFor="accept_terms">
-                                  I’ve read and accept the terms &amp;
-                                  conditions
-                                </label>
-                              </div>
-                            </div> */}
                             <button
                               className="lezada-button lezada-button--medium space-mt--20"
                               onClick={onOrderDetailsSubmit}
+                              // onClick={() => {setCheckout(true)}}
                             >
                               Place order
                             </button>
                           </div>
+                         }
                         </div>
                       </div>
                     </div>
@@ -469,7 +414,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                     </p>
                     <Link
                       href="/shop/all-products"
-                      // as={process.env.PUBLIC_URL + "/shop/all-products"}
+                      as={process.env.PUBLIC_URL + "/shop/all-products"}
                     >
                       <a className="lezada-button lezada-button--medium">
                         Shop Now

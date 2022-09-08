@@ -1,4 +1,5 @@
 import axioss from "../pages/axiosConfig"
+import {getAuthConfig} from "../core/utils"
 
 const getFeaturedProducts = async () => {
   try {
@@ -54,7 +55,8 @@ const MakeFeaturedProduct = async(admin, product_id)  => {
     params.append("product_id", product_id);
     const result = await axioss.post(
       `/admin_make_featured_product`,
-      params
+      params,
+      getAuthConfig()
     );
     return result?result.data:null;
   } catch (e) {
@@ -69,6 +71,7 @@ const RemoveFeaturedProduct = async(admin, product_id)  => {
     const result = await axioss.post(
       `/admin_remove_featured_product`,
       params,
+      getAuthConfig()
     );
     return result?result.data:null;
   } catch (e) {
@@ -82,7 +85,8 @@ const MakeNewProduct = async(admin, product_id)  => {
     params.append("product_id", product_id);
     const result = await axioss.post(
       `/admin_make_new_product`,
-      params
+      params,
+      getAuthConfig()
     );
     return result?result.data:null;
   } catch (e) {
@@ -97,6 +101,7 @@ const RemoveNewProduct = async(admin, product_id) => {
     const result = await axioss.post(
       `/admin_remove_new_product`,
       params,
+      getAuthConfig()
     );
     return result?result.data:null;
   } catch (e) {
@@ -110,7 +115,8 @@ const MakeBestSellerProduct = async(admin, product_id)  => {
     params.append("product_id", product_id);
     const result = await axioss.post(
       `/admin_make_bestseller_product`,
-      params
+      params,
+      getAuthConfig()
     );
     return result?result.data:null;
   } catch (e) {
@@ -124,7 +130,8 @@ const RemoveBestSellerProduct = async(admin, product_id)  => {
     params.append("product_id", product_id);
     const result = await axioss.post(
       `/admin_remove_bestseller_product`,
-      params
+      params,
+      getAuthConfig()
     );
     return result?result.data:null;
   } catch (e) {
@@ -144,7 +151,8 @@ const addProduct = async(admin, productData) =>  {
     params.append("product_discount", productData.discount);
     const result = await axioss.post(
       `/add_product`,
-      params
+      params,
+      getAuthConfig()
     );
      return result?result.data:null;
   } catch (e) {
@@ -165,7 +173,8 @@ const editProduct = async(admin, productData,product_id) =>  {
     params.append("product_is_available", productData.isAvailable ? true : false);
     const result = await axioss.post(
       `/admin_edit_product`,
-      params
+      params,
+      getAuthConfig()
     );
     return result?result.data:null;
   } catch (e) {
@@ -179,7 +188,8 @@ const removeProduct = async(admin,product_id) => {
     params.append("product_id", product_id);
     const result = await axioss.post(
       `/admin_remove_product`,
-      params
+      params,
+      getAuthConfig()
     );
     return result?result.data:null;
   } catch (e) {

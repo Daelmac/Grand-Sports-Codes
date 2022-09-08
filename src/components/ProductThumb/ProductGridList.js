@@ -40,7 +40,7 @@ const ProductGridList = ({
                   src={process.env.API_URL+product.product_image}
                   className="img-fluid"
                   alt={product.product_name}
-                  style={{height:"170px",width:"auto"}}
+                  style={{height:"170px",width:"170px",objectFit: "contain"}}
                 />
               </a>
             </Link>
@@ -181,7 +181,8 @@ const ProductGridList = ({
                   src={process.env.API_URL+product.product_image}
                   className="img-fluid"
                   alt={product.product_name}
-                  style={{height:"auto",width:"200px"}}
+                  style={{height:"200px",width:"200px", objectFit: "contain"}}
+                   
                 />
               </a>
             </Link>

@@ -186,7 +186,7 @@ const Wishlist = ({
                     <p className="space-mb--30">No items found in wishlist</p>
                     <Link
                       href="/shop/all-products"
-                      // as={process.env.PUBLIC_URL + "/shop/all-products"}
+                      as={process.env.PUBLIC_URL + "/shop/all-products"}
                     >
                       <a className="lezada-button lezada-button--medium">
                         Shop Now

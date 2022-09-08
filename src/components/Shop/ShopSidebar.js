@@ -15,7 +15,7 @@ const ShopSidebar = ({ products, getSortParams,getSearchParam }) => {
 
   return (
     <div className="shop-sidebar">
-      <div className="single-sidebar-widget space-mb--40">
+      <div className="single-sidebar-widget space-mb--40 search-product">
         {/* search widget */}
         <div className="search-widget">
           <form>
@@ -28,7 +28,7 @@ const ShopSidebar = ({ products, getSortParams,getSearchParam }) => {
       </div>
 
       {/* category list */}
-      <div className="single-sidebar-widget space-mb--40">
+      <div className="single-sidebar-widget space-mb--40 category-list">
         <h2 className="single-sidebar-widget__title space-mb--30">
           Categories
         </h2>
@@ -93,7 +93,7 @@ const ShopSidebar = ({ products, getSortParams,getSearchParam }) => {
                              src={process.env.API_URL+product.product_image}
                               className="img-fluid"
                               alt={product.product_name}
-                              style={{height:"100px",width:"auto"}}
+                              style={{height:"100px",width:"100px",objectFit: "contain"}}
                           />
                         </a>
                       </Link>

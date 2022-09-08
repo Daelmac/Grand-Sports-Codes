@@ -109,7 +109,7 @@ const UpdatePassword = ({ userDetails }) => {
                 <div className="header-content__logo d-flex align-items-center justify-content-center pb-2">
                   <Link
                     href="/"
-                    // as={process.env.PUBLIC_URL + "/"}
+                    as={process.env.PUBLIC_URL + "/"}
                   >
                     <a>
                       <img
@@ -197,13 +197,13 @@ const UpdatePassword = ({ userDetails }) => {
                       <span className="remember-text">Remember me</span> */}
                       <Link
                         href="/admin/login"
-                        // as={process.env.PUBLIC_URL + "/admin/login"}
+                        as={process.env.PUBLIC_URL + "/admin/login"}
                       >
                         <a className="reset-pass-link">login ?</a>
                       </Link>
                       <Link
                         href="/"
-                        // as={process.env.PUBLIC_URL + "/"}
+                        as={process.env.PUBLIC_URL + "/"}
                       >
                         <a className="reset-pass-link">Back to home page</a>
                       </Link>

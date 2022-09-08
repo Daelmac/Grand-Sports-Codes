@@ -28,6 +28,7 @@ class MyApp extends App {
             href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
             rel="stylesheet"
           ></link>
+          <script src="https://www.paypal.com/sdk/js?currency=EUR&client-id=Aezf9fE0ml9tF0i0EEkOfrxiWz29bgka-ju9BseJmMzHsuzMbJAxtt2Qb4On94tPSlWww2H42EkxDP1n"></script>
         </Head>
         <ToastProvider placement="bottom-left">
           <Provider store={reduxStore}>

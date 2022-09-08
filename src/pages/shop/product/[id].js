@@ -80,7 +80,7 @@ const ProductBasic = ({
 
       {/* product details */}
       {console.log(Object.keys(product).length === 0)}
-      <div className="product-details space-mt--r130 space-mb--r130">
+      <div className="product-details space-mt--r130 space-mb--r100">
       {(Object.keys(product).length != 0)?
       <Container>
         <Row>

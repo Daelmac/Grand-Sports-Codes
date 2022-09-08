@@ -160,7 +160,7 @@ const Cart = ({
                 <div className="cart-coupon-area space-pt--30 space-pb--30">
                   <Row className="align-items-center">
                     <Col lg={7} className="space-mb-mobile-only--30">
-                      <div className="lezada-form coupon-form">
+                      {/* <div className="lezada-form coupon-form">
                         <form>
                           <Row>
                             <Col md={7}>
@@ -176,7 +176,7 @@ const Cart = ({
                             </Col>
                           </Row>
                         </form>
-                      </div>
+                      </div> */}
                     </Col>
                     <Col lg={5} className="text-left text-lg-right">
                       <button
@@ -194,12 +194,12 @@ const Cart = ({
                   <h2 className="space-mb--40">Cart totals</h2>
                   <table className="cart-calculation-table space-mb--40">
                     <tbody>
-                      <tr>
+                      {/* <tr>
                         <th>SUBTOTAL</th>
                         <td className="subtotal">
                         &#8377;{cartTotalPrice.toFixed(2)}
                         </td>
-                      </tr>
+                      </tr> */}
                       <tr>
                         <th>TOTAL</th>
                         <td className="total">&#8377;{cartTotalPrice.toFixed(2)}</td>
@@ -209,7 +209,7 @@ const Cart = ({
                   <div className="cart-calculation-button text-center">
                     <Link
                       href="/checkout"
-                      // as={process.env.PUBLIC_URL + "/checkout"}
+                      as={process.env.PUBLIC_URL + "/checkout"}
                     >
                       <a className="lezada-button lezada-button--medium">
                         proceed to checkout
@@ -230,7 +230,7 @@ const Cart = ({
                     <p className="space-mb--30">No items found in cart</p>
                     <Link
                       href="/shop/all-products"
-                      // as={process.env.PUBLIC_URL + "/shop/all-products"}
+                      as={process.env.PUBLIC_URL + "/shop/all-products"}
                     >
                       <a className="lezada-button lezada-button--medium">
                         Shop Now

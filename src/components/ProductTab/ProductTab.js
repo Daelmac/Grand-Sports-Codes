@@ -43,6 +43,7 @@ const ProductTab = ({}) => {
                 <ProductGridWrapper
                   products={newArrivalProducts}
                   bottomSpace="space-mb--r50"
+
                 />
               </Row>
             </Tab.Pane>

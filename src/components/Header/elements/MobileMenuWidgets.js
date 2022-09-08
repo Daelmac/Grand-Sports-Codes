@@ -21,7 +21,7 @@ const MobileMenuWidgets = ({ userDetails }) => {
               <IoMdPerson />
               <Link
                 href="/my-account"
-                // as={process.env.PUBLIC_URL + "/my-account"}
+                as={process.env.PUBLIC_URL + "/my-account"}
               >
                 <a>{userDetails.user_name}</a>
               </Link>
@@ -31,7 +31,7 @@ const MobileMenuWidgets = ({ userDetails }) => {
               <IoMdPerson />
               <Link
                 href="/login-register"
-                // as={process.env.PUBLIC_URL + "/login-register"}
+                as={process.env.PUBLIC_URL + "/login-register"}
               >
                 <a>Login / Register</a>
               </Link>

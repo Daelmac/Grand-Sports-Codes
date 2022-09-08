@@ -3,12 +3,109 @@ import { Container, Row, Col } from "react-bootstrap";
 import { IoIosPin, IoIosCall, IoIosMail, IoIosClock } from "react-icons/io";
 import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
+import {sendMessage} from "../api/messagesApi"
+import { useToasts } from "react-toast-notifications";
+import { connect } from "react-redux";
 import {
   SectionTitleOne,
   SectionTitleTwo
 } from "../components/SectionTitle";
+import { useState } from "react";
 
-const Contact = () => {
+const Contact = ({userDetails}) => {
+  const { addToast } = useToasts();
+  const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const [msg, setMsg] = useState({
+    customerName: userDetails?.user_name || '',
+    customerEmail: userDetails?.email || '',
+    contactSubject: "",
+    contactMessage: "",
+  });
+  const [msgErrors, setMsgErrors] = useState({
+    customerNameErrMsg: "",
+    customerEmailErrMsg:"",
+    contactSubjectErrMsg:"",
+    contactMessageErrMsg:"",
+    serverErrMsg: ""
+  });
+  const intNewMsg = () => {
+    let msgBlank = {
+      customerName: "",
+    customerEmail: "",
+    contactSubject: "",
+    contactMessage: "",
+    };
+    setMsg(msgBlank);
+  };
+  const handleMsgChange = async (event) => {
+    initMsgValidation();
+    const { name, value } = event.target;
+    setMsg({ ...msg, [name]: value });
+  };
+  const initMsgValidation = () => {
+    const errors = {
+    customerNameErrMsg: "",
+    customerEmailErrMsg:"",
+    contactSubjectErrMsg:"",
+    contactMessageErrMsg:"",
+    serverErrMsg: ""
+    };
+    setMsgErrors(errors);
+  };
+  const onSendMessage = async (event) => {
+    event.preventDefault();
+    if (msgValidation()) {
+      console.log(msg);
+      const response = await sendMessage(msg);
+      if (response) {
+        if (response.status === "success") {
+          addToast(response.status_message, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+          intNewMsg()
+        } else {
+          addToast(response.status_message, {
+            appearance: "error",
+            autoDismiss: true,
+          });
+        }
+      } else {
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+      }
+  };
+  const msgValidation = () => {
+    let errors = {};
+    let isValid = true;
+    if (!msg["customerName"]) {
+      isValid = false;
+      errors["customerNameErrMsg"] = "Please enter your name.";
+    }
+    if (!msg["customerEmail"]) {
+      isValid = false;
+      errors["customerEmailErrMsg"] = "Please enter your email Address.";
+    }
+    if (typeof msg["customerEmail"] !== "undefined") {
+      if (!EmailRegX.test(msg["customerEmail"])) {
+        isValid = false;
+        errors["customerEmailErrMsg"] = "Please enter valid email address.";
+      }
+    }
+    if (!msg["contactSubject"]) {
+      isValid = false;
+      errors["contactSubjectErrMsg"] = "Please enter subject.";
+    }
+    if (!msg["contactMessage"]) {
+      isValid = false;
+      errors["contactMessageErrMsg"] = "Please enter message.";
+    }
+    setMsgErrors(errors);
+    return isValid;
+  };
   return (
     <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
@@ -19,7 +116,7 @@ const Contact = () => {
         <ul className="breadcrumb__list">
           <li>
             <Link href="/" 
-            // as={process.env.PUBLIC_URL + "/"}
+            as={process.env.PUBLIC_URL + "/"}
             >
               Home
             </Link>
@@ -122,11 +219,16 @@ const Contact = () => {
                       <Col md={6} className="space-mb--40">
                         <input
                           type="text"
-                          placeholder="First Name *"
+                          placeholder="Name *"
                           name="customerName"
                           id="customerName"
+                          value={msg.customerName}
+                          onChange={handleMsgChange}
                           required
                         />
+                        <span className="error-text">
+                        {msgErrors.customerNameErrMsg}
+                      </span>
                       </Col>
                       <Col md={6} className="space-mb--40">
                         <input
@@ -134,8 +236,13 @@ const Contact = () => {
                           placeholder="Email *"
                           name="customerEmail"
                           id="customerEmail"
+                          value={msg.customerEmail}
+                          onChange={handleMsgChange}
                           required
                         />
+                         <span className="error-text">
+                        {msgErrors.customerEmailErrMsg}
+                      </span>
                       </Col>
                       <Col md={12} className="space-mb--40">
                         <input
@@ -143,7 +250,12 @@ const Contact = () => {
                           placeholder="Subject"
                           name="contactSubject"
                           id="contactSubject"
+                          value={msg.contactSubject}
+                          onChange={handleMsgChange}
                         />
+                         <span className="error-text">
+                        {msgErrors.contactSubjectErrMsg}
+                      </span>
                       </Col>
                       <Col md={12} className="space-mb--40">
                         <textarea
@@ -152,8 +264,12 @@ const Contact = () => {
                           placeholder="Message"
                           name="contactMessage"
                           id="contactMessage"
-                          defaultValue={""}
+                          value={msg.contactMessage}
+                          onChange={handleMsgChange}
                         />
+                         <span className="error-text">
+                        {msgErrors.contactMessageErrMsg}
+                      </span>
                       </Col>
                       <Col md={12} className="text-center">
                         <button
@@ -161,6 +277,7 @@ const Contact = () => {
                           value="submit"
                           id="submit"
                           className="lezada-button lezada-button--medium"
+                          onClick={onSendMessage}
                         >
                           submit
                         </button>
@@ -176,4 +293,9 @@ const Contact = () => {
     </LayoutTwo>
   );
 };
-export default Contact;
+const mapStateToProps = (state) => {
+  return {
+    userDetails: state.currentUserData,
+  };
+};
+export default connect(mapStateToProps,null)(Contact);

@@ -78,7 +78,7 @@ const AllProducts = ({userDetails}) => {
     }
   };
   const FeaturedProducttoggle = async(e, row) => {
-    if(row.product_is_new){
+    if(row.product_is_featured){
       let response = await RemoveFeaturedProduct(userDetails,row.product_id)
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)
@@ -109,7 +109,7 @@ const AllProducts = ({userDetails}) => {
 
   };
   const BestSellerProducttoggle = async(e, row) => {
-    if(row.product_is_new){
+    if(row.product_is_best_seller){
       let response = await RemoveBestSellerProduct(userDetails,row.product_id)
       if(response.status === "success"){
         setToggleFlag(!toggleFlag)
@@ -410,7 +410,7 @@ const AllProducts = ({userDetails}) => {
                     </button>
                   </form>
                 </div>
-                <div className="single-icon filter-dropdown mt-2">
+                {/* <div className="single-icon filter-dropdown mt-2">
                   <select
                     onChange={(e) =>
                       getFilterSortParams("typeSort", e.target.value)
@@ -423,7 +423,7 @@ const AllProducts = ({userDetails}) => {
                       Best Selling products
                     </option>
                   </select>
-                </div>
+                </div> */}
                 <div className="single-icon advance-filter-icon">
                   <button
                     onClick={() => setShopTopFilterStatus(!shopTopFilterStatus)}
@@ -439,7 +439,7 @@ const AllProducts = ({userDetails}) => {
 
         {/* shop header filter */}
         <SlideDown closed={shopTopFilterStatus ? false : true}>
-          <ShopFilter products={products} getSortParams={getSortParams} />
+          <ShopFilter products={products} getSortParams={getSortParams} shopTopFilterStatus={shopTopFilterStatus} setShopTopFilterStatus={setShopTopFilterStatus} />
         </SlideDown>
 
         {/* shop page body */}

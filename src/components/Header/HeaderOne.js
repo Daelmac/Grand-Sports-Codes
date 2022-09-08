@@ -8,6 +8,7 @@ import {
   IoIosHeartEmpty,
   IoIosCart,
   IoIosMenu,
+  IoIosShuffle
 } from "react-icons/io";
 import Navigation from "./elements/Navigation";
 import SearchOverlay from "./elements/SearchOverlay";
@@ -71,7 +72,7 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems, userDetails }) => {
               </button>
               <Link
                 href="/"
-                // as={process.env.PUBLIC_URL + "/"}
+                as={process.env.PUBLIC_URL + "/"}
               >
                 <a>
                   <img
@@ -92,7 +93,7 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems, userDetails }) => {
             {/* icons */}
             <div className="header-content__icons space-pl--15">
               <ul className="d-none d-lg-block">
-                <li>
+                {/* <li>
                   <button
                     onClick={() => {
                       setOffCanvasSearchActive(true);
@@ -103,13 +104,13 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems, userDetails }) => {
                   >
                     <IoIosSearch />
                   </button>
-                </li>
+                </li> */}
                 <li>
                   {userDetails && userDetails.role === "customer" ? (
                     <>
                       <Link
                         href="/my-account"
-                        // as={process.env.PUBLIC_URL + "/my-account"}
+                        as={process.env.PUBLIC_URL + "/my-account"}
                       >
                         <a>
                           <IoMdPerson />
@@ -120,13 +121,23 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems, userDetails }) => {
                   ) : (
                     <Link
                       href="/login-register"
-                      // as={process.env.PUBLIC_URL + "/login-register"}
+                      as={process.env.PUBLIC_URL + "/login-register"}
                     >
                       <a>
                         <IoMdPerson />
                       </a>
                     </Link>
                   )}
+                </li>
+                <li>
+                {/* <Link
+                      href="other/compare"
+                      as={process.env.PUBLIC_URL + "/login-register"}
+                    >
+                      <a>
+                        <IoIosShuffle />
+                      </a>
+                    </Link> */}
                 </li>
                 <li>
                   <button
@@ -189,7 +200,7 @@ const HeaderOne = ({ aboutOverlay, cartItems, wishlistItems, userDetails }) => {
                 <li>
                   <Link
                     href="/cart"
-                    // as={process.env.PUBLIC_URL + "/cart"}
+                    as={process.env.PUBLIC_URL + "/cart"}
                   >
                     <a>
                       <IoIosCart />

@@ -16,7 +16,7 @@ const AdminLayout = ({ children, userDetails,title }) => {
       <div className="container-fluid">
         <div className="row">
           <AdminSidebar />
-          <div className="col-10 offset-2" id="main">
+          <div className="col-10 offset-2 p-0" id="main">
             <AdminNavbar title={title} />
             {children}
           </div>

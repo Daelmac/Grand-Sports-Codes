@@ -246,7 +246,7 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
                       {/* <input type="checkbox" />{" "} */}
                       {/* <span className="remember-text">Remember me</span> */}
                       <Link href="/forgot-password" 
-                      // as={process.env.PUBLIC_URL + "/forgot-password"}
+                      as={process.env.PUBLIC_URL + "/forgot-password"}
                       >
                       <a className="reset-pass-link">
                         Lost your password?

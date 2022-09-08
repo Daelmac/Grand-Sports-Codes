@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import Paginator from "react-hooks-paginator";
@@ -15,7 +15,7 @@ import {
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
-  const [layout, setLayout] = useState("grid four-column");
+  const [layout, setLayout] = useState("grid three-column");
   const [sortType, setSortType] = useState("");
   const [sortValue, setSortValue] = useState("");
   const [filterSortType, setFilterSortType] = useState("");
@@ -58,11 +58,12 @@ const AllProducts = () => {
     sortedProducts = filterSortedProducts;
     setSortedProducts(sortedProducts);
     if (searchText != "") {
-      const filterCurrentData = currentData.filter(
+      const filterCurrentData = sortedProducts.filter(
         (item) =>
           item.product_name &&
           item.product_name.toLowerCase().includes(searchText.toLowerCase())
       );
+      setSortedProducts(filterCurrentData);
       setCurrentData(filterCurrentData.slice(offset, offset + pageLimit));
     } else {
       setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
@@ -96,17 +97,17 @@ const AllProducts = () => {
           sortedProductCount={currentData.length}
           shopTopFilterStatus={shopTopFilterStatus}
           setShopTopFilterStatus={setShopTopFilterStatus}
+          getSearchParam={getSearchParam}
         />
 
         {/* shop header filter */}
         <SlideDown closed={shopTopFilterStatus ? false : true}>
-          <ShopFilter products={products} getSortParams={getSortParams} />
+          <ShopFilter products={products} getSortParams={getSortParams}  shopTopFilterStatus={shopTopFilterStatus} setShopTopFilterStatus={setShopTopFilterStatus} />
         </SlideDown>
 
         {/* shop page body */}
        
         <div className="shop-page-content__body mt-5 space-mb--r130">
-        {(sortedProducts.length != 0)?
          <Container>
          <Row>
            <Col
@@ -123,6 +124,8 @@ const AllProducts = () => {
 
            <Col lg={9} className="order-1 order-lg-2">
              {/* shop products */}
+             {(sortedProducts.length != 0)?
+             <Fragment>
              <ShopProducts layout={layout} products={currentData} />
              {console.log(currentData)}
              {/* shop product pagination */}
@@ -139,11 +142,13 @@ const AllProducts = () => {
                  pageNextText="»"
                />
              </div>
+             </Fragment>
+             :
+             <span className="d-flex align-items-center justify-content-center">Products not found</span>
+              }
            </Col>
          </Row>
-       </Container>:
-       <span className="d-flex align-items-center justify-content-center">Products not found</span>
-        }
+       </Container>
         </div>
       </div>
     </LayoutTwo>

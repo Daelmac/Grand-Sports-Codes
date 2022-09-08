@@ -16,7 +16,7 @@ const Faq = () => {
         <ul className="breadcrumb__list">
           <li>
             <Link href="/" 
-            // as={process.env.PUBLIC_URL + "/"}
+            as={process.env.PUBLIC_URL + "/"}
             >
 
               <a>Home</a>
@@ -31,12 +31,12 @@ const Faq = () => {
           <Row>
             <Col lg={12}>
               <div className="faq-wrapper">
-                <div className="single-faq space-mb--r100">
+                <div className="single-faq space-mb--r50">
                   <h2 className="faq-title space-mb--20">
                     Shipping information
                   </h2>
                   <Accordion defaultActiveKey="0">
-                    <Card className="single-my-account space-mb--20">
+                    {/* <Card className="single-my-account space-mb--10">
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="0">
                           <h3 className="panel-title">
@@ -58,9 +58,9 @@ const Faq = () => {
                           </p>
                         </Card.Body>
                       </Accordion.Collapse>
-                    </Card>
+                    </Card> */}
 
-                    <Card className="single-my-account space-mb--20">
+                    <Card className="single-my-account space-mb--10">
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="1">
                           <h3 className="panel-title">
@@ -75,7 +75,7 @@ const Faq = () => {
                       </Accordion.Collapse>
                     </Card>
 
-                    <Card className="single-my-account space-mb--20">
+                    <Card className="single-my-account space-mb--10">
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="2">
                           <h3 className="panel-title">
@@ -86,18 +86,13 @@ const Faq = () => {
                       <Accordion.Collapse eventKey="2">
                         <Card.Body>
                           <p>
-                            Once your order has been shipped, you will receive
-                            an email with your tracking and shipping
-                            information. Simply click on the link in the email
-                            or select the ‘track order’ option here and enter
-                            your order number and email address or sign into
-                            your account.
+                            Once your order has been shipped, You can check delivery partner information and tracking ID in my order section.you can track your order through that tracking ID.
                           </p>
                         </Card.Body>
                       </Accordion.Collapse>
                     </Card>
 
-                    <Card className="single-my-account space-mb--20">
+                    <Card className="single-my-account space-mb--10">
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="3">
                           <h3 className="panel-title">
@@ -127,6 +122,10 @@ const Faq = () => {
                                 <td>North East</td>
                                 <td>10-15 days*</td>
                               </tr>
+                              <tr>
+                                <td>Outside India</td>
+                                <td>15-20 days*</td>
+                              </tr>
                             </tbody>
                           </Table>
                           <p>Note*: These times are considered after product is shipped. The processing time is usually 1-2 days.</p>
@@ -138,7 +137,7 @@ const Faq = () => {
                 <div className="single-faq">
                   <h2 className="faq-title space-mb--20">Orders and returns</h2>
                   <Accordion defaultActiveKey="0">
-                    <Card className="single-my-account space-mb--20">
+                    <Card className="single-my-account space-mb--10">
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="0">
                           <h3 className="panel-title">
@@ -155,17 +154,15 @@ const Faq = () => {
                             and click ‘Buy Now’.Please enter the required
                             information such as Delivery Address, Quantity Type
                             etc. Before clicking “Place Order”, please check
-                            your Order Details carefully. If you want to add a
-                            new Delivery Address, click ” Add a new address”. If
-                            you want to edit a current Delivery Address, click
-                            ‘Edit this address’. After confirming your Order,
+                            your Order Details carefully.If you want to edit a default current Delivery Address, 
+                            then you can change it from my account page. After confirming your Order,
                             you will be automatically taken to the Payment page
                           </p>
                         </Card.Body>
                       </Accordion.Collapse>
                     </Card>
 
-                    <Card className="single-my-account space-mb--20">
+                    <Card className="single-my-account space-mb--10">
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="1">
                           <h3 className="panel-title">
@@ -176,17 +173,13 @@ const Faq = () => {
                       <Accordion.Collapse eventKey="1">
                         <Card.Body>
                           <p>
-                            Go to Your Orders. Click Cancel Items. Note: Select
-                            the checkbox next to each item you wish to remove
-                            from the order. If you want to cancel the entire
-                            order, select all of the items. Click Cancel checked
-                            items when finished.
+                            Go to Your Orders. Click Cancel Order. Note: SCancellation of an order is only possible before the order items are shipped
                           </p>
                         </Card.Body>
                       </Accordion.Collapse>
                     </Card>
 
-                    <Card className="single-my-account space-mb--20">
+                    <Card className="single-my-account space-mb--10">
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="2">
                           <h3 className="panel-title">
