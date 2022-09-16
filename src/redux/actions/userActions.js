@@ -8,24 +8,23 @@ export const setCurrentUser = (
 ) => {
   return dispatch => {
    //try this to clear all local storage
-    if (addToast) {
-      if(Object.keys(userDetails).length === 0){
-        addToast("Logout Successfully", { appearance: "success", autoDismiss: true });
-        dispatch({ type: "DELETE_ALL_FROM_CART" })
-        dispatch({ type: "DELETE_ALL_FROM_WISHLIST" });
-      }
-      else {
-        addToast("Login Successfully", { appearance: "success", autoDismiss: true });
-        dispatch({
-          type: "UPDATE_CART",
-          payload:JSON.parse(userDetails?.cart_data || "[]")  
-        })
-        dispatch({
-          type: "UPDATE_WISHLIST",
-          payload:JSON.parse(userDetails?.wishlist_data || "[]")  
-        })
-      };
+    
+    if(Object.keys(userDetails).length === 0){
+      if (addToast) addToast("Logout Successfully", { appearance: "success", autoDismiss: true });
+      dispatch({ type: "DELETE_ALL_FROM_CART" })
+      dispatch({ type: "DELETE_ALL_FROM_WISHLIST" });
     }
+    else {
+      if (addToast) addToast("Login Successfully", { appearance: "success", autoDismiss: true });
+      dispatch({
+        type: "UPDATE_CART",
+        payload:JSON.parse(userDetails?.cart_data || "[]")  
+      })
+      dispatch({
+        type: "UPDATE_WISHLIST",
+        payload:JSON.parse(userDetails?.wishlist_data || "[]")  
+      })
+    };
 
     dispatch({
       type: SET_CURRENT_USER,

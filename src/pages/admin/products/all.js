@@ -5,7 +5,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { IoIosSearch, IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { useToasts } from "react-toast-notifications";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 import { SlideDown } from "react-slidedown";
 import { getSortedProducts } from "../../../lib/product";
 import Router from "next/router";
@@ -17,12 +17,15 @@ import {
   RemoveBestSellerProduct,
   MakeBestSellerProduct,
   RemoveNewProduct,
-  removeProduct
+  removeProduct,
 } from "../../../api/productApi";
 import DataTable from "react-data-table-component";
-
+import customStyles from "../style/tableStyle";
 import { ShopFilter } from "../../../components/Shop";
-const AllProducts = ({userDetails}) => {
+
+const AllProducts = ({ userDetails }) => {
+  const { addToast } = useToasts();
+
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [sortType, setSortType] = useState("");
@@ -32,137 +35,180 @@ const AllProducts = ({userDetails}) => {
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [shopTopFilterStatus, setShopTopFilterStatus] = useState(false);
-  const [toggleFlag,setToggleFlag] = useState(false);
-  const [tempProduct, setTempProduct] = useState(null)
+  const [toggleFlag, setToggleFlag] = useState(false);
+  const [tempProduct, setTempProduct] = useState(null);
   const [showDeleteModel, setShowDeleteModel] = useState(false);
 
-  const handleClose = () => setShowDeleteModel(false);
-  const handleShow = (e, product) =>{
-    setTempProduct(product)
-    setShowDeleteModel(true)
-  };
-  const { addToast } = useToasts();
-
+  //get products
   useEffect(async () => {
     const all_products = await getAllProducts();
     if (all_products) setProducts(all_products);
   }, [toggleFlag]);
+
+  //manage filter or sort products
+  useEffect(() => {
+    let sortedProducts = getSortedProducts(products, sortType, sortValue);
+    const filterSortedProducts = getSortedProducts(
+      sortedProducts,
+      filterSortType,
+      filterSortValue
+    );
+    sortedProducts = filterSortedProducts;
+    setSortedProducts(sortedProducts);
+    if (searchText != "") {
+      const filterCurrentData = currentData.filter(
+        (item) =>
+          item.product_name &&
+          item.product_name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setCurrentData(filterCurrentData);
+    } else {
+      setCurrentData(sortedProducts);
+    }
+  }, [
+    products,
+    sortType,
+    sortValue,
+    filterSortType,
+    filterSortValue,
+    searchText,
+  ]);
+
+  //close delete model
+  const handleClose = () => setShowDeleteModel(false);
+  //handle show delete model
+  const handleShow = (e, product) => {
+    setTempProduct(product);
+    setShowDeleteModel(true);
+  };
+
+  //on new product add or delete toggle
   const NewProducttoggle = async (e, row) => {
-    if(row.product_is_new){
-      let response = await RemoveNewProduct(userDetails,row.product_id)
-      if(response.status === "success") {
-        setToggleFlag(!toggleFlag)
+    if (row.product_is_new) {
+      let response = await RemoveNewProduct(userDetails, row.product_id);
+      if (response.status === "success") {
+        setToggleFlag(!toggleFlag);
         addToast("Product successfully removed form new product.", {
           appearance: "success",
           autoDismiss: true,
         });
-      }
-      else addToast("Some problem occurred,please try again.", {
+      } else
+        addToast("Some problem occurred,please try again.", {
           appearance: "error",
           autoDismiss: true,
         });
-    }  
-    else{
-      let response = await MakeNewProduct(userDetails,row.product_id)
-      if(response.status === "success"){
-        setToggleFlag(!toggleFlag)
+    } else {
+      let response = await MakeNewProduct(userDetails, row.product_id);
+      if (response.status === "success") {
+        setToggleFlag(!toggleFlag);
         addToast("Product successfully Added to new product.", {
           appearance: "success",
           autoDismiss: true,
         });
-      }
-      else addToast("Some problem occurred,please try again.", {
-        appearance: "error",
-        autoDismiss: true,
-      });
+      } else
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
     }
   };
-  const FeaturedProducttoggle = async(e, row) => {
-    if(row.product_is_featured){
-      let response = await RemoveFeaturedProduct(userDetails,row.product_id)
-      if(response.status === "success"){
-        setToggleFlag(!toggleFlag)
+
+  //on featured product add or delete toggle
+  const FeaturedProducttoggle = async (e, row) => {
+    if (row.product_is_featured) {
+      let response = await RemoveFeaturedProduct(userDetails, row.product_id);
+      if (response.status === "success") {
+        setToggleFlag(!toggleFlag);
         addToast("Product successfully removed form featured product.", {
           appearance: "success",
           autoDismiss: true,
         });
-      }
-      else addToast("Some problem occurred,please try again.", {
-        appearance: "error",
-        autoDismiss: true,
-      });
-    }  
-    else{
-      let response = await MakeFeaturedProduct(userDetails,row.product_id)
-      if(response.status === "success"){
-        setToggleFlag(!toggleFlag)
+      } else
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+    } else {
+      let response = await MakeFeaturedProduct(userDetails, row.product_id);
+      if (response.status === "success") {
+        setToggleFlag(!toggleFlag);
         addToast("Product successfully Added to featured product.", {
           appearance: "success",
           autoDismiss: true,
         });
-      }
-      else addToast("Some problem occurred,please try again.", {
-        appearance: "error",
-        autoDismiss: true,
-      });
+      } else
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
     }
-
   };
-  const BestSellerProducttoggle = async(e, row) => {
-    if(row.product_is_best_seller){
-      let response = await RemoveBestSellerProduct(userDetails,row.product_id)
-      if(response.status === "success"){
-        setToggleFlag(!toggleFlag)
+
+  //on best selling product add or delete toggle
+  const BestSellerProducttoggle = async (e, row) => {
+    if (row.product_is_best_seller) {
+      let response = await RemoveBestSellerProduct(userDetails, row.product_id);
+      if (response.status === "success") {
+        setToggleFlag(!toggleFlag);
         addToast("Product successfully removed form best selling product.", {
           appearance: "success",
           autoDismiss: true,
         });
-      }
-      else addToast("Some problem occurred,please try again.", {
-        appearance: "error",
-        autoDismiss: true,
-      });
-    }  
-    else{
-      let response = await MakeBestSellerProduct(userDetails,row.product_id)
-      if(response.status === "success"){
-        setToggleFlag(!toggleFlag)
+      } else
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+    } else {
+      let response = await MakeBestSellerProduct(userDetails, row.product_id);
+      if (response.status === "success") {
+        setToggleFlag(!toggleFlag);
         addToast("Product successfully Added to best selling product.", {
           appearance: "success",
           autoDismiss: true,
         });
-      }
-      else addToast("Some problem occurred,please try again.", {
+      } else
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+    }
+  };
+  //on delete product
+  const onDeleteProduct = async () => {
+    setShowDeleteModel(false);
+    let response = await removeProduct(userDetails, tempProduct?.product_id);
+    if (response) {
+      if (response.status === "success") {
+        setToggleFlag(!toggleFlag);
+        addToast("Product successfully Deleted.", {
+          appearance: "success",
+          autoDismiss: true,
+        });
+      } else
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+    } else {
+      addToast("Some problem occurred,please try again.", {
         appearance: "error",
         autoDismiss: true,
       });
     }
   };
-  const customStyles = {
-    headRow: {
-      style: {
-        border: "none",
-      },
-    },
-    headCells: {
-      style: {
-        color: "#202124",
-        fontSize: "14px",
-      },
-    },
-    rows: {
-      highlightOnHoverStyle: {
-        backgroundColor: "#fff8f7",
-        borderBottomColor: "#FFFFFF",
-        outline: "1px solid #FFFFFF",
-      },
-    },
-    pagination: {
-      style: {
-        border: "none",
-      },
-    },
+
+  //manage state for filter
+  const getSortParams = (sortType, sortValue) => {
+    setSortType(sortType);
+    setSortValue(sortValue);
   };
+
+  const getFilterSortParams = (sortType, sortValue) => {
+    setFilterSortType(sortType);
+    setFilterSortValue(sortValue);
+  };
+  //product data columns
   const columns = [
     {
       name: "Image",
@@ -200,14 +246,6 @@ const AllProducts = ({userDetails}) => {
       cell: (row) => <p>&#8377; {row.product_price}</p>,
     },
 
-    // {
-    //   name: "Discount",
-    //   selector: (row) => row.product_discount,
-    //   left: true,
-    //   sortable: true,
-    //   width: "1%",
-    //   cell: (row) => <p>{row.product_discount}%</p>,
-    // },
     {
       name: "Final Price",
       left: true,
@@ -312,13 +350,13 @@ const AllProducts = ({userDetails}) => {
             fontSize="2em"
             class="mr-1"
             role="button"
-            onClick={(e) => onEditProduct(e,row)}
+            onClick={(e) => onEditProduct(e, row)}
           />
           <MdDelete
             color="red"
             fontSize="2em"
             role="button"
-            onClick={(e) => handleShow(e,row)}
+            onClick={(e) => handleShow(e, row)}
           />
         </>
       ),
@@ -328,68 +366,12 @@ const AllProducts = ({userDetails}) => {
       },
     },
   ];
-  const onEditProduct = (e,product) => {
-    console.log(product)
-    Router.push(`/admin/products/${product.product_id}`)
-  };
-  const onDeleteProduct = async() => {
-    setShowDeleteModel(false)
-    let response = await removeProduct(userDetails,tempProduct?.product_id)
-    if(response){
-      if(response.status === "success"){
-        setToggleFlag(!toggleFlag)
-        addToast("Product successfully Deleted.", {
-          appearance: "success",
-          autoDismiss: true,
-        });
-      }
-      else addToast("Some problem occurred,please try again.", {
-        appearance: "error",
-        autoDismiss: true,
-      });
-  }else{
-    addToast("Some problem occurred,please try again.", {
-      appearance: "error",
-      autoDismiss: true,
-    });
-  }
-  };
-  const getSortParams = (sortType, sortValue) => {
-    setSortType(sortType);
-    setSortValue(sortValue);
-  };
 
-  const getFilterSortParams = (sortType, sortValue) => {
-    setFilterSortType(sortType);
-    setFilterSortValue(sortValue);
+  //on edit button click
+  const onEditProduct = (e, product) => {
+    console.log(product);
+    Router.push(`/admin/products/${product.product_id}`);
   };
-  useEffect(() => {
-    let sortedProducts = getSortedProducts(products, sortType, sortValue);
-    const filterSortedProducts = getSortedProducts(
-      sortedProducts,
-      filterSortType,
-      filterSortValue
-    );
-    sortedProducts = filterSortedProducts;
-    setSortedProducts(sortedProducts);
-    if (searchText != "") {
-      const filterCurrentData = currentData.filter(
-        (item) =>
-          item.product_name &&
-          item.product_name.toLowerCase().includes(searchText.toLowerCase())
-      );
-      setCurrentData(filterCurrentData);
-    } else {
-      setCurrentData(sortedProducts);
-    }
-  }, [
-    products,
-    sortType,
-    sortValue,
-    filterSortType,
-    filterSortValue,
-    searchText,
-  ]);
 
   return (
     <AdminLayout title="All Products">
@@ -404,26 +386,16 @@ const AllProducts = ({userDetails}) => {
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
                 <div className="search-widget mr-5">
                   <form>
-                    <input type="search" placeholder="Search products ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <input
+                      type="search"
+                      placeholder="Search products ..."
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
                     <button type="button">
                       <IoIosSearch />
                     </button>
                   </form>
                 </div>
-                {/* <div className="single-icon filter-dropdown mt-2">
-                  <select
-                    onChange={(e) =>
-                      getFilterSortParams("typeSort", e.target.value)
-                    }
-                  >
-                    <option value="default">Default</option>
-                    <option value="newProducts">New Products</option>
-                    <option value="featuredProducts">Featured Products</option>
-                    <option value="bestSellingProducts">
-                      Best Selling products
-                    </option>
-                  </select>
-                </div> */}
                 <div className="single-icon advance-filter-icon">
                   <button
                     onClick={() => setShopTopFilterStatus(!shopTopFilterStatus)}
@@ -439,7 +411,12 @@ const AllProducts = ({userDetails}) => {
 
         {/* shop header filter */}
         <SlideDown closed={shopTopFilterStatus ? false : true}>
-          <ShopFilter products={products} getSortParams={getSortParams} shopTopFilterStatus={shopTopFilterStatus} setShopTopFilterStatus={setShopTopFilterStatus} />
+          <ShopFilter
+            products={products}
+            getSortParams={getSortParams}
+            shopTopFilterStatus={shopTopFilterStatus}
+            setShopTopFilterStatus={setShopTopFilterStatus}
+          />
         </SlideDown>
 
         {/* shop page body */}
@@ -458,13 +435,16 @@ const AllProducts = ({userDetails}) => {
         <Modal.Header closeButton>
           <Modal.Title>Delete</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete,<b>{tempProduct?.product_name}</b> ?</Modal.Body>
+        <Modal.Body>
+          Are you sure you want to delete,<b>{tempProduct?.product_name}</b> ?
+        </Modal.Body>
         <Modal.Footer>
-        <button className="cancel-btn-small" onClick={handleClose}
-          >
+          <button className="cancel-btn-small" onClick={handleClose}>
             Cancel
           </button>
-          <button className="lezada-button lezada-button--small" onClick={onDeleteProduct}
+          <button
+            className="lezada-button lezada-button--small"
+            onClick={onDeleteProduct}
           >
             Delete
           </button>

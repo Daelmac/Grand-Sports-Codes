@@ -3,17 +3,29 @@ import { useState, useEffect } from "react";
 import { AdminLayout } from "../../../components/Layout";
 import { Container, Row, Col } from "react-bootstrap";
 import { LightgalleryProvider } from "react-lightgallery";
-import { connect } from "react-redux";
-import { getOrderDetailsByID,editOrderDetails } from "../../../api/orderApi";
+import { getOrderDetailsByID, editOrderDetails } from "../../../api/orderApi";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
 
 const Order = () => {
   const router = useRouter();
   const { addToast } = useToasts();
-  const NumericRegX = /[0-9]*[.]?[0-9]+/;
   const { id } = router.query;
-
+  //define states
+  const [orderDetails, setOrderDetails] = useState({
+    order_status: "",
+    order_tracking_id: "",
+    order_delivery_partner: "",
+    address: "",
+  });
+  const [all_orderDetails, setAllOrderDetails] = useState(null);
+  const [orderDetailsErrors, setOrderDetailsErrors] = useState({
+    order_statusErrMsg: "",
+    order_tracking_idErrMsg: "",
+    order_delivery_partnerErrMsg: "",
+    serverErrMsg: "",
+  });
+  //get order data
   useEffect(async () => {
     const orderData = await getOrderDetailsByID(id);
     if (orderData) {
@@ -25,40 +37,31 @@ const Order = () => {
       });
     }
   }, []);
+
+  //set payload
   const setOrderData = (orderData) => {
-    console.log(orderData);
     let Order_Data = {
       order_status: orderData.order_status,
       order_tracking_id: orderData.order_tracking_id,
       order_delivery_partner: orderData.order_delivery_partner,
-      address:JSON.parse(orderData?.address || '{}')
+      address: JSON.parse(orderData?.address || "{}"),
     };
     setOrderDetails(Order_Data);
     setAllOrderDetails(orderData);
   };
-  const [orderDetails, setOrderDetails] = useState({
-    order_status: "",
-    order_tracking_id: "",
-    order_delivery_partner: "",
-    address:""
-  });
-  const [all_orderDetails, setAllOrderDetails] = useState(null);
-  const [orderDetailsErrors, setOrderDetailsErrors] = useState({
-    order_statusErrMsg: "",
-    order_tracking_idErrMsg: "",
-    order_delivery_partnerErrMsg: "",
-    serverErrMsg: "",
-  });
+
+  //handle order data change
   const handleOrderDataChange = async (event) => {
     initOrderDetailsValidation();
     const { name, value } = event.target;
     setOrderDetails({ ...orderDetails, [name]: value });
   };
+  //on order data submit
   const onOrderDataSubmit = async (event) => {
     event.preventDefault();
     if (OrderDetailsValidation()) {
-        const response = await editOrderDetails(id,orderDetails);
-        if(response){
+      const response = await editOrderDetails(id, orderDetails);
+      if (response) {
         if (response.status === "success") {
           addToast("Order Details updated Successfully", {
             appearance: "success",
@@ -71,7 +74,7 @@ const Order = () => {
             serverErrMsg: response.status_message,
           });
         }
-      }else{
+      } else {
         addToast("Some problem occurred,please try again.", {
           appearance: "error",
           autoDismiss: true,
@@ -79,10 +82,14 @@ const Order = () => {
       }
     }
   };
+
+  // on cancel button click
   const onCancel = (event) => {
     event.preventDefault();
     Router.push("/admin/orders/all");
   };
+
+ //order data validation 
   const initOrderDetailsValidation = () => {
     const errors = {
       order_statusErrMsg: "",
@@ -120,6 +127,7 @@ const Order = () => {
     setOrderDetailsErrors(errors);
     return isValid;
   };
+
   return (
     <AdminLayout title="Order Details">
       <Container>
@@ -139,13 +147,15 @@ const Order = () => {
             </div>
           </Col>
           <Col lg={6} className="space-mb-mobile-only--50 mt-5">
-            {/* image gallery bottom thumb */}
             <div>
               <LightgalleryProvider>
                 <div className="image-box">
                   <div className="single-image" style={{ textAlign: "center" }}>
                     <img
-                      src={process.env.API_URL + all_orderDetails?.product?.product_image}
+                      src={
+                        process.env.API_URL +
+                        all_orderDetails?.product?.product_image
+                      }
                       className="img-fluid"
                       alt=""
                       style={{ maxHeight: "300px", width: "auto" }}
@@ -173,7 +183,6 @@ const Order = () => {
           </Col>
 
           <Col lg={6}>
-
             <div className="lezada-form login-form--register pt-4">
               <div className="product-details">
                 <ul>
@@ -193,12 +202,13 @@ const Order = () => {
                     <strong>Address:</strong>
                     <p>
                       <address>
-                      <p>
-                        {orderDetails?.address?.address_line_1},{" "}
-                        {orderDetails?.address?.address_line_2} <br />
-                        {orderDetails?.address?.city}, {orderDetails?.address?.state}-
-                        {orderDetails?.address?.pincode}
-                      </p>
+                        <p>
+                          {orderDetails?.address?.address_line_1},{" "}
+                          {orderDetails?.address?.address_line_2} <br />
+                          {orderDetails?.address?.city},{" "}
+                          {orderDetails?.address?.state}-
+                          {orderDetails?.address?.pincode}
+                        </p>
                       </address>
                     </p>
                   </li>
@@ -207,8 +217,8 @@ const Order = () => {
                     <p>{all_orderDetails?.phone}</p>
                   </li>
                   <li>
-                      <strong>Total Amount:</strong>
-                      <p>&#8377;{all_orderDetails?.total_amount}</p>
+                    <strong>Total Amount:</strong>
+                    <p>&#8377;{all_orderDetails?.total_amount}</p>
                   </li>
                 </ul>
               </div>

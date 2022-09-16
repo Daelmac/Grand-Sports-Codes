@@ -6,6 +6,7 @@ import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { getAdmins } from "../../api/userApi";
 import DataTable from "react-data-table-component";
+import customStyles from "./style/tableStyle";
 
 const AdminList = () => {
   const [admins, setAdmins] = useState([]);
@@ -108,7 +109,12 @@ const AdminList = () => {
           </Row>
         </Container>
         <Container className="mt-5">
-          <DataTable columns={columns} data={currentAdmims} pagination />
+          <DataTable 
+          columns={columns} 
+          data={currentAdmims}
+          customStyles={customStyles}
+          highlightOnHover 
+          pagination />
         </Container>
       </div>
     </AdminLayout>

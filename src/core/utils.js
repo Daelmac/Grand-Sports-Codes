@@ -1,13 +1,13 @@
 const API_BASE_URL = "http://127.0.0.1:5003";
 const PRODUCT_CATEGORIES = [
   "Balls",
-  " Bats",
+  "Bats",
   "Pads",
   "Gloves",
   "Thigh Pads",
   "Arm Pads",
   "Kidney Guard ",
-  " Chest Pads",
+  "Chest Pads",
   "Helmets",
   "Skinners",
   "Grip cones",
@@ -21,4 +21,10 @@ const getAuthConfig=()=>{
    "x-access-token":window.__NEXT_REDUX_STORE__.getState()?.currentUserData.token || ""
  }}
  }
-export { API_BASE_URL,PRODUCT_CATEGORIES,COUNTRY_LIST,getAuthConfig};
+
+const PhoneRegX = /^([+]\d{2})?\d{10}$/;
+const PincodRegX = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
+const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const NumericRegX = /[0-9]*[.]?[0-9]+/;
+
+export { API_BASE_URL,PRODUCT_CATEGORIES,COUNTRY_LIST,getAuthConfig,PhoneRegX,PincodRegX,EmailRegX,NumericRegX};

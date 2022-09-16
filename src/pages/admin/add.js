@@ -5,11 +5,10 @@ import { CreateAdmin} from "../../api/userApi";
 import Router from "next/router";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
+import {EmailRegX} from "../../core/utils"
 
 const AddAdmin = () => {
   const { addToast } = useToasts();
-  
-  const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const [newAdmin, setNewAdmin] = useState({
     firstName: "",
     lastName: "",

@@ -8,20 +8,19 @@ import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
 import {addPurchases} from "../api/orderApi"
 import { useToasts } from "react-toast-notifications";
-import SelectSearch from 'react-select-search';
 import Router from "next/router";
 import {COUNTRY_LIST} from "../core/utils"
 import {
   deleteAllFromCart,
 } from "../redux/actions/cartActions.js";
-import PayPal from "../components/Payment/paypal"
+import {PhoneRegX,PincodRegX} from "../core/utils"
+import axios from "axios"
+import {razorpayOrder,razorpayCallback} from "../api/paymentApi"
 
 const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
   if (!(userDetails && userDetails.role === "customer"))
     Router.push("/login-register");
   let cartTotalPrice = 0;
-  const PhoneRegX = /^([+]\d{2})?\d{10}$/;
-  const PincodRegX = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
   const { addToast } = useToasts();
   let address=null
   if (userDetails?.address) address = JSON.parse(userDetails?.address);
@@ -56,8 +55,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
     const { name, value } = event.target;
     setOrderDetails({ ...orderDetails, [name]: value });
   };
-  const onOrderDetailsSubmit = async (event) => {
-    event.preventDefault();
+  const onOrderDetailsSubmit = async (paymentData) => {
     if (OrderDetailsValidation()) {
       let total_receipt_amount=0
       const purchaseData = cartItems.map((product, i) => {
@@ -88,13 +86,15 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
         name: orderDetails.name,
         address: JSON.stringify(address),
         total_receipt_amount:total_receipt_amount,
+        razorpay_order_id:paymentData.razorpay_order_id,
+        razorpay_payment_id:paymentData.razorpay_payment_id,
+        razorpay_payment_signature:paymentData.razorpay_signature,
         purchases:purchaseData
       };
       console.log(params);
       const response = await addPurchases(params);
         if(response){
         if (response.status === "success") {
-          // authenticateAdmin()
           addToast("Order Placed Successfully", {
             appearance: "success",
             autoDismiss: true,
@@ -179,6 +179,82 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
     setOrderDetailsError(errors);
     return isValid;
   };
+
+  // function loadRazorpayScript(src) {
+  //   return new Promise((resolve) => {
+  //       const script = document.createElement("script");
+  //       script.src = src;
+  //       script.onload = () => {
+  //           resolve(true);
+  //       };
+  //       script.onerror = () => {
+  //           resolve(false);
+  //       };
+  //       document.body.appendChild(script);
+  //   });
+  // }
+
+//function will get called when clicked on the pay button.
+  async function displayRazorpayPaymentSdk(e) {
+    e.preventDefault();
+  //   console.log("in")
+  //   const res = await loadRazorpayScript(
+  //       "https://checkout.razorpay.com/v1/checkout.js"
+  //   );
+  //  console.log(res)
+  //   if (!res) {
+  //       alert("Razorpay SDK failed to load. please check are you online?");
+  //       return;
+  //   }
+  //   console.log("in2")
+    // creating a new order and sending order ID to backend
+    var params = new FormData();
+    params.append("name",userDetails?.username);
+    params.append("amount",cartTotalPrice.toFixed(2));
+    const result = await razorpayOrder(userDetails?.username,cartTotalPrice.toFixed(2));
+
+    if (!result|| result?.status !== "success") {
+      addToast("Server error. please check are you online?", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      return
+    }
+
+    // Getting the order details back
+    const {merchantId=null , amount=null,currency=null,orderId=null } = result.response;
+ 
+    const options = {
+        key: merchantId,
+        amount: amount.toString(),
+        currency: currency,
+        name: "Grand Sports",
+        // description: "Test Transaction",
+        image:"/assets/images/grand_sports_logo.png",
+        order_id: orderId,
+        handler: async function (response){
+          console.log(response);
+          const result = await razorpayCallback(response);
+          console.log("ressss====>",result);
+          if(result.status === 'success' && result.is_verified){
+            onOrderDetailsSubmit(response)
+          }
+        },
+        prefill: {
+          name: userDetails?.username,
+          email: userDetails?.email,
+        },
+        notes: {
+            address: "None",
+        },
+        theme: {
+            color: "#fc0027",
+        },
+    };
+    console.log(options)
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  }
   return (
     <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
@@ -199,7 +275,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
       <Container>
         <Row>
           <Col>
-            <h1 className="breadcrumb__title">Checkout</h1>
+            <h1 className="breadcrumb__title">{cartItems && cartItems.length >= 1 ?"Checkout":""}</h1>
           </Col>
         </Row>
       </Container>
@@ -379,21 +455,16 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                             </div>
                           </div>
                           {/* Payment Method */}
-                          {(checkout === true) 
-                            ? <div  className="col-12">
-                              <PayPal />
-                            </div> 
-                              :
                           <div className="col-12">
                             <button
                               className="lezada-button lezada-button--medium space-mt--20"
-                              onClick={onOrderDetailsSubmit}
-                              // onClick={() => {setCheckout(true)}}
+                              // onClick={onOrderDetailsSubmit}
+                              onClick={displayRazorpayPaymentSdk}
                             >
                               Place order
                             </button>
                           </div>
-                         }
+                        
                         </div>
                       </div>
                     </div>

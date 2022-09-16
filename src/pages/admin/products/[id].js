@@ -13,11 +13,11 @@ import {
 } from "../../../api/productApi";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
+import {NumericRegX} from "../../../core/utils"
 
 const Product = ({ userDetails }) => {
   const router = useRouter();
   const { addToast } = useToasts();
-  const NumericRegX = /[0-9]*[.]?[0-9]+/;
   const { id } = router.query;
 
   useEffect(async () => {
@@ -92,7 +92,6 @@ const Product = ({ userDetails }) => {
         const response = await addProduct(userDetails, product);
         if (response) {
           if (response.status === "success") {
-            // authenticateAdmin()
             addToast("Product Added Successfully", {
               appearance: "success",
               autoDismiss: true,
@@ -115,7 +114,6 @@ const Product = ({ userDetails }) => {
         const response = await editProduct(userDetails, product, id);
         if (response) {
           if (response.status === "success") {
-            // authenticateAdmin()
             addToast("Product edited Successfully", {
               appearance: "success",
               autoDismiss: true,

@@ -135,7 +135,7 @@ const Faq = () => {
                   </Accordion>
                 </div>
                 <div className="single-faq">
-                  <h2 className="faq-title space-mb--20">Orders and returns</h2>
+                  <h2 className="faq-title space-mb--20">Orders</h2>
                   <Accordion defaultActiveKey="0">
                     <Card className="single-my-account space-mb--10">
                       <Card.Header className="panel-heading">

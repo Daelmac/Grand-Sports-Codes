@@ -1,71 +1,72 @@
 import { AdminLayout } from "../../components/Layout";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { IoIosSearch, IoMdFunnel } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
-import { getCustomers,disableCustomer,enableCustomer } from "../../api/userApi";
+import {
+  getCustomers,
+  disableCustomer,
+  enableCustomer,
+} from "../../api/userApi";
 import DataTable from "react-data-table-component";
 import { useToasts } from "react-toast-notifications";
+import customStyles from "./style/tableStyle";
 
-
-
-const Customers = ({userDetails}) => {
+const Customers = ({ userDetails }) => {
   const [customers, setCustomers] = useState([]);
   const [currentCustomers, setcurrentCustomers] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [filter,setFilter] = useState("all")
-  const [toggleFlag,setToggleFlag] = useState(false);
+  const [filter, setFilter] = useState("all");
+  const [toggleFlag, setToggleFlag] = useState(false);
   const { addToast } = useToasts();
-  
+
   useEffect(async () => {
-    let all_customers= await getCustomers(userDetails,filter)
-    if(all_customers) setCustomers(all_customers)
-  }, [filter,toggleFlag]);
+    let all_customers = await getCustomers(userDetails, filter);
+    if (all_customers) setCustomers(all_customers);
+  }, [filter, toggleFlag]);
   useEffect(() => {
     if (searchText != "") {
       const filterCurrentData = currentCustomers.filter(
         (item) =>
           item.customer_name &&
-          (item.customer_name.toLowerCase().includes(searchText.toLowerCase()) || (item.customer_id.toLowerCase().includes(searchText.toLowerCase())))
+          (item.customer_name
+            .toLowerCase()
+            .includes(searchText.toLowerCase()) ||
+            item.customer_id.toLowerCase().includes(searchText.toLowerCase()))
       );
       setcurrentCustomers(filterCurrentData);
     } else {
       setcurrentCustomers(customers);
     }
-  }, [
-    customers,
-    searchText,
-  ]);
-  const ChnageCustomerStatus = async(e, row) => {
-    if(row.customer_permitted){
-      let response = await disableCustomer(userDetails,row.customer_id)
-      if(response?.status === "success"){
-        setToggleFlag(!toggleFlag)
+  }, [customers, searchText]);
+  const ChnageCustomerStatus = async (e, row) => {
+    if (row.customer_permitted) {
+      let response = await disableCustomer(userDetails, row.customer_id);
+      if (response?.status === "success") {
+        setToggleFlag(!toggleFlag);
         addToast("Customer successfully Deactivated.", {
           appearance: "success",
           autoDismiss: true,
         });
-      }
-      else addToast("Some problem occurred,please try again.", {
-        appearance: "error",
-        autoDismiss: true,
-      });
-    }  
-    else{
-      let response = await enableCustomer(userDetails,row.customer_id)
-      if(response.status === "success"){
-        setToggleFlag(!toggleFlag)
+      } else
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+    } else {
+      let response = await enableCustomer(userDetails, row.customer_id);
+      if (response.status === "success") {
+        setToggleFlag(!toggleFlag);
         addToast("Customer successfully Activated.", {
           appearance: "success",
           autoDismiss: true,
         });
-      }
-      else addToast("Some problem occurred,please try again.", {
-        appearance: "error",
-        autoDismiss: true,
-      });
+      } else
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
+        });
     }
-
   };
   const columns = [
     {
@@ -125,7 +126,6 @@ const Customers = ({userDetails}) => {
         fontWeight: "bold",
       },
     },
-    
   ];
   return (
     <AdminLayout title="All customers">
@@ -140,18 +140,18 @@ const Customers = ({userDetails}) => {
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
                 <div className="search-widget mr-5">
                   <form>
-                    <input type="search" placeholder="Search customers ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <input
+                      type="search"
+                      placeholder="Search customers ..."
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
                     <button type="button">
                       <IoIosSearch />
                     </button>
                   </form>
                 </div>
                 <div className="single-icon filter-dropdown mt-2">
-                  <select
-                    onChange={(e) =>
-                      setFilter(e.target.value)
-                    }
-                  >
+                  <select onChange={(e) => setFilter(e.target.value)}>
                     <option value="all">All</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -169,7 +169,12 @@ const Customers = ({userDetails}) => {
 
         {/* shop page body */}
         <Container className="mt-5">
-          <DataTable columns={columns} data={currentCustomers} pagination />
+          <DataTable 
+          columns={columns} 
+          data={currentCustomers} 
+          customStyles={customStyles}
+          highlightOnHover
+          pagination />
         </Container>
       </div>
     </AdminLayout>

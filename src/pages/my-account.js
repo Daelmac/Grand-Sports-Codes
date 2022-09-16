@@ -17,10 +17,8 @@ import Button from "react-bootstrap/Button";
 import { update_address, setCurrentUser } from "../redux/actions/userActions";
 import Modal from 'react-bootstrap/Modal';
 import {COUNTRY_LIST} from "../core/utils"
-
+import {PhoneRegX,PincodRegX} from "../core/utils"
 const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
-  const PhoneRegX = /^([+]\d{2})?\d{10}$/;
-  const PincodRegX = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
   const { addToast } = useToasts();
   const [showLogoutModel, setShowLogoutModel] = useState(false);
   const[showCancelOrderModel, setShowCancelOrderModel] = useState(false)
@@ -226,7 +224,6 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
       const response = await changeCustomerPassword(userDetails,passwordData);
       if(response){
         if (response.status === "success") {
-          // authenticateAdmin()
           addToast("Password changed Successfully", {
             appearance: "success",
             autoDismiss: true,
@@ -475,6 +472,10 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                 </div>
                   ))
                 }
+                {purchaseDetails?.length<=0?
+                
+                <span className="d-block mt-3">Orders not found</span>
+                :null}
                  <Modal show={showCancelOrderModel} onHide={handleCancelClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>Cancel Order</Modal.Title>
@@ -621,7 +622,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                   cancel
                                 </button>
                                 <button
-                                  className="lezada-button lezada-button--medium"
+                                  className="lezada-button lezada-button--medium "
                                   onClick={onAddressDetailsSubmit}
                                 >
                                   {address ? "Edit" : "Add"} Address
@@ -650,7 +651,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                       ) : null}
                       <a
                         href="#"
-                        className="check-btn sqr-btn "
+                        className="check-btn sqr-btn mt-3 "
                         onClick={() => setAddressEditMode(true)}
                       >
                         <FaRegEdit />

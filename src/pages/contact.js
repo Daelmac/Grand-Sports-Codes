@@ -11,10 +11,9 @@ import {
   SectionTitleTwo
 } from "../components/SectionTitle";
 import { useState } from "react";
-
+import {EmailRegX} from "../core/utils"
 const Contact = ({userDetails}) => {
   const { addToast } = useToasts();
-  const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const [msg, setMsg] = useState({
     customerName: userDetails?.user_name || '',
     customerEmail: userDetails?.email || '',

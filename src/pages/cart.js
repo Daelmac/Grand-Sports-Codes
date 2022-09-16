@@ -50,7 +50,7 @@ const Cart = ({
       <Container>
       <Row>
         <Col>
-          <h1 className="breadcrumb__title">Cart</h1>
+          <h1 className="breadcrumb__title">{cartItems && cartItems.length >= 1 ?"Cart":""}</h1>
            </Col>
          </Row>
        </Container>
@@ -156,7 +156,7 @@ const Cart = ({
                   </tbody>
                 </table>
               </Col>
-              <Col lg={12} className="space-mb--r100">
+              <Col lg={12} className="mb-5">
                 <div className="cart-coupon-area space-pt--30 space-pb--30">
                   <Row className="align-items-center">
                     <Col lg={7} className="space-mb-mobile-only--30">

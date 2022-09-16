@@ -6,6 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Adminlogin } from "../../api/userApi";
 import { setCurrentUser } from "../../redux/actions/userActions";
 import Router from "next/router";
+import {EmailRegX} from "../../core/utils"
 
 const Login = ({ setCurrentUser, userDetails }) => {
   useEffect(() => {
@@ -13,7 +14,6 @@ const Login = ({ setCurrentUser, userDetails }) => {
       Router.push("/admin/dashboard");
     console.log("userDetails==>", userDetails);
   });
-  const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const { addToast } = useToasts();
   const [user, setUSer] = useState({
     email: "",

@@ -6,6 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { AdminUpdatePassword } from "../../api/userApi";
 import Router from "next/router";
 import { useRouter } from "next/router";
+import {EmailRegX} from "../../core/utils"
 
 const UpdatePassword = ({ userDetails }) => {
   useEffect(() => {
@@ -13,7 +14,6 @@ const UpdatePassword = ({ userDetails }) => {
       Router.push("/admin/dashboard");
   });
   const router = useRouter();
-  const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const { addToast } = useToasts();
   const [user, setUSer] = useState({
     email: router.query?.email || "",

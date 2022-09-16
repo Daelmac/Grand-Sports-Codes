@@ -1,11 +1,12 @@
 import { AdminLayout } from "../../components/Layout";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { MdDelete } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { get_all_messages } from "../../api/messagesApi";
 import DataTable from "react-data-table-component";
+import customStyles from "./style/tableStyle";
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
@@ -13,14 +14,14 @@ const Messages = () => {
   const [searchText, setSearchText] = useState("");
 
   useEffect(async () => {
-    let all_messages = await get_all_messages()
-    if(all_messages) setMessages(all_messages)
-  },[]);
+    let all_messages = await get_all_messages();
+    if (all_messages) setMessages(all_messages);
+  }, []);
   useEffect(() => {
     if (searchText != "") {
       const filterCurrentData = currentMessages.filter(
         (item) =>
-        item.name &&
+          item.name &&
           (item.name.toLowerCase().includes(searchText.toLowerCase()) ||
             item?.email.toLowerCase().includes(searchText.toLowerCase()))
       );
@@ -28,10 +29,7 @@ const Messages = () => {
     } else {
       setcurrentMessages(messages);
     }
-  }, [
-    messages,
-    searchText,
-  ]);
+  }, [messages, searchText]);
   const columns = [
     {
       name: "Date",
@@ -67,21 +65,21 @@ const Messages = () => {
       cell: (row) => <p>{row.email}</p>,
     },
     {
-        name: "Subject",
-        selector: (row) => row.subject,
-        left: true,
-        sortable: true,
-        width: "15%",
-        cell: (row) => <p>{row.subject}</p>,
-      },
-      {
-        name: "Message",
-        selector: (row) => row.message,
-        left: true,
-        sortable: true,
-        width: "40%",
-        cell: (row) => <p>{row.message}</p>,
-      },
+      name: "Subject",
+      selector: (row) => row.subject,
+      left: true,
+      sortable: true,
+      width: "15%",
+      cell: (row) => <p>{row.subject}</p>,
+    },
+    {
+      name: "Message",
+      selector: (row) => row.message,
+      left: true,
+      sortable: true,
+      width: "40%",
+      cell: (row) => <p>{row.message}</p>,
+    },
     // {
     //   name: "Action",
     //   left: true,
@@ -100,7 +98,6 @@ const Messages = () => {
     //     fontWeight: "bold",
     //   },
     // },
-    
   ];
   return (
     <AdminLayout title="All messages">
@@ -113,22 +110,30 @@ const Messages = () => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-  
                 <div className="search-widget mr-5">
                   <form>
-                    <input type="search" placeholder="Search messages ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <input
+                      type="search"
+                      placeholder="Search messages ..."
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
                     <button type="button">
                       <IoIosSearch />
                     </button>
                   </form>
                 </div>
               </div>
-
             </Col>
           </Row>
         </Container>
         <Container className="mt-5">
-          <DataTable columns={columns} data={currentMessages} pagination />
+          <DataTable
+            columns={columns}
+            data={currentMessages}
+            customStyles={customStyles}
+            highlightOnHover
+            pagination
+          />
         </Container>
       </div>
     </AdminLayout>

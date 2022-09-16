@@ -1,6 +1,7 @@
 // This page contains axois config with Authorization
 import Router from "next/router";
 import axios from "axios";
+import {setCurrentUser} from "../redux/actions/userActions"
 
 const apiBaseUrl = process.env.API_URL;
 
@@ -18,6 +19,7 @@ axiosInstance.interceptors.response.use(
     if(error.response.status === 401){
        const role = typeof window !== "undefined" ? JSON.parse(JSON.parse(window.localStorage.getItem('persist:primary') || "{}")?.currentUserData || "{}")?.role : ''
         localStorage.clear()
+        window.__NEXT_REDUX_STORE__.dispatch(setCurrentUser({}))
         console.log("role",role)
         if(role == 'admin') Router.push('/admin/login')
         else Router.push('/login-register')

@@ -1,23 +1,26 @@
 import { AdminLayout } from "../../../components/Layout";
 import { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { get_all_purchases } from "../../../api/orderApi";
 import DataTable from "react-data-table-component";
 import Router from "next/router";
 import { MdEdit } from "react-icons/md";
+import customStyles from "../style/tableStyle";
 
-const AllOrders = ({ userDetails }) => {
+const AllOrders = () => {
   const [orders, setOrders] = useState([]);
   const [currentOrders, setCurrentOrders] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState(null);
 
+  // get all order details
   useEffect(async () => {
     let all_purchases = await get_all_purchases(filter);
     if (all_purchases) setOrders(all_purchases);
   }, [filter]);
+
+  // manage filter and search
   useEffect(() => {
     if (searchText != "") {
       const filterCurrentData = currentOrders.filter(
@@ -31,10 +34,14 @@ const AllOrders = ({ userDetails }) => {
       setCurrentOrders(orders);
     }
   }, [orders, searchText]);
+
+  //on edit button click go to edit page
   const onEditOrder = (e, order) => {
     console.log(order);
     Router.push(`/admin/orders/${order.order_id}`);
   };
+
+  //table data
   const columns = [
     {
       name: "Order ID",
@@ -182,15 +189,17 @@ const AllOrders = ({ userDetails }) => {
           </Row>
         </Container>
         <Container className="mt-5">
-          <DataTable columns={columns} data={currentOrders} pagination />
+          <DataTable
+            columns={columns}
+            data={currentOrders}
+            customStyles={customStyles}
+            highlightOnHover
+            pagination
+          />
         </Container>
       </div>
     </AdminLayout>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    userDetails: state.currentUserData,
-  };
-};
-export default connect(mapStateToProps, null)(AllOrders);
+
+export default AllOrders;

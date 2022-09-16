@@ -7,13 +7,13 @@ import {CustomerUpdatePassword} from "../api/userApi"
 import { LayoutTwo } from "../components/Layout";
 import Router from "next/router";
 import { useRouter } from "next/router";
+import {EmailRegX} from "../core/utils"
 
 const UpdatePassword = ({userDetails}) => {
   useEffect(() => {
     if(userDetails && userDetails.role === 'customer') Router.push('/')
   })
     const router = useRouter();
-    const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const { addToast } = useToasts();
     const [user, setUSer] = useState({
         email: router.query?.email || "",  

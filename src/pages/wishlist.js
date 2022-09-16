@@ -45,13 +45,15 @@ const Wishlist = ({
           <li>Wishlist</li>
         </ul>
       </BreadcrumbOne> */}
-      <Container>
-      <Row>
-        <Col>
-          <h1 className="breadcrumb__title">wishlist</h1>
-           </Col>
-         </Row>
+      
+          <Container>
+            <Row>
+              <Col>
+                <h1 className="breadcrumb__title">{wishlistItems && wishlistItems.length >= 1 ?"Whishlist":""}</h1>
+                </Col>
+              </Row>
        </Container>
+      
       {/* <h2 class="section-title space-mb--20">Wihlist</h2> */}
       {/* wishlist content */}
       <div className="wishlist-content mt-2 space-mb--r130">

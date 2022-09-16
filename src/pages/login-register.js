@@ -8,9 +8,9 @@ import { setCurrentUser } from "../redux/actions/userActions";
 import Router from "next/router";
 import { CustomerLogin, CreateCustomer } from "../api/userApi";
 import { useEffect, useState } from "react";
+import {EmailRegX} from "../core/utils"
 
 const LoginRegister = ({ setCurrentUser, userDetails }) => {
-  const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   useEffect(() => {
     if (userDetails && userDetails.role === "customer") Router.push("/");
   });
@@ -66,7 +66,6 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
       const response = await CustomerLogin(user);
       if (response.status === "success" && response.role === "customer") {
         setCurrentUser(response, addToast);
-        // authenticateAdmin()
         Router.push("/");
       } else {
         setErrors({ ...errors, serverErrMsg: response.status_message });
@@ -80,7 +79,6 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
       console.log(newUser);
       const response = await CreateCustomer(newUser);
       if (response.status === "success") {
-        // authenticateAdmin()
         addToast("Registered Successfully.Please log in.", {
           appearance: "success",
           autoDismiss: true,

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import {AdminPasswordReset} from "../../api/userApi"
 import Router from "next/router";
-
+import {EmailRegX} from "../../core/utils"
 
 
 const ForgotPassword = ({userDetails}) => {
@@ -13,7 +13,6 @@ const ForgotPassword = ({userDetails}) => {
     if(userDetails && userDetails.role === 'admin') Router.push('/admin/dashboard')
     console.log("userDetails==>",userDetails)
   })
-    const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const { addToast } = useToasts();
     const [user, setUSer] = useState({
         email: '',  

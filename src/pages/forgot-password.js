@@ -4,17 +4,15 @@ import Link from "next/link";
 import { connect } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import {CustomerPasswordReset} from "../api/userApi"
-// import {authenticateAdmin} from "../../auth"
 import { LayoutTwo } from "../components/Layout";
 import Router from "next/router";
-
+import {EmailRegX} from "../core/utils.js"
 
 
 const ForgotPassword = ({userDetails}) => {
   useEffect(() => {
     if(userDetails && userDetails.role === 'customer') Router.push('/')
   })
-    const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const { addToast } = useToasts();
     const [user, setUSer] = useState({
         email: '',  
