@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
@@ -84,7 +83,7 @@ const ProductBasic = ({
       {(Object.keys(product).length != 0)?
       <Container>
         <Row>
-          <Col lg={6} className="space-mb-mobile-only--50">
+          <Col lg={6} className="space-mb-mobile-only--50"  data-aos="fade-left">
             {/* image gallery bottom thumb */}
             <ImageGalleryBottomThumb
               product={product}
@@ -95,7 +94,7 @@ const ProductBasic = ({
             />
           </Col>
 
-          <Col lg={6}>
+          <Col lg={6} data-aos="fade-right">
             {/* product description */}
             <ProductDescription
               product={product}
@@ -115,7 +114,7 @@ const ProductBasic = ({
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col data-aos="fade-down">
             {/* product description tab */}
             <ProductDescriptionTab product={product} />
           </Col>

@@ -26,11 +26,6 @@ const NotFound = () => {
                 </p>
               </div>
             </Col>
-            {/* <Col lg={6}>
-          <img
-          src={"/assets/images/not-found.gif"}> 
-          </img>
-        </Col> */}
           </Row>
         </Container>
         

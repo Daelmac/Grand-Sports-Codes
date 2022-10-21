@@ -6,14 +6,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Adminlogin } from "../../api/userApi";
 import { setCurrentUser } from "../../redux/actions/userActions";
 import Router from "next/router";
-import {EmailRegX} from "../../core/utils"
+import { EmailRegX } from "../../core/utils";
 
 const Login = ({ setCurrentUser, userDetails }) => {
-  useEffect(() => {
-    if (userDetails && userDetails.role === "admin")
-      Router.push("/admin/dashboard");
-    console.log("userDetails==>", userDetails);
-  });
   const { addToast } = useToasts();
   const [user, setUSer] = useState({
     email: "",
@@ -25,34 +20,45 @@ const Login = ({ setCurrentUser, userDetails }) => {
     serverErrMsg: "",
   });
 
+  //if user already logged in then redirect to dashboard
+  useEffect(() => {
+    if (userDetails && userDetails.role === "admin")
+      Router.push("/admin/dashboard");
+  });
+
+  //handle login form data change
   const handleChange = (event) => {
     initValidation();
     const { name, value } = event.target;
     setUSer({ ...user, [name]: value });
   };
+
+  //on login button click
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validate()) {
       const response = await Adminlogin(user);
-      if(response){
-      if (response.status === "success" && response.role === "admin") {
-        setCurrentUser(response, addToast);
-        Router.push("/admin/dashboard");
+      if (response) {
+        if (response.status === "success" && response.role === "admin") {
+          setCurrentUser(response, addToast);
+          Router.push("/admin/dashboard");
+        } else {
+          setErrors({
+            ...errors,
+            serverErrMsg: "Invalid email or password.Please try again.",
+          });
+        }
       } else {
-        setErrors({
-          ...errors,
-          serverErrMsg: "Invalid email or password.Please try again.",
+        addToast("Some problem occurred,please try again.", {
+          appearance: "error",
+          autoDismiss: true,
         });
       }
-    }else{
-      addToast("Some problem occurred,please try again.", {
-        appearance: "error",
-        autoDismiss: true,
-      });
-    }
       console.log(response);
     }
   };
+
+  //initialize validation messages
   const initValidation = () => {
     const errors = {
       emailErrMsg: "",
@@ -61,6 +67,8 @@ const Login = ({ setCurrentUser, userDetails }) => {
     };
     setErrors(errors);
   };
+
+  //handle validation
   const validate = () => {
     let errors = {};
     let isValid = true;
@@ -97,10 +105,7 @@ const Login = ({ setCurrentUser, userDetails }) => {
             >
               <div className="lezada-form login-form">
                 <div className="header-content__logo d-flex align-items-center justify-content-center pb-2">
-                  <Link
-                    href="/"
-                    as={process.env.PUBLIC_URL + "/"}
-                  >
+                  <Link href="/" as={process.env.PUBLIC_URL + "/"}>
                     <a>
                       <img
                         src={
@@ -165,10 +170,7 @@ const Login = ({ setCurrentUser, userDetails }) => {
                       >
                         <a className="reset-pass-link">Lost your password?</a>
                       </Link>
-                      <Link
-                        href="/"
-                        as={process.env.PUBLIC_URL + "/"}
-                      >
+                      <Link href="/" as={process.env.PUBLIC_URL + "/"}>
                         <a className="reset-pass-link">Back to home page</a>
                       </Link>
                     </Col>

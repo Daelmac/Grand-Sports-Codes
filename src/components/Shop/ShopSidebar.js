@@ -14,7 +14,7 @@ const ShopSidebar = ({ products, getSortParams,getSearchParam }) => {
   const popularProducts = getProducts(products, "", "best_sellers", 5);
 
   return (
-    <div className="shop-sidebar">
+    <div className="shop-sidebar" data-aos="fade-right">
       <div className="single-sidebar-widget space-mb--40 search-product">
         {/* search widget */}
         <div className="search-widget">

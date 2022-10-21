@@ -29,7 +29,7 @@ const Faq = () => {
       <div className="element-wrapper space-mt--r130 space-mb--r130">
         <Container>
           <Row>
-            <Col lg={12}>
+            <Col lg={12} data-aos="fade-left">
               <div className="faq-wrapper">
                 <div className="single-faq space-mb--r50">
                   <h2 className="faq-title space-mb--20">

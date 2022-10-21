@@ -20,7 +20,7 @@ import {
   removeProduct,
 } from "../../../api/productApi";
 import DataTable from "react-data-table-component";
-import customStyles from "../style/tableStyle";
+import customStyles from "../../../assets/scss/style/tableStyle";
 import { ShopFilter } from "../../../components/Shop";
 
 const AllProducts = ({ userDetails }) => {

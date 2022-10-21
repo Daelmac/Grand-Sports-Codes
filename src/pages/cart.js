@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -8,7 +8,7 @@ import {
   decreaseQuantity,
   deleteFromCart,
   deleteAllFromCart,
-  cartItemStock
+  cartItemStock,
 } from "../redux/actions/cartActions";
 import { getDiscountPrice } from "../lib/product";
 import { LayoutTwo } from "../components/Layout";
@@ -20,7 +20,7 @@ const Cart = ({
   decreaseQuantity,
   addToCart,
   deleteFromCart,
-  deleteAllFromCart
+  deleteAllFromCart,
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
@@ -48,12 +48,14 @@ const Cart = ({
         </ul>
       </BreadcrumbOne> */}
       <Container>
-      <Row>
-        <Col>
-          <h1 className="breadcrumb__title">{cartItems && cartItems.length >= 1 ?"Cart":""}</h1>
-           </Col>
-         </Row>
-       </Container>
+        <Row>
+          <Col>
+            <h1 className="breadcrumb__title">
+              {cartItems && cartItems.length >= 1 ? "Cart" : ""}
+            </h1>
+          </Col>
+        </Row>
+      </Container>
       {/* cart content */}
       <div className="cart-content mt-2 space-mb--r130">
         <Container>
@@ -78,7 +80,7 @@ const Cart = ({
                       const discountedPrice = getDiscountPrice(
                         product?.product_price,
                         product?.product_discount
-                      )
+                      );
 
                       cartTotalPrice += discountedPrice * product.quantity;
                       return (
@@ -90,7 +92,9 @@ const Cart = ({
                             >
                               <a>
                                 <img
-                                  src={process.env.API_URL+product.product_image}
+                                  src={
+                                    process.env.API_URL + product.product_image
+                                  }
                                   className="img-fluid"
                                   alt=""
                                 />
@@ -107,7 +111,9 @@ const Cart = ({
                           </td>
 
                           <td className="product-price">
-                            <span className="price">&#8377;{discountedPrice}</span>
+                            <span className="price">
+                              &#8377;{discountedPrice}
+                            </span>
                           </td>
 
                           <td className="product-quantity">
@@ -139,7 +145,8 @@ const Cart = ({
 
                           <td className="total-price">
                             <span className="price">
-                            &#8377;{(discountedPrice * product.quantity).toFixed(2)}
+                              &#8377;
+                              {(discountedPrice * product.quantity).toFixed(2)}
                             </span>
                           </td>
 
@@ -202,7 +209,9 @@ const Cart = ({
                       </tr> */}
                       <tr>
                         <th>TOTAL</th>
-                        <td className="total">&#8377;{cartTotalPrice.toFixed(2)}</td>
+                        <td className="total">
+                          &#8377;{cartTotalPrice.toFixed(2)}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -249,7 +258,7 @@ const Cart = ({
 
 const mapStateToProps = (state) => {
   return {
-    cartItems: state.cartData
+    cartItems: state.cartData,
   };
 };
 
@@ -266,7 +275,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
-    }
+    },
   };
 };
 

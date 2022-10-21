@@ -7,10 +7,12 @@ export default class MyDocument extends Document {
         <Head >
           <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
         </Head>
+
         <body>
           <Main />
           <NextScript />
         </body>
+        
       </Html>
     );
   }

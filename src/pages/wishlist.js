@@ -6,7 +6,7 @@ import { useToasts } from "react-toast-notifications";
 import {
   addToWishlist,
   deleteFromWishlist,
-  deleteAllFromWishlist
+  deleteAllFromWishlist,
 } from "../redux/actions/wishlistActions";
 import { addToCart } from "../redux/actions/cartActions";
 import { getDiscountPrice } from "../lib/product";
@@ -19,7 +19,7 @@ const Wishlist = ({
   cartItems,
   addToCart,
   deleteFromWishlist,
-  deleteAllFromWishlist
+  deleteAllFromWishlist,
 }) => {
   const { addToast } = useToasts();
 
@@ -45,15 +45,17 @@ const Wishlist = ({
           <li>Wishlist</li>
         </ul>
       </BreadcrumbOne> */}
-      
-          <Container>
-            <Row>
-              <Col>
-                <h1 className="breadcrumb__title">{wishlistItems && wishlistItems.length >= 1 ?"Whishlist":""}</h1>
-                </Col>
-              </Row>
-       </Container>
-      
+
+      <Container>
+        <Row>
+          <Col>
+            <h1 className="breadcrumb__title">
+              {wishlistItems && wishlistItems.length >= 1 ? "Whishlist" : ""}
+            </h1>
+          </Col>
+        </Row>
+      </Container>
+
       {/* <h2 class="section-title space-mb--20">Wihlist</h2> */}
       {/* wishlist content */}
       <div className="wishlist-content mt-2 space-mb--r130">
@@ -78,7 +80,7 @@ const Wishlist = ({
                       const discountedPrice = getDiscountPrice(
                         product?.product_price,
                         product?.product_discount
-                      )
+                      );
 
                       const cartItem = cartItems.filter(
                         (item) => item.product_id === product.product_id
@@ -93,7 +95,9 @@ const Wishlist = ({
                             >
                               <a>
                                 <img
-                                  src={process.env.API_URL+product.product_image}
+                                  src={
+                                    process.env.API_URL + product.product_image
+                                  }
                                   className="img-fluid"
                                   alt=""
                                 />
@@ -110,7 +114,9 @@ const Wishlist = ({
                           </td>
 
                           <td className="product-price">
-                            <span className="price">&#8377;{discountedPrice}</span>
+                            <span className="price">
+                              &#8377;{discountedPrice}
+                            </span>
                           </td>
 
                           <td>
@@ -208,7 +214,7 @@ const Wishlist = ({
 const mapStateToProps = (state) => {
   return {
     wishlistItems: state.wishlistData,
-    cartItems: state.cartData
+    cartItems: state.cartData,
   };
 };
 
@@ -225,7 +231,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteAllFromWishlist: (addToast) => {
       dispatch(deleteAllFromWishlist(addToast));
-    }
+    },
   };
 };
 

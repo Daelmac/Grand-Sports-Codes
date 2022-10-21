@@ -6,17 +6,20 @@ import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { get_all_messages } from "../../api/messagesApi";
 import DataTable from "react-data-table-component";
-import customStyles from "./style/tableStyle";
+import customStyles from "../../assets/scss/style/tableStyle";
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [currentMessages, setcurrentMessages] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  //get all messages
   useEffect(async () => {
     let all_messages = await get_all_messages();
     if (all_messages) setMessages(all_messages);
   }, []);
+
+  //manage search with name or email
   useEffect(() => {
     if (searchText != "") {
       const filterCurrentData = currentMessages.filter(
@@ -30,6 +33,8 @@ const Messages = () => {
       setcurrentMessages(messages);
     }
   }, [messages, searchText]);
+
+  // table columns
   const columns = [
     {
       name: "Date",

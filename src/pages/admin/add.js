@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { AdminLayout } from "../../components/Layout";
 import { Container, Row, Col } from "react-bootstrap";
-import { CreateAdmin} from "../../api/userApi";
+import { CreateAdmin } from "../../api/userApi";
 import Router from "next/router";
-import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
-import {EmailRegX} from "../../core/utils"
+import { EmailRegX } from "../../core/utils";
 
 const AddAdmin = () => {
   const { addToast } = useToasts();
@@ -24,6 +23,8 @@ const AddAdmin = () => {
     confirmPassword: "",
     serverErrMsg: "",
   });
+
+  //initialize blank admin
   const initNewAdmin = () => {
     let userBlank = {
       firstName: "",
@@ -34,32 +35,38 @@ const AddAdmin = () => {
     };
     setNewAdmin(userBlank);
   };
+
+  //handle admin form data change
   const handleRegisterAdminChange = async (event) => {
     initNewAdminValidation();
     const { name, value } = event.target;
     setNewAdmin({ ...newAdmin, [name]: value });
   };
+
+  //on submit button click
   const onRegisterAdmin = async (event) => {
     event.preventDefault();
     if (registerUSerValidation()) {
       const response = await CreateAdmin(newAdmin);
-      if(response){
-      if (response.status === "success") {
-        addToast("Registered Successfully.", {
-          appearance: "success",
-          autoDismiss: true,
-        });
-        initNewAdmin();
-        Router.push("/admin/list");
-      } else {
-        setNewAdminErrors({
-          ...newAdminErrors,
-          serverErrMsg: response.status_message,
-        });
+      if (response) {
+        if (response.status === "success") {
+          addToast("Registered Successfully.", {
+            appearance: "success",
+            autoDismiss: true,
+          });
+          initNewAdmin();
+          Router.push("/admin/list");
+        } else {
+          setNewAdminErrors({
+            ...newAdminErrors,
+            serverErrMsg: response.status_message,
+          });
+        }
       }
     }
-    }
   };
+
+  //error validation messages
   const initNewAdminValidation = () => {
     const errors = {
       firstNameErrMsg: "",
@@ -71,6 +78,8 @@ const AddAdmin = () => {
     };
     setNewAdminErrors(errors);
   };
+
+  //handle form validation
   const registerUSerValidation = () => {
     let errors = {};
     let isValid = true;
@@ -113,11 +122,11 @@ const AddAdmin = () => {
       <div className="login-area">
         <Container>
           <Row>
-          <Col lg={8} style={{float:"none",margin:"auto"}}>
+            <Col lg={8} style={{ float: "none", margin: "auto" }}>
               <div className="lezada-form login-form--register">
                 <form>
                   <Row>
-                    <Col lg={6} className="space-mb--30" >
+                    <Col lg={6} className="space-mb--30">
                       <label htmlFor="regFirstName">
                         First Name <span className="required">*</span>{" "}
                       </label>
@@ -223,6 +232,5 @@ const AddAdmin = () => {
     </AdminLayout>
   );
 };
-
 
 export default AddAdmin;

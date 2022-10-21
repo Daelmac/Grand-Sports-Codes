@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { get_all_receipts } from "../../../api/orderApi";
 import DataTable from "react-data-table-component";
 import Router from "next/router";
-import customStyles from "../style/tableStyle";
+import customStyles from "../../../assets/scss/style/tableStyle";
 
 const Receipts = () => {
   const [receipts, setReceipts] = useState([]);

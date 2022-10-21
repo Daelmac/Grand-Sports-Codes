@@ -13,13 +13,33 @@ import {
 } from "../../../api/productApi";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
-import {NumericRegX} from "../../../core/utils"
+import { NumericRegX } from "../../../core/utils";
 
 const Product = ({ userDetails }) => {
   const router = useRouter();
   const { addToast } = useToasts();
   const { id } = router.query;
 
+  const [product, setProduct] = useState({
+    name: "",
+    category: "",
+    price: "",
+    discount: "",
+    image: "",
+    description: "",
+    isAvailable: null,
+  });
+  const [productErrors, setproductErrors] = useState({
+    nameErrMsg: "",
+    categoryErrMsg: "",
+    priceErrMsg: "",
+    discountErrMsg: "",
+    imageErrMsg: "",
+    descriptionErrMsg: "",
+    serverErrMsg: "",
+  });
+
+  //get single product data id it's in edit mode
   useEffect(async () => {
     if (id != "add") {
       const single_product = await getProductByID(id);
@@ -33,6 +53,8 @@ const Product = ({ userDetails }) => {
       }
     }
   }, []);
+
+  //set product data
   const setProductData = (single_product) => {
     let productData = {
       name: single_product.product_name,
@@ -45,24 +67,8 @@ const Product = ({ userDetails }) => {
     };
     setProduct(productData);
   };
-  const [product, setProduct] = useState({
-    name: "",
-    category: "",
-    price: "",
-    discount: "",
-    image: "",
-    description: "",
-    isAvailable:null,
-  });
-  const [productErrors, setproductErrors] = useState({
-    nameErrMsg: "",
-    categoryErrMsg: "",
-    priceErrMsg: "",
-    discountErrMsg: "",
-    imageErrMsg: "",
-    descriptionErrMsg: "",
-    serverErrMsg: "",
-  });
+
+  //initalize black object of product
   const initProduct = () => {
     let productBlank = {
       name: "",
@@ -75,16 +81,22 @@ const Product = ({ userDetails }) => {
     setProduct(productBlank);
     initProductValidation();
   };
+
+  //handle form data change
   const handleProductDataChange = async (event) => {
     initProductValidation();
     const { name, value } = event.target;
     setProduct({ ...product, [name]: value });
   };
+
+  //on product image change
   const onImageChange = (event) => {
     initProductValidation();
     let image = event.target.files[0];
     setProduct({ ...product, ["image"]: image });
   };
+
+  //on product data submit button click
   const onProductSubmit = async (event) => {
     event.preventDefault();
     if (ProductValidation()) {
@@ -134,11 +146,15 @@ const Product = ({ userDetails }) => {
       }
     }
   };
+
+  //on cancel button redirect to product page.
   const onCancel = (event) => {
     event.preventDefault();
     if (id == "add") initProduct();
     else console.log("Cancelled");
   };
+
+  //initialize error message
   const initProductValidation = () => {
     const errors = {
       nameErrMsg: "",
@@ -151,6 +167,8 @@ const Product = ({ userDetails }) => {
     };
     setproductErrors(errors);
   };
+
+  //manage product data validation
   const ProductValidation = () => {
     let errors = {};
     let isValid = true;

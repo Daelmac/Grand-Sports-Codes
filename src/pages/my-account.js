@@ -6,31 +6,30 @@ import { FaRegEdit } from "react-icons/fa";
 import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
 import { connect } from "react-redux";
-import { updateCustomerAddress,changeCustomerPassword } from "../api/userApi";
-import {showCustomerPurchases,cancelCustomerOrder} from "../api/orderApi"
+import { updateCustomerAddress, changeCustomerPassword } from "../api/userApi";
+import { showCustomerPurchases, cancelCustomerOrder } from "../api/orderApi";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { update_address, setCurrentUser } from "../redux/actions/userActions";
-import Modal from 'react-bootstrap/Modal';
-import {COUNTRY_LIST} from "../core/utils"
-import {PhoneRegX,PincodRegX} from "../core/utils"
+import Modal from "react-bootstrap/Modal";
+import { COUNTRY_LIST } from "../core/utils";
+import { PhoneRegX, PincodRegX } from "../core/utils";
 const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
   const { addToast } = useToasts();
   const [showLogoutModel, setShowLogoutModel] = useState(false);
-  const[showCancelOrderModel, setShowCancelOrderModel] = useState(false)
-  const [cancelOrderResource, setCancelOrderResource] = useState(null)
-  const [cancelOrderflag,setCancelOrderFlag] = useState(false)
+  const [showCancelOrderModel, setShowCancelOrderModel] = useState(false);
+  const [cancelOrderResource, setCancelOrderResource] = useState(null);
+  const [cancelOrderflag, setCancelOrderFlag] = useState(false);
 
   if (!(userDetails && userDetails.role === "customer"))
     Router.push("/login-register");
- 
-  let address=null
-  if (userDetails?.address) address = JSON.parse(userDetails?.address);
 
+  let address = null;
+  if (userDetails?.address) address = JSON.parse(userDetails?.address);
 
   const [addressEditMode, setAddressEditMode] = useState(false);
   const [addressDetails, setAddressDetails] = useState(
@@ -56,20 +55,20 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
     pincodeErrMsg: "",
     serverErrMsg: "",
   });
-  const [purchaseDetails, setPurchaseDetails] = useState(null)
+  const [purchaseDetails, setPurchaseDetails] = useState(null);
   const handleClose = () => setShowLogoutModel(false);
   const handleShow = () => {
     setShowLogoutModel(true);
   };
   const handleCancelClose = () => setShowCancelOrderModel(false);
   const handleCancelShow = (order) => {
-    setCancelOrderResource(order)
-    console.log(order)
+    setCancelOrderResource(order);
+    console.log(order);
     setShowCancelOrderModel(true);
   };
-  const cancelOrder=async()=>{
-    handleCancelClose()
-    console.log("order",cancelOrderResource)
+  const cancelOrder = async () => {
+    handleCancelClose();
+    console.log("order", cancelOrderResource);
     const response = await cancelCustomerOrder(cancelOrderResource.id);
     if (response) {
       if (response.status === "success") {
@@ -77,7 +76,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
           appearance: "success",
           autoDismiss: true,
         });
-        setCancelOrderFlag(!cancelOrderflag)
+        setCancelOrderFlag(!cancelOrderflag);
       } else {
         addToast(response.status_message, {
           appearance: "error",
@@ -90,7 +89,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
         autoDismiss: true,
       });
     }
-}
+  };
   useEffect(async () => {
     const purchaseData = await showCustomerPurchases(userDetails);
     if (purchaseData) {
@@ -202,7 +201,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
   };
 
   const [passwordData, setPasswordData] = useState({
-    currentPassword:"",
+    currentPassword: "",
     password: "",
     confirmPassword: "",
   });
@@ -221,8 +220,8 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
     event.preventDefault();
     if (PasswordDataValidation()) {
       console.log(passwordData);
-      const response = await changeCustomerPassword(userDetails,passwordData);
-      if(response){
+      const response = await changeCustomerPassword(userDetails, passwordData);
+      if (response) {
         if (response.status === "success") {
           addToast("Password changed Successfully", {
             appearance: "success",
@@ -234,8 +233,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
             serverErrMsg: response.status_message,
           });
         }
-      }
-      else{
+      } else {
         addToast("Some problem occurred,please try again.", {
           appearance: "error",
           autoDismiss: true,
@@ -355,146 +353,208 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                 </Modal>
               </Tab.Pane>
               <Tab.Pane eventKey="orders">
-              <div className="my-account-area__content">
+                <div className="my-account-area__content">
                   <h3>My Orders</h3>
-                {
-                  purchaseDetails?.map(purchase=>(
-                    <div className="my-cart-wrp mt-2" key={purchase?.receipt_id}>
-                  <div className="heading">
-                    <span>
-                      Recipes ID: <em>{purchase?.receipt_id}</em>
-                    </span>
-                    <span>
-                      Total Amount: <em>&#8377;{purchase?.receipt_total}</em>
-                    </span>
-                    <span>
-                      Order Date: <em>{new Date(purchase?.date).toLocaleDateString("en-IN", {timeZone: 'Asia/Kolkata'})}</em>
-                    </span>
-                  </div>
-                  <Accordion>
-                  {purchase.orders?.map((order,index)=>(
-                    <div key={order.id}>
-                      <Card>
-                        <Card.Header className="p-2s">
-                          <div className="order-list-wrp">
-                            <span>
-                              Order ID: <em>{order.id}</em>
-                            </span>
-                            <div className="order-list-item-desc">
-                              <div className="pro-img">
-                                  <span>
-                                    <img src={process.env.API_URL+order.product.product_image} />
-                                  </span>
-                                  <div className="pro-name">
-                                  {/* <h5>Product Name</h5> */}
-                                  <Link
-                              href={`/shop/product/[id]?id=${order.product_id}`}
-                              as={`${process.env.PUBLIC_URL}/shop/product/${order.product_id}`}
-                            >
-                              <a>
-                                  <p>{order.product.name}</p>
-                                  </a></Link>
-                                </div>
-                              </div>
-                              <div className="d-flex">
-                              <div className="pro-qut">
-                                <h5>Quantity</h5>
-                                <p className="bold-text">{order.quantity}</p>
-                              </div>
-                              
-                              <div className="pro-total">
-                                <h5>Order Amount</h5>
-                                <p className="bold-text">&#8377;{order.total_amount}</p>
-                              </div>
-                              <div className="pro-status">
-                                {/* <h5>Status</h5> */}
-                                {order.order_status == "Pending"?<p className="pending-text">{order.order_status}</p>:null}
-                                {order.order_status == "Confirmed"?<p className="confirm-text">{order.order_status}</p>:null}
-                                {order.order_status == "Shipped"?<p className="shipped-text">{order.order_status}</p>:null}
-                                {order.order_status == "Delivered"?<p className="delivered-text">{order.order_status}</p>:null}
-                                {order.order_status == "Cancelled"?<p className="cancelled-text">{order.order_status}</p>:null}
-                                {order.order_status == "Refunded"?<p className="refunded-text">{order.order_status}</p>:null}
-                                {/* <p>{order.order_status}</p> */}
-                              </div>
-                              <Accordion.Toggle
-                                as={Button}
-                                variant="link"
-                                eventKey={index+1}
-                              >
-                                More info
-                              </Accordion.Toggle>
-                            </div>
-                            </div>
-                          </div>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey={index+1}>
-                          <Card.Body>
-                            <div className="order-list-item-desc more_details_order">
-                              <div className="pro-total">
-                                {/* <h5>Address</h5> */}
-                                <address>
-                                  <p>
-                                    <strong>{order?.name}</strong>
-                                  </p>
-                                  <p>
-                                    {JSON.parse(order.address)?.address_line_1},{" "}
-                                    {JSON.parse(order.address)?.address_line_2} <br />
-                                    {JSON.parse(order.address)?.city}, {JSON.parse(order.address)?.state},{JSON.parse(order.address)?.country}-
-                                    {JSON.parse(order.address)?.pincode}
-                                  </p>
-                                  <p>Mobile: {order?.phone}</p>
-                             </address>
-                              </div>
-                              {
-                                (order.order_status == "Shipped" || order.order_status == "Delivered")?
-                                <div className="delevary_patner">
-                                <div className="pro-total mb-2">
-                                  <h5>Delivery Partner</h5>
-                                  <p className="bold-text">{order?.order_delivery_partner}</p>
-                                </div>
-                                <div className="pro-total">
-                                  <h5>Tracking ID</h5>
-                                  <p className="bold-text">{order?.order_tracking_id}</p>
-                                </div>
-                              </div>:!(order.order_status == "Cancelled")?<button className="lezada-button lezada-button--small" onClick={()=>handleCancelShow(order)}>
-                                Cancel Order
-                              </button>:null
-                              }
-                              
-                            </div>
-                          </Card.Body>
-                        </Accordion.Collapse>
-                      </Card>
-                  </div>
-                  ))}
-                  </Accordion>
-                  
-                </div>
-                  ))
-                }
-                {purchaseDetails?.length<=0?
-                
-                <span className="d-block mt-3">Orders not found</span>
-                :null}
-                 <Modal show={showCancelOrderModel} onHide={handleCancelClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Cancel Order</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    Are you sure you want to cancel order,
-                    <b>{cancelOrderResource?.product.name}</b> ?
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <button className="cancel-btn-small" onClick={handleCancelClose}>
-                      Cancel
-                    </button>
-                    <button
-                      className="lezada-button lezada-button--small"
-                      onClick={cancelOrder}
+                  {purchaseDetails?.map((purchase) => (
+                    <div
+                      className="my-cart-wrp mt-2"
+                      key={purchase?.receipt_id}
                     >
-                      Cancel Order
-                    </button>
-                  </Modal.Footer>
+                      <div className="heading">
+                        <span>
+                          Recipes ID: <em>{purchase?.receipt_id}</em>
+                        </span>
+                        <span>
+                          Total Amount:{" "}
+                          <em>&#8377;{purchase?.receipt_total}</em>
+                        </span>
+                        <span>
+                          Order Date:{" "}
+                          <em>
+                            {new Date(purchase?.date).toLocaleDateString(
+                              "en-IN",
+                              { timeZone: "Asia/Kolkata" }
+                            )}
+                          </em>
+                        </span>
+                      </div>
+                      <Accordion>
+                        {purchase.orders?.map((order, index) => (
+                          <div key={order.id}>
+                            <Card>
+                              <Card.Header className="p-2s">
+                                <div className="order-list-wrp">
+                                  <span>
+                                    Order ID: <em>{order.id}</em>
+                                  </span>
+                                  <div className="order-list-item-desc">
+                                    <div className="pro-img">
+                                      <span>
+                                        <img
+                                          src={
+                                            process.env.API_URL +
+                                            order.product.product_image
+                                          }
+                                        />
+                                      </span>
+                                      <div className="pro-name">
+                                        {/* <h5>Product Name</h5> */}
+                                        <Link
+                                          href={`/shop/product/[id]?id=${order.product_id}`}
+                                          as={`${process.env.PUBLIC_URL}/shop/product/${order.product_id}`}
+                                        >
+                                          <a>
+                                            <p>{order.product.name}</p>
+                                          </a>
+                                        </Link>
+                                      </div>
+                                    </div>
+                                    <div className="d-flex">
+                                      <div className="pro-qut">
+                                        <h5>Quantity</h5>
+                                        <p className="bold-text">
+                                          {order.quantity}
+                                        </p>
+                                      </div>
+
+                                      <div className="pro-total">
+                                        <h5>Order Amount</h5>
+                                        <p className="bold-text">
+                                          &#8377;{order.total_amount}
+                                        </p>
+                                      </div>
+                                      <div className="pro-status">
+                                        {/* <h5>Status</h5> */}
+                                        {order.order_status == "Pending" ? (
+                                          <p className="pending-text">
+                                            {order.order_status}
+                                          </p>
+                                        ) : null}
+                                        {order.order_status == "Confirmed" ? (
+                                          <p className="confirm-text">
+                                            {order.order_status}
+                                          </p>
+                                        ) : null}
+                                        {order.order_status == "Shipped" ? (
+                                          <p className="shipped-text">
+                                            {order.order_status}
+                                          </p>
+                                        ) : null}
+                                        {order.order_status == "Delivered" ? (
+                                          <p className="delivered-text">
+                                            {order.order_status}
+                                          </p>
+                                        ) : null}
+                                        {order.order_status == "Cancelled" ? (
+                                          <p className="cancelled-text">
+                                            {order.order_status}
+                                          </p>
+                                        ) : null}
+                                        {order.order_status == "Refunded" ? (
+                                          <p className="refunded-text">
+                                            {order.order_status}
+                                          </p>
+                                        ) : null}
+                                        {/* <p>{order.order_status}</p> */}
+                                      </div>
+                                      <Accordion.Toggle
+                                        as={Button}
+                                        variant="link"
+                                        eventKey={index + 1}
+                                      >
+                                        More info
+                                      </Accordion.Toggle>
+                                    </div>
+                                  </div>
+                                </div>
+                              </Card.Header>
+                              <Accordion.Collapse eventKey={index + 1}>
+                                <Card.Body>
+                                  <div className="order-list-item-desc more_details_order">
+                                    <div className="pro-total">
+                                      {/* <h5>Address</h5> */}
+                                      <address>
+                                        <p>
+                                          <strong>{order?.name}</strong>
+                                        </p>
+                                        <p>
+                                          {
+                                            JSON.parse(order.address)
+                                              ?.address_line_1
+                                          }
+                                          ,{" "}
+                                          {
+                                            JSON.parse(order.address)
+                                              ?.address_line_2
+                                          }{" "}
+                                          <br />
+                                          {
+                                            JSON.parse(order.address)?.city
+                                          }, {JSON.parse(order.address)?.state},
+                                          {JSON.parse(order.address)?.country}-
+                                          {JSON.parse(order.address)?.pincode}
+                                        </p>
+                                        <p>Mobile: {order?.phone}</p>
+                                      </address>
+                                    </div>
+                                    {order.order_status == "Shipped" ||
+                                    order.order_status == "Delivered" ? (
+                                      <div className="delevary_patner">
+                                        <div className="pro-total mb-2">
+                                          <h5>Delivery Partner</h5>
+                                          <p className="bold-text">
+                                            {order?.order_delivery_partner}
+                                          </p>
+                                        </div>
+                                        <div className="pro-total">
+                                          <h5>Tracking ID</h5>
+                                          <p className="bold-text">
+                                            {order?.order_tracking_id}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    ) : !(order.order_status == "Cancelled") ? (
+                                      <button
+                                        className="lezada-button lezada-button--small"
+                                        onClick={() => handleCancelShow(order)}
+                                      >
+                                        Cancel Order
+                                      </button>
+                                    ) : null}
+                                  </div>
+                                </Card.Body>
+                              </Accordion.Collapse>
+                            </Card>
+                          </div>
+                        ))}
+                      </Accordion>
+                    </div>
+                  ))}
+                  {purchaseDetails?.length <= 0 ? (
+                    <span className="d-block mt-3">Orders not found</span>
+                  ) : null}
+                  <Modal show={showCancelOrderModel} onHide={handleCancelClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Cancel Order</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Are you sure you want to cancel order,
+                      <b>{cancelOrderResource?.product.name}</b> ?
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <button
+                        className="cancel-btn-small"
+                        onClick={handleCancelClose}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="lezada-button lezada-button--small"
+                        onClick={cancelOrder}
+                      >
+                        Cancel Order
+                      </button>
+                    </Modal.Footer>
                   </Modal>
                 </div>
               </Tab.Pane>
@@ -566,8 +626,14 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                                     value={addressDetails.country}
                                     onChange={handleAddressDataChange}
                                   >
-                                    <option value="">Please select a country</option>
-                                     {COUNTRY_LIST.map(country =>(<option value={country} key={country}>{country}</option>) )}
+                                    <option value="">
+                                      Please select a country
+                                    </option>
+                                    {COUNTRY_LIST.map((country) => (
+                                      <option value={country} key={country}>
+                                        {country}
+                                      </option>
+                                    ))}
                                   </select>
                                   <span className="error-text">
                                     {AddressDetailsError.countryErrMsg}
@@ -643,8 +709,8 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                           <p>
                             {addressDetails?.address_line_1},{" "}
                             {addressDetails?.address_line_2} <br />
-                            {addressDetails?.city}, {addressDetails?.state},{addressDetails?.country}-
-                            {addressDetails?.pincode}
+                            {addressDetails?.city}, {addressDetails?.state},
+                            {addressDetails?.country}-{addressDetails?.pincode}
                           </p>
                           <p>Mobile: {addressDetails?.phone}</p>
                         </address>
@@ -697,7 +763,7 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                         </label>
                         <h5>{userDetails.email}</h5>
                       </div>
-                      <fieldset> 
+                      <fieldset>
                         <legend>Password change</legend>
                         <div className="single-input-item">
                           <label htmlFor="current-pwd" className="required">
@@ -755,12 +821,12 @@ const MyAccount = ({ userDetails, update_address, setCurrentUser }) => {
                               />
                               <span className="error-text">
                                 {passwordDataErrors.confirmPasswordErrMsg}
-                          </span>
+                              </span>
                             </div>
                           </div>
                           <span className="error-text ml-3 mb-3">
-                      {passwordDataErrors.serverErrMsg}
-                    </span>
+                            {passwordDataErrors.serverErrMsg}
+                          </span>
                         </div>
                       </fieldset>
                       <div className="single-input-item">

@@ -6,7 +6,7 @@ import { get_all_purchases } from "../../../api/orderApi";
 import DataTable from "react-data-table-component";
 import Router from "next/router";
 import { MdEdit } from "react-icons/md";
-import customStyles from "../style/tableStyle";
+import customStyles from "../../../assets/scss/style/tableStyle";
 
 const AllOrders = () => {
   const [orders, setOrders] = useState([]);

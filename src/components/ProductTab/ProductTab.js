@@ -20,8 +20,8 @@ const ProductTab = ({}) => {
     if(best_seller_products) setBestSellerProducts(best_seller_products)
   },[])
   return (
-    <div className="product-tab space-mb--r100">
-      <Container>
+    <div className="product-tab space-mb--r100 mt-3"  >
+      <Container >
         <Tab.Container defaultActiveKey="our_choice">
           <Nav
             variant="pills"
@@ -37,7 +37,7 @@ const ProductTab = ({}) => {
               <Nav.Link eventKey="best_sellers">Best Sellers </Nav.Link>
             </Nav.Item>
           </Nav>
-          <Tab.Content>
+          <Tab.Content data-aos="fade-left">
             <Tab.Pane eventKey="new_arrivals">
               <Row className="space-mb--rm50">
                 <ProductGridWrapper

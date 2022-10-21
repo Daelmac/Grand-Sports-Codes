@@ -6,6 +6,7 @@ import {get_dashboard_data} from '../../api/dashboardApi'
 const Dashboard = () => {
   const [dashbordData, setDashbordData] = useState([]);
 
+  //get dashbord Data
   useEffect(async () => {
     let dashboard_data = await get_dashboard_data()
     if(dashboard_data) setDashbordData(dashboard_data)

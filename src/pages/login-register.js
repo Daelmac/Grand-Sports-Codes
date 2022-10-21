@@ -8,7 +8,7 @@ import { setCurrentUser } from "../redux/actions/userActions";
 import Router from "next/router";
 import { CustomerLogin, CreateCustomer } from "../api/userApi";
 import { useEffect, useState } from "react";
-import {EmailRegX} from "../core/utils"
+import { EmailRegX } from "../core/utils";
 
 const LoginRegister = ({ setCurrentUser, userDetails }) => {
   useEffect(() => {
@@ -64,13 +64,19 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
     event.preventDefault();
     if (validate()) {
       const response = await CustomerLogin(user);
-      if (response.status === "success" && response.role === "customer") {
-        setCurrentUser(response, addToast);
-        Router.push("/");
+      if (response) {
+        if (response.status === "success" && response.role === "customer") {
+          setCurrentUser(response, addToast);
+          Router.push("/");
+        } else {
+          setErrors({ ...errors, serverErrMsg: response.status_message });
+        }
       } else {
-        setErrors({ ...errors, serverErrMsg: response.status_message });
+        setErrors({
+          ...errors,
+          serverErrMsg: "something went wrong,please try again",
+        });
       }
-      console.log(response);
     }
   };
   const onRegisterUser = async (event) => {
@@ -78,20 +84,26 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
     if (registerUSerValidation()) {
       console.log(newUser);
       const response = await CreateCustomer(newUser);
-      if (response.status === "success") {
-        addToast("Registered Successfully.Please log in.", {
-          appearance: "success",
-          autoDismiss: true,
-        });
-        intNewUser();
-        // Router.push("/login-register");
+      if (response) {
+        if (response.status === "success") {
+          addToast("Registered Successfully.Please log in.", {
+            appearance: "success",
+            autoDismiss: true,
+          });
+          intNewUser();
+          // Router.push("/login-register");
+        } else {
+          setNewUSerErrors({
+            ...newUserErrors,
+            serverErrMsg: response.status_message,
+          });
+        }
       } else {
         setNewUSerErrors({
           ...newUserErrors,
-          serverErrMsg: response.status_message,
+          serverErrMsg: "something went wrong,please try again",
         });
       }
-      console.log(response);
     }
   };
   const initValidation = () => {
@@ -243,12 +255,11 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
                     <Col>
                       {/* <input type="checkbox" />{" "} */}
                       {/* <span className="remember-text">Remember me</span> */}
-                      <Link href="/forgot-password" 
-                      as={process.env.PUBLIC_URL + "/forgot-password"}
+                      <Link
+                        href="/forgot-password"
+                        as={process.env.PUBLIC_URL + "/forgot-password"}
                       >
-                      <a className="reset-pass-link">
-                        Lost your password?
-                      </a>
+                        <a className="reset-pass-link">Lost your password?</a>
                       </Link>
                     </Col>
                   </Row>
@@ -367,7 +378,7 @@ const LoginRegister = ({ setCurrentUser, userDetails }) => {
             </Col>
           </Row>
         </Container>
-      </div> 
+      </div>
     </LayoutTwo>
   );
 };

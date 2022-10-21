@@ -1,7 +1,7 @@
 import { AdminLayout } from "../../components/Layout";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { IoIosSearch, IoMdFunnel } from "react-icons/io";
+import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import {
   getCustomers,
@@ -10,7 +10,7 @@ import {
 } from "../../api/userApi";
 import DataTable from "react-data-table-component";
 import { useToasts } from "react-toast-notifications";
-import customStyles from "./style/tableStyle";
+import customStyles from "../../assets/scss/style/tableStyle";
 
 const Customers = ({ userDetails }) => {
   const [customers, setCustomers] = useState([]);
@@ -20,10 +20,13 @@ const Customers = ({ userDetails }) => {
   const [toggleFlag, setToggleFlag] = useState(false);
   const { addToast } = useToasts();
 
+  // get customer data and manage filter
   useEffect(async () => {
     let all_customers = await getCustomers(userDetails, filter);
     if (all_customers) setCustomers(all_customers);
   }, [filter, toggleFlag]);
+
+  // Manage search text
   useEffect(() => {
     if (searchText != "") {
       const filterCurrentData = currentCustomers.filter(
@@ -39,6 +42,8 @@ const Customers = ({ userDetails }) => {
       setcurrentCustomers(customers);
     }
   }, [customers, searchText]);
+
+  //change customer activation status
   const ChnageCustomerStatus = async (e, row) => {
     if (row.customer_permitted) {
       let response = await disableCustomer(userDetails, row.customer_id);
@@ -68,6 +73,8 @@ const Customers = ({ userDetails }) => {
         });
     }
   };
+
+  //table columns
   const columns = [
     {
       name: "Id",
@@ -115,11 +122,6 @@ const Customers = ({ userDetails }) => {
             </div>
           </label>
         </div>
-        // <span
-        //   className={row.customer_permitted ? "text-success" : "text-danger"}
-        // >
-        //   {row.customer_permitted ? "Yes" : "No"}
-        // </span>
       ),
       width: "10%",
       style: {
@@ -162,19 +164,14 @@ const Customers = ({ userDetails }) => {
           </Row>
         </Container>
 
-        {/* shop header filter */}
-        {/* <SlideDown closed={shopTopFilterStatus ? false : true}>
-          <ShopFilter products={products} getSortParams={getSortParams} />
-        </SlideDown> */}
-
-        {/* shop page body */}
         <Container className="mt-5">
-          <DataTable 
-          columns={columns} 
-          data={currentCustomers} 
-          customStyles={customStyles}
-          highlightOnHover
-          pagination />
+          <DataTable
+            columns={columns}
+            data={currentCustomers}
+            customStyles={customStyles}
+            highlightOnHover
+            pagination
+          />
         </Container>
       </div>
     </AdminLayout>

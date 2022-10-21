@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -6,23 +6,21 @@ import { getDiscountPrice } from "../lib/product";
 import { IoMdCash } from "react-icons/io";
 import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
-import {addPurchases} from "../api/orderApi"
+import { addPurchases } from "../api/orderApi";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
-import {COUNTRY_LIST} from "../core/utils"
-import {
-  deleteAllFromCart,
-} from "../redux/actions/cartActions.js";
-import {PhoneRegX,PincodRegX} from "../core/utils"
-import axios from "axios"
-import {razorpayOrder,razorpayCallback} from "../api/paymentApi"
+import { COUNTRY_LIST } from "../core/utils";
+import { deleteAllFromCart } from "../redux/actions/cartActions.js";
+import { PhoneRegX, PincodRegX } from "../core/utils";
+import axios from "axios";
+import { razorpayOrder, razorpayCallback } from "../api/paymentApi";
 
-const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
+const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
   if (!(userDetails && userDetails.role === "customer"))
     Router.push("/login-register");
   let cartTotalPrice = 0;
   const { addToast } = useToasts();
-  let address=null
+  let address = null;
   if (userDetails?.address) address = JSON.parse(userDetails?.address);
   useEffect(() => {
     document.querySelector("body").classList.remove("overflow-hidden");
@@ -30,13 +28,13 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
   const [checkout, setCheckout] = useState(false);
   const [orderDetails, setOrderDetails] = useState({
     name: address?.name || "",
-    phone:address?.phone || "",
-    address_line_1:address?.address_line_1 || "",
-    address_line_2:address?.address_line_2 ||"",
+    phone: address?.phone || "",
+    address_line_1: address?.address_line_1 || "",
+    address_line_2: address?.address_line_2 || "",
     country: address?.country || "",
-    city:address?.city || "",
-    state:address?.state || "",
-    pincode:address?.pincode || "",
+    city: address?.city || "",
+    state: address?.state || "",
+    pincode: address?.pincode || "",
   });
   const [OrderDetailsError, setOrderDetailsError] = useState({
     nameErrMsg: "",
@@ -57,13 +55,13 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
   };
   const onOrderDetailsSubmit = async (paymentData) => {
     if (OrderDetailsValidation()) {
-      let total_receipt_amount=0
+      let total_receipt_amount = 0;
       const purchaseData = cartItems.map((product, i) => {
         const discountedPrice = getDiscountPrice(
           product?.product_price,
           product?.product_discount
         );
-        total_receipt_amount+= discountedPrice * product.quantity;
+        total_receipt_amount += discountedPrice * product.quantity;
         cartTotalPrice = discountedPrice * product.quantity;
         return {
           owner_id: product.product_owner,
@@ -85,21 +83,21 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
         contact_no: orderDetails.phone,
         name: orderDetails.name,
         address: JSON.stringify(address),
-        total_receipt_amount:total_receipt_amount,
-        razorpay_order_id:paymentData.razorpay_order_id,
-        razorpay_payment_id:paymentData.razorpay_payment_id,
-        razorpay_payment_signature:paymentData.razorpay_signature,
-        purchases:purchaseData
+        total_receipt_amount: total_receipt_amount,
+        razorpay_order_id: paymentData.razorpay_order_id,
+        razorpay_payment_id: paymentData.razorpay_payment_id,
+        razorpay_payment_signature: paymentData.razorpay_signature,
+        purchases: purchaseData,
       };
       console.log(params);
       const response = await addPurchases(params);
-        if(response){
+      if (response) {
         if (response.status === "success") {
           addToast("Order Placed Successfully", {
             appearance: "success",
             autoDismiss: true,
           });
-          deleteAllFromCart()
+          deleteAllFromCart();
           Router.push("/shop/all-products");
         } else {
           setOrderDetailsError({
@@ -107,7 +105,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
             serverErrMsg: response.status_message,
           });
         }
-      }else{
+      } else {
         addToast("Some problem occurred,please try again.", {
           appearance: "error",
           autoDismiss: true,
@@ -194,64 +192,72 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
   //   });
   // }
 
-//function will get called when clicked on the pay button.
+  //function will get called when clicked on the pay button.
   async function displayRazorpayPaymentSdk(e) {
     e.preventDefault();
-  //   console.log("in")
-  //   const res = await loadRazorpayScript(
-  //       "https://checkout.razorpay.com/v1/checkout.js"
-  //   );
-  //  console.log(res)
-  //   if (!res) {
-  //       alert("Razorpay SDK failed to load. please check are you online?");
-  //       return;
-  //   }
-  //   console.log("in2")
+    //   console.log("in")
+    //   const res = await loadRazorpayScript(
+    //       "https://checkout.razorpay.com/v1/checkout.js"
+    //   );
+    //  console.log(res)
+    //   if (!res) {
+    //       alert("Razorpay SDK failed to load. please check are you online?");
+    //       return;
+    //   }
+    //   console.log("in2")
     // creating a new order and sending order ID to backend
     var params = new FormData();
-    params.append("name",userDetails?.username);
-    params.append("amount",cartTotalPrice.toFixed(2));
-    const result = await razorpayOrder(userDetails?.username,cartTotalPrice.toFixed(2));
+    params.append("name", userDetails?.username);
+    params.append("amount", cartTotalPrice.toFixed(2));
+    const result = await razorpayOrder(
+      userDetails?.username,
+      cartTotalPrice.toFixed(2)
+    );
 
-    if (!result|| result?.status !== "success") {
+    if (!result || result?.status !== "success") {
       addToast("Server error. please check are you online?", {
         appearance: "error",
         autoDismiss: true,
       });
-      return
+      return;
     }
 
     // Getting the order details back
-    const {merchantId=null , amount=null,currency=null,orderId=null } = result.response;
- 
+    const {
+      merchantId = null,
+      amount = null,
+      currency = null,
+      orderId = null,
+    } = result.response;
+
     const options = {
-        key: merchantId,
-        amount: amount.toString(),
-        currency: currency,
-        name: "Grand Sports",
-        // description: "Test Transaction",
-        image:"/assets/images/grand_sports_logo.png",
-        order_id: orderId,
-        handler: async function (response){
-          console.log(response);
-          const result = await razorpayCallback(response);
-          console.log("ressss====>",result);
-          if(result.status === 'success' && result.is_verified){
-            onOrderDetailsSubmit(response)
-          }
-        },
-        prefill: {
-          name: userDetails?.username,
-          email: userDetails?.email,
-        },
-        notes: {
-            address: "None",
-        },
-        theme: {
-            color: "#fc0027",
-        },
+      key: merchantId,
+      amount: amount.toString(),
+      currency: currency,
+      name: "Grand Sports",
+      // description: "Test Transaction",
+      image: "/assets/images/grand_sports_logo.png",
+      order_id: orderId,
+      handler: async function (response) {
+        console.log(response);
+        const result = await razorpayCallback(response);
+        console.log("ressss====>", result);
+        if (result.status === "success" && result.is_verified) {
+          onOrderDetailsSubmit(response);
+        }
+      },
+      prefill: {
+        name: userDetails?.username,
+        email: userDetails?.email,
+      },
+      notes: {
+        address: "None",
+      },
+      theme: {
+        color: "#fc0027",
+      },
     };
-    console.log(options)
+    console.log(options);
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   }
@@ -275,7 +281,9 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
       <Container>
         <Row>
           <Col>
-            <h1 className="breadcrumb__title">{cartItems && cartItems.length >= 1 ?"Checkout":""}</h1>
+            <h1 className="breadcrumb__title">
+              {cartItems && cartItems.length >= 1 ? "Checkout" : ""}
+            </h1>
           </Col>
         </Row>
       </Container>
@@ -360,9 +368,15 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                                 value={orderDetails.country}
                                 onChange={handleOrdertDataChange}
                               >
-                                <option value="">Please select a country</option>
-                                {COUNTRY_LIST.map(country =>(<option value={country} key={country}>{country}</option>) )}
-                              </select> 
+                                <option value="">
+                                  Please select a country
+                                </option>
+                                {COUNTRY_LIST.map((country) => (
+                                  <option value={country} key={country}>
+                                    {country}
+                                  </option>
+                                ))}
+                              </select>
                               <span className="error-text">
                                 {OrderDetailsError.countryErrMsg}
                               </span>
@@ -464,7 +478,6 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
                               Place order
                             </button>
                           </div>
-                        
                         </div>
                       </div>
                     </div>
@@ -499,7 +512,7 @@ const Checkout = ({ cartItems, userDetails,deleteAllFromCart }) => {
         </Container>
       </div>
     </LayoutTwo>
-  ); 
+  );
 };
 
 const mapStateToProps = (state) => {
@@ -512,7 +525,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
-    }
+    },
   };
 };
-export default connect(mapStateToProps,mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

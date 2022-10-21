@@ -1,16 +1,18 @@
 {
-  "name": "lezada-next",
+  "name": "grand_sports",
   "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "cross-env NODE_ENV=production node server.js",
     "export": "next export"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "axios": "^0.27.2",
     "bootstrap": "4.6.0",
+    "cross-env": "^7.0.3",
     "next": "^11.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
@@ -29,7 +31,6 @@
     "react-scroll": "^1.7.16",
     "react-select-search": "^3.0.10",
     "react-slidedown": "^2.4.5",
-    "react-sticky-box": "^0.9.3",
     "react-tippy": "^1.3.4",
     "react-toast-notifications": "^2.4.0",
     "redux": "^4.0.5",

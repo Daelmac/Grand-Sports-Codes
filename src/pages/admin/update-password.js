@@ -9,10 +9,7 @@ import { useRouter } from "next/router";
 import {EmailRegX} from "../../core/utils"
 
 const UpdatePassword = ({ userDetails }) => {
-  useEffect(() => {
-    if (userDetails && userDetails.role === "admin")
-      Router.push("/admin/dashboard");
-  });
+
   const router = useRouter();
   const { addToast } = useToasts();
   const [user, setUSer] = useState({
@@ -21,7 +18,6 @@ const UpdatePassword = ({ userDetails }) => {
     cpassword: "",
     reset_pin: "",
   });
-  console.log(router.query);
   const [errors, setErrors] = useState({
     emailErrMsg: "",
     passwordErrMsg: "",
@@ -30,11 +26,20 @@ const UpdatePassword = ({ userDetails }) => {
     serverErrMsg: "",
   });
 
+   //if user already logged in then redirect to dashboard
+  useEffect(() => {
+    if (userDetails && userDetails.role === "admin")
+      Router.push("/admin/dashboard");
+  });
+
+  ///handle update password form data change
   const handleChange = (event) => {
     initValidation();
     const { name, value } = event.target;
     setUSer({ ...user, [name]: value });
   };
+
+  //on upadte password form submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validate()) {
@@ -58,6 +63,8 @@ const UpdatePassword = ({ userDetails }) => {
       }
     }
   };
+
+  //initialize validation messages
   const initValidation = () => {
     const errors = {
       emailErrMsg: "",
@@ -68,6 +75,8 @@ const UpdatePassword = ({ userDetails }) => {
     };
     setErrors(errors);
   };
+
+  //handle validation
   const validate = () => {
     let errors = {};
     let isValid = true;

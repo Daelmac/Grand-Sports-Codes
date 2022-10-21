@@ -24,8 +24,8 @@ const HeroSliderOne = ({ sliderData }) => {
   };
   return (
     <div className="hero-slider-one space-mb--r100">
-      <Container>
-        <div className="hero-slider-one__wrapper">
+      <Container >
+        <div className="hero-slider-one__wrapper" >
           <Swiper {...params}>
             {sliderData &&
               sliderData.map((single) => {
@@ -33,9 +33,12 @@ const HeroSliderOne = ({ sliderData }) => {
                   <div
                     className="hero-slider-one__slide swiper-slide"
                     key={single.id}
+                    data-aos="fade-right"
+                    data-aos-easing="ease-in-sine"
+                    data-aos-anchor-placement="top-bottom"
                   >
                     <div className="slider-image">
-                      <img
+                      <img                      
                         src={single.image}
                         className="img-fluid"
                         alt=""

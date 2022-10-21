@@ -33,10 +33,10 @@ const About = () => {
         <div className="section-title-container space-mb--40">
           <Container>
             <Row>
-              <Col lg={8} className="ml-auto mr-auto">
+              <Col lg={8} className="ml-auto mr-auto" >
                 {/* section title */}
-                <div className="about-title-container text-center">
-                  <p className="dark-title space-mb--35">
+                <div className="about-title-container text-center" data-aos="fade-up">
+                  <p className="dark-title space-mb--35"  >
                     A report about your rapport
                   </p>
                   <h2 className="title space-mb--15">Our Story</h2>
@@ -61,6 +61,7 @@ const About = () => {
               <Col lg={10} className="ml-auto mr-auto">
                 {/*=======  about video area  =======*/}
                 <div
+                data-aos="fade-left"
                   className="about-video-bg space-mb--60"
                   style={{
                     backgroundImage: `url(${
@@ -78,8 +79,8 @@ const About = () => {
                     </Link>
                   </p> */}
 
-                  <div className="about-video-content__text-icon d-flex flex-column h-100 justify-content-center">
-                    <div className="play-icon text-center space-mb--40">
+                  <div className="about-video-content__text-icon d-flex flex-column h-100 justify-content-center" >
+                    <div className="play-icon text-center space-mb--40" >
                       <ModalVideo
                         channel="youtube"
                         isOpen={modalStatus}
@@ -112,7 +113,7 @@ const About = () => {
             </Row>
             <Row>
               <Col lg={10} className="ml-auto mr-auto">
-                <Row>
+                <Row data-aos="fade-up">
                   <Col md={6}>
                     <div className="about-widget space-mb--35">
                       <h2 className="widget-title space-mb--25">ADDRESS</h2>

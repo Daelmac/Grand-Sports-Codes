@@ -3,12 +3,12 @@ import Link from "next/link";
 
 const ImageCta = ({ image, tags, title, url }) => {
   return (
-    <div className="image-cta text-center space-mb--r100">
+    <div className="image-cta text-center space-mb--r100 mt-5" >
       <Container>
         <Row>
-          <Col lg={8} className="ml-auto mr-auto">
+          <Col lg={8} className="ml-auto mr-auto" >
             {/*=======  image  =======*/}
-            <div className="image-cta__image space-mb--35">
+            <div className="image-cta__image space-mb--35" data-aos="fade-right">
               <img
                 src={process.env.PUBLIC_URL + image}
                 className="img-fluid"
@@ -32,7 +32,7 @@ const ImageCta = ({ image, tags, title, url }) => {
             </div>
 
             {/*=======  content  =======*/}
-            <div className="image-cta__content">
+            <div className="image-cta__content" data-aos="zoom-in">
               <h2
                 className="space-mb--30 "
                 dangerouslySetInnerHTML={{ __html: title }}

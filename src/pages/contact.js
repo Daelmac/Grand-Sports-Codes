@@ -3,39 +3,41 @@ import { Container, Row, Col } from "react-bootstrap";
 import { IoIosPin, IoIosCall, IoIosMail, IoIosClock } from "react-icons/io";
 import { LayoutTwo } from "../components/Layout";
 import { BreadcrumbOne } from "../components/Breadcrumb";
-import {sendMessage} from "../api/messagesApi"
+import { sendMessage } from "../api/messagesApi";
 import { useToasts } from "react-toast-notifications";
 import { connect } from "react-redux";
-import {
-  SectionTitleOne,
-  SectionTitleTwo
-} from "../components/SectionTitle";
+import { SectionTitleOne, SectionTitleTwo } from "../components/SectionTitle";
 import { useState } from "react";
-import {EmailRegX} from "../core/utils"
-const Contact = ({userDetails}) => {
+import { EmailRegX } from "../core/utils";
+
+const Contact = ({ userDetails }) => {
   const { addToast } = useToasts();
+
   const [msg, setMsg] = useState({
-    customerName: userDetails?.user_name || '',
-    customerEmail: userDetails?.email || '',
+    customerName: userDetails?.user_name || "",
+    customerEmail: userDetails?.email || "",
     contactSubject: "",
     contactMessage: "",
   });
+
   const [msgErrors, setMsgErrors] = useState({
     customerNameErrMsg: "",
-    customerEmailErrMsg:"",
-    contactSubjectErrMsg:"",
-    contactMessageErrMsg:"",
-    serverErrMsg: ""
+    customerEmailErrMsg: "",
+    contactSubjectErrMsg: "",
+    contactMessageErrMsg: "",
+    serverErrMsg: "",
   });
+
   const intNewMsg = () => {
     let msgBlank = {
       customerName: "",
-    customerEmail: "",
-    contactSubject: "",
-    contactMessage: "",
+      customerEmail: "",
+      contactSubject: "",
+      contactMessage: "",
     };
     setMsg(msgBlank);
   };
+
   const handleMsgChange = async (event) => {
     initMsgValidation();
     const { name, value } = event.target;
@@ -43,14 +45,15 @@ const Contact = ({userDetails}) => {
   };
   const initMsgValidation = () => {
     const errors = {
-    customerNameErrMsg: "",
-    customerEmailErrMsg:"",
-    contactSubjectErrMsg:"",
-    contactMessageErrMsg:"",
-    serverErrMsg: ""
+      customerNameErrMsg: "",
+      customerEmailErrMsg: "",
+      contactSubjectErrMsg: "",
+      contactMessageErrMsg: "",
+      serverErrMsg: "",
     };
     setMsgErrors(errors);
   };
+  
   const onSendMessage = async (event) => {
     event.preventDefault();
     if (msgValidation()) {
@@ -62,7 +65,7 @@ const Contact = ({userDetails}) => {
             appearance: "success",
             autoDismiss: true,
           });
-          intNewMsg()
+          intNewMsg();
         } else {
           addToast(response.status_message, {
             appearance: "error",
@@ -75,8 +78,9 @@ const Contact = ({userDetails}) => {
           autoDismiss: true,
         });
       }
-      }
+    }
   };
+
   const msgValidation = () => {
     let errors = {};
     let isValid = true;
@@ -105,6 +109,7 @@ const Contact = ({userDetails}) => {
     setMsgErrors(errors);
     return isValid;
   };
+  
   return (
     <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
@@ -114,9 +119,7 @@ const Contact = ({userDetails}) => {
       >
         <ul className="breadcrumb__list">
           <li>
-            <Link href="/" 
-            as={process.env.PUBLIC_URL + "/"}
-            >
+            <Link href="/" as={process.env.PUBLIC_URL + "/"}>
               Home
             </Link>
           </li>
@@ -136,7 +139,7 @@ const Contact = ({userDetails}) => {
               </Col>
             </Row>
             <Row className="space-mb-mobile-only--m50">
-              <Col md={4} className="space-mb-mobile-only--50">
+              <Col md={4} className="space-mb-mobile-only--50" data-aos="fade-right">
                 <div className="icon-box">
                   <div className="icon-box__icon">
                     <IoIosPin />
@@ -144,22 +147,20 @@ const Contact = ({userDetails}) => {
                   <div className="icon-box__content">
                     <h3 className="title">ADDRESS</h3>
                     <p className="content">
-                    No 4, Velachery Main Road, Anna Garden, Velachery,
-                    Chennai, Tamil Nadu 600042
+                      No 4, Velachery Main Road, Anna Garden, Velachery,
+                      Chennai, Tamil Nadu 600042
                     </p>
                   </div>
                 </div>
               </Col>
-              <Col md={4} className="space-mb-mobile-only--50">
+              <Col md={4} className="space-mb-mobile-only--50" data-aos="fade-right">
                 <div className="icon-box">
                   <div className="icon-box__icon">
                     <IoIosCall />
                   </div>
                   <div className="icon-box__content">
                     <h3 className="title">CONTACT</h3>
-                    <p className="content">
-                    Mobile: 09842457070{" "}
-                    </p>
+                    <p className="content">Mobile: 09842457070 </p>
                   </div>
                 </div>
                 <div className="icon-box">
@@ -167,11 +168,14 @@ const Contact = ({userDetails}) => {
                     <IoIosMail />
                   </div>
                   <div className="icon-box__content">
-                    <p className="content"> Mail: grandsportschennai@gmail.com </p>
+                    <p className="content">
+                      {" "}
+                      Mail: grandsportschennai@gmail.com{" "}
+                    </p>
                   </div>
                 </div>
               </Col>
-              <Col md={4} className="space-mb-mobile-only--50">
+              <Col md={4} className="space-mb-mobile-only--50" data-aos="fade-right">
                 <div className="icon-box">
                   <div className="icon-box__icon">
                     <IoIosClock />
@@ -203,7 +207,7 @@ const Contact = ({userDetails}) => {
             </Row>
           </Container>
         </div>
-        <div className="contact-page-form">
+        <div className="contact-page-form" data-aos="fade-down">
           <Container>
             <Row>
               <Col lg={12}>
@@ -226,8 +230,8 @@ const Contact = ({userDetails}) => {
                           required
                         />
                         <span className="error-text">
-                        {msgErrors.customerNameErrMsg}
-                      </span>
+                          {msgErrors.customerNameErrMsg}
+                        </span>
                       </Col>
                       <Col md={6} className="space-mb--40">
                         <input
@@ -239,9 +243,9 @@ const Contact = ({userDetails}) => {
                           onChange={handleMsgChange}
                           required
                         />
-                         <span className="error-text">
-                        {msgErrors.customerEmailErrMsg}
-                      </span>
+                        <span className="error-text">
+                          {msgErrors.customerEmailErrMsg}
+                        </span>
                       </Col>
                       <Col md={12} className="space-mb--40">
                         <input
@@ -252,9 +256,9 @@ const Contact = ({userDetails}) => {
                           value={msg.contactSubject}
                           onChange={handleMsgChange}
                         />
-                         <span className="error-text">
-                        {msgErrors.contactSubjectErrMsg}
-                      </span>
+                        <span className="error-text">
+                          {msgErrors.contactSubjectErrMsg}
+                        </span>
                       </Col>
                       <Col md={12} className="space-mb--40">
                         <textarea
@@ -266,9 +270,9 @@ const Contact = ({userDetails}) => {
                           value={msg.contactMessage}
                           onChange={handleMsgChange}
                         />
-                         <span className="error-text">
-                        {msgErrors.contactMessageErrMsg}
-                      </span>
+                        <span className="error-text">
+                          {msgErrors.contactMessageErrMsg}
+                        </span>
                       </Col>
                       <Col md={12} className="text-center">
                         <button
@@ -297,4 +301,4 @@ const mapStateToProps = (state) => {
     userDetails: state.currentUserData,
   };
 };
-export default connect(mapStateToProps,null)(Contact);
+export default connect(mapStateToProps, null)(Contact);

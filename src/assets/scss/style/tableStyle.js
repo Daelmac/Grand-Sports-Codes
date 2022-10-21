@@ -1,4 +1,4 @@
-export const customStyles = {
+const customStyles = {
     headRow: {
       style: {
         border: "none",

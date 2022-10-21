@@ -1,22 +1,25 @@
 import { AdminLayout } from "../../components/Layout";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { MdDelete } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import { Container, Row, Col } from "react-bootstrap";
 import { getAdmins } from "../../api/userApi";
 import DataTable from "react-data-table-component";
-import customStyles from "./style/tableStyle";
+import customStyles from "../../assets/scss/style/tableStyle";
 
 const AdminList = () => {
   const [admins, setAdmins] = useState([]);
   const [currentAdmims, setcurrentAdmins] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  //get add admins data
   useEffect(async () => {
-    let all_admins = await getAdmins()
-    if(all_admins) setAdmins(all_admins)
-  },[]);
+    let all_admins = await getAdmins();
+    if (all_admins) setAdmins(all_admins);
+  }, []);
+
+  //manage search
   useEffect(() => {
     if (searchText != "") {
       const filterCurrentData = currentAdmims.filter(
@@ -28,13 +31,9 @@ const AdminList = () => {
     } else {
       setcurrentAdmins(admins);
     }
-  }, [
-    admins,
-    searchText,
-  ]);
-  const onDeleteProduct = (product) => {
-    console.log("IN Delete==>", product);
-  };
+  }, [admins, searchText]);
+
+  //table columns
   const columns = [
     {
       name: "Id",
@@ -81,7 +80,6 @@ const AdminList = () => {
     //     fontWeight: "bold",
     //   },
     // },
-    
   ];
   return (
     <AdminLayout title="All Admins">
@@ -94,27 +92,30 @@ const AdminList = () => {
 
             <Col md={7}>
               <div className="shop-header__filter-icons justify-content-center justify-content-md-end">
-  
                 <div className="search-widget mr-5">
                   <form>
-                    <input type="search" placeholder="Search admins ..."  onChange={(e) => setSearchText(e.target.value)}/>
+                    <input
+                      type="search"
+                      placeholder="Search admins ..."
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
                     <button type="button">
                       <IoIosSearch />
                     </button>
                   </form>
                 </div>
               </div>
-
             </Col>
           </Row>
         </Container>
         <Container className="mt-5">
-          <DataTable 
-          columns={columns} 
-          data={currentAdmims}
-          customStyles={customStyles}
-          highlightOnHover 
-          pagination />
+          <DataTable
+            columns={columns}
+            data={currentAdmims}
+            customStyles={customStyles}
+            highlightOnHover
+            pagination
+          />
         </Container>
       </div>
     </AdminLayout>
