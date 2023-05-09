@@ -23,7 +23,7 @@ const ImageCta = ({ image, tags, title, url }) => {
                     return (
                       <li key={i}>
                         <Link href={url} as={process.env.PUBLIC_URL + url}>
-                          <a>#{tag}</a>
+                          <a>{tag}</a>
                         </Link>
                       </li>
                     );

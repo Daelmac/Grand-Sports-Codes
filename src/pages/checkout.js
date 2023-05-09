@@ -13,7 +13,8 @@ import { COUNTRY_LIST } from "../core/utils";
 import { deleteAllFromCart } from "../redux/actions/cartActions.js";
 import { PhoneRegX, PincodRegX } from "../core/utils";
 import axios from "axios";
-import { razorpayOrder, razorpayCallback } from "../api/paymentApi";
+// import { razorpayOrder, razorpayCallback, instamojoOrder } from "../api/paymentApi";
+import {instamojoOrder } from "../api/paymentApi";
 
 const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
   if (!(userDetails && userDetails.role === "customer"))
@@ -53,10 +54,10 @@ const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
     const { name, value } = event.target;
     setOrderDetails({ ...orderDetails, [name]: value });
   };
-  const onOrderDetailsSubmit = async (paymentData) => {
-    if (OrderDetailsValidation()) {
-      let total_receipt_amount = 0;
-      const purchaseData = cartItems.map((product, i) => {
+
+  const onCreateOrder=async(paymentData)=>{
+    let total_receipt_amount = 0;
+      const purchaseData = cartItems.map((product, i) => {  
         const discountedPrice = getDiscountPrice(
           product?.product_price,
           product?.product_discount
@@ -74,7 +75,7 @@ const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
         address_line_1: orderDetails.address_line_1,
         address_line_2: orderDetails.address_line_2,
         city: orderDetails.city,
-        state: orderDetails.state,
+        state: orderDetails.state,  
         country: orderDetails.country,
         pincode: orderDetails.pincode,
       };
@@ -83,22 +84,24 @@ const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
         contact_no: orderDetails.phone,
         name: orderDetails.name,
         address: JSON.stringify(address),
-        total_receipt_amount: total_receipt_amount,
-        razorpay_order_id: paymentData.razorpay_order_id,
-        razorpay_payment_id: paymentData.razorpay_payment_id,
-        razorpay_payment_signature: paymentData.razorpay_signature,
+        total_receipt_amount: total_receipt_amount.toFixed(2),
+        instamojo_payment_request_id:paymentData.instamojo_payment_request_id,
+        // razorpay_order_id: paymentData.razorpay_order_id,
+        // razorpay_payment_id: paymentData.razorpay_payment_id,
+        // razorpay_payment_signature: paymentData.razorpay_signature,
         purchases: purchaseData,
       };
       console.log(params);
       const response = await addPurchases(params);
       if (response) {
         if (response.status === "success") {
-          addToast("Order Placed Successfully", {
-            appearance: "success",
-            autoDismiss: true,
-          });
-          deleteAllFromCart();
-          Router.push("/shop/all-products");
+          window.location.href = paymentData.longurl
+          // addToast("Order Placed Successfully", {
+          //   appearance: "success",
+          //   autoDismiss: true,
+          // });
+          // deleteAllFromCart();
+          // Router.push("/shop/all-products");
         } else {
           setOrderDetailsError({
             ...OrderDetailsError,
@@ -111,6 +114,12 @@ const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
           autoDismiss: true,
         });
       }
+  }
+  const onOrderDetailsSubmit = (e) => {
+    e.preventDefault();
+    if (OrderDetailsValidation()) {
+      onButtonClick()
+      // displayRazorpayPaymentSdk()
     }
   };
   const initOrderDetailsValidation = () => {
@@ -178,6 +187,33 @@ const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
     return isValid;
   };
 
+  const onButtonClick=async()=> {
+    const result = await instamojoOrder(
+      userDetails?.username || orderDetails.name,
+      userDetails?.email,
+      orderDetails.phone, 
+      'grand sports order',
+      cartTotalPrice.toFixed(2),
+      `${process.env.API_URL}instamojo_callback`,
+    );
+    console.log("---->",result)
+    if (!result || result?.status !== "success") {
+      if(cartTotalPrice < 10) 
+      addToast("Amount cannot be less than INR 10.00.", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      else
+      addToast("Server error. please check are you online?", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      return;
+    }
+    onCreateOrder(result);
+    
+  }
+
   // function loadRazorpayScript(src) {
   //   return new Promise((resolve) => {
   //       const script = document.createElement("script");
@@ -193,74 +229,73 @@ const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
   // }
 
   //function will get called when clicked on the pay button.
-  async function displayRazorpayPaymentSdk(e) {
-    e.preventDefault();
-    //   console.log("in")
-    //   const res = await loadRazorpayScript(
-    //       "https://checkout.razorpay.com/v1/checkout.js"
-    //   );
-    //  console.log(res)
-    //   if (!res) {
-    //       alert("Razorpay SDK failed to load. please check are you online?");
-    //       return;
-    //   }
-    //   console.log("in2")
-    // creating a new order and sending order ID to backend
-    var params = new FormData();
-    params.append("name", userDetails?.username);
-    params.append("amount", cartTotalPrice.toFixed(2));
-    const result = await razorpayOrder(
-      userDetails?.username,
-      cartTotalPrice.toFixed(2)
-    );
+  // async function displayRazorpayPaymentSdk() {
+  //   //   console.log("in")
+  //   //   const res = await loadRazorpayScript(
+  //   //       "https://checkout.razorpay.com/v1/checkout.js"
+  //   //   );
+  //   //  console.log(res)
+  //   //   if (!res) {
+  //   //       alert("Razorpay SDK failed to load. please check are you online?");
+  //   //       return;
+  //   //   }
+  //   //   console.log("in2")
+  //   // creating a new order and sending order ID to backend
+  //   var params = new FormData();
+  //   params.append("name", userDetails?.username);
+  //   params.append("amount", cartTotalPrice.toFixed(2));
+  //   const result = await razorpayOrder(
+  //     userDetails?.username,
+  //     cartTotalPrice.toFixed(2)
+  //   );
 
-    if (!result || result?.status !== "success") {
-      addToast("Server error. please check are you online?", {
-        appearance: "error",
-        autoDismiss: true,
-      });
-      return;
-    }
+  //   if (!result || result?.status !== "success") {
+  //     addToast("Server error. please check are you online?", {
+  //       appearance: "error",
+  //       autoDismiss: true,
+  //     });
+  //     return;
+  //   }
 
-    // Getting the order details back
-    const {
-      merchantId = null,
-      amount = null,
-      currency = null,
-      orderId = null,
-    } = result.response;
+  //   // Getting the order details back
+  //   const {
+  //     merchantId = null,
+  //     amount = null,
+  //     currency = null,
+  //     orderId = null,
+  //   } = result.response;
 
-    const options = {
-      key: merchantId,
-      amount: amount.toString(),
-      currency: currency,
-      name: "Grand Sports",
-      // description: "Test Transaction",
-      image: "/assets/images/grand_sports_logo.png",
-      order_id: orderId,
-      handler: async function (response) {
-        console.log(response);
-        const result = await razorpayCallback(response);
-        console.log("ressss====>", result);
-        if (result.status === "success" && result.is_verified) {
-          onOrderDetailsSubmit(response);
-        }
-      },
-      prefill: {
-        name: userDetails?.username,
-        email: userDetails?.email,
-      },
-      notes: {
-        address: "None",
-      },
-      theme: {
-        color: "#fc0027",
-      },
-    };
-    console.log(options);
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
-  }
+  //   const options = {
+  //     key: merchantId,
+  //     amount: amount.toString(),
+  //     currency: currency,
+  //     name: "Grand Sports",
+  //     // description: "Test Transaction",
+  //     image: "/assets/images/grand_sports_logo.png",
+  //     order_id: orderId,
+  //     handler: async function (response) {
+  //       console.log(response);
+  //       const result = await razorpayCallback(response);
+  //       console.log("ressss====>", result);
+  //       if (result.status === "success" && result.is_verified) {
+  //         onCreateOrder(response);
+  //       }
+  //     },
+  //     prefill: {
+  //       name: userDetails?.username,
+  //       email: userDetails?.email,
+  //     },
+  //     notes: {
+  //       address: "None",
+  //     },
+  //     theme: {
+  //       color: "#fc0027",
+  //     },
+  //   };
+  //   console.log(options);
+  //   const paymentObject = new window.Razorpay(options);
+  //   paymentObject.open();
+  // }
   return (
     <LayoutTwo aboutOverlay={false}>
       {/* breadcrumb */}
@@ -472,8 +507,8 @@ const Checkout = ({ cartItems, userDetails, deleteAllFromCart }) => {
                           <div className="col-12">
                             <button
                               className="lezada-button lezada-button--medium space-mt--20"
-                              // onClick={onOrderDetailsSubmit}
-                              onClick={displayRazorpayPaymentSdk}
+                              onClick={(e)=>onOrderDetailsSubmit(e)}
+                              // onClick={displayRazorpayPaymentSdk}
                             >
                               Place order
                             </button>

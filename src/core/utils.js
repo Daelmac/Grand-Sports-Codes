@@ -1,15 +1,18 @@
-const API_BASE_URL = "http://127.0.0.1:5003";
+// const API_BASE_URL = "http://127.0.0.1:5000";
+const API_BASE_URL="http://grandsports.in"
 const PRODUCT_CATEGORIES = [
   "Balls",
   "Bats",
-  "Pads",
+  "Pads/Leg Guards",
   "Gloves",
   "Thigh Pads",
   "Arm Pads",
   "Kidney Guard ",
   "Chest Pads",
   "Helmets",
+  "Shoes",
   "Skinners",
+  "Sunglasses",
   "Grip cones",
   "Flat Cones",
 ];
@@ -23,7 +26,7 @@ const getAuthConfig=()=>{
  }
 
 const PhoneRegX = /^([+]\d{2})?\d{10}$/;
-const PincodRegX = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
+const PincodRegX = /[0-9a-zA-Z]+/;
 const EmailRegX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const NumericRegX = /[0-9]*[.]?[0-9]+/;
 

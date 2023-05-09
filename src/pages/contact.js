@@ -183,7 +183,7 @@ const Contact = ({ userDetails }) => {
                   <div className="icon-box__content">
                     <h3 className="title">HOUR OF OPERATION</h3>
                     <p className="content">
-                      Monday – Saturday : 10 AM to 9 PM
+                      Monday – Sunday: 10 AM to 9 PM
                       <span>Sunday : closed</span>
                     </p>
                   </div>

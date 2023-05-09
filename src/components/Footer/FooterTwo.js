@@ -71,7 +71,81 @@ const FooterTwo = ({ footerBgClass, userDetails ,setCurrentUser }) => {
               <span>All Rights Reserved</span>
             </div>
           </Col>
-
+          <Col className="footer-single-widget space-mb--50">
+            <h5 className="footer-single-widget__title">QUICK LINKS</h5>
+            <nav className="footer-single-widget__nav">
+              <ul>
+                <li>
+                  <Link
+                    href="/PrivacyPolicy"
+                    as={process.env.PUBLIC_URL + "/PrivacyPolicy"}
+                  >
+                    <a>Privacy Policy</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/TermsandConditions"
+                    as={process.env.PUBLIC_URL + "/TermsandConditions"}
+                  >
+                    <a>Terms and Conditions</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/CancellationandRefund"
+                    as={process.env.PUBLIC_URL + "/CancellationandRefund"}
+                  >
+                    <a>Cancellation and Refund</a>
+                  </Link>
+                </li>
+                 <li>
+                  <Link
+                    href="/ShippingandDelivery"
+                    as={process.env.PUBLIC_URL + "/ShippingandDelivery"}
+                  >
+                    <a>Shipping and Delivery</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    as={process.env.PUBLIC_URL + "/contact"}
+                  >
+                    <a>Contact Us</a>
+                  </Link>
+                </li>
+                 <li>
+                  <Link
+                    href="/Pricing"
+                    as={process.env.PUBLIC_URL + "/Pricing"}
+                  >
+                    <a>Pricing</a>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            <Modal show={showLogoutModel} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Logout</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Are you sure you want to Logout,
+                <b>{userDetails?.user_name}</b> ?
+              </Modal.Body>
+              <Modal.Footer>
+                <button className="cancel-btn-small" onClick={handleClose}>
+                  Cancel
+                </button>
+                <button
+                  className="lezada-button lezada-button--small"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </Modal.Footer>
+            </Modal>
+          </Col>
           <Col className="footer-single-widget space-mb--50">
             <h5 className="footer-single-widget__title">ABOUT</h5>
             <nav className="footer-single-widget__nav">
@@ -107,57 +181,7 @@ const FooterTwo = ({ footerBgClass, userDetails ,setCurrentUser }) => {
             </nav>
           </Col>
 
-          <Col className="footer-single-widget space-mb--50">
-            <h5 className="footer-single-widget__title">USEFUL LINKS</h5>
-            <nav className="footer-single-widget__nav">
-              <ul>
-                <li>
-                  <Link
-                    href="/faq"
-                    as={process.env.PUBLIC_URL + "/faq"}
-                  >
-                    <a>FAQs</a>
-                  </Link>
-                </li>
-                <li>
-                  {userDetails && userDetails.role === "customer" ? (
-
-                      
-                        <a role="button" onClick={handleShow}>Logout</a>
-                     
-                    
-                  ) : (
-                    <Link
-                      href="/admin/login"
-                      as={process.env.PUBLIC_URL + "/admin/login"}
-                    >
-                      <a>Admin Login</a>
-                    </Link>
-                  )}
-                </li>
-              </ul>
-            </nav>
-            <Modal show={showLogoutModel} onHide={handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Logout</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                Are you sure you want to Logout,
-                <b>{userDetails?.user_name}</b> ?
-              </Modal.Body>
-              <Modal.Footer>
-                <button className="cancel-btn-small" onClick={handleClose}>
-                  Cancel
-                </button>
-                <button
-                  className="lezada-button lezada-button--small"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </Modal.Footer>
-            </Modal>
-          </Col>
+       
 
           <Col className="footer-single-widget space-mb--50">
             <h5 className="footer-single-widget__title">FOLLOW US ON</h5>

@@ -191,7 +191,6 @@ const Product = ({ userDetails }) => {
       errors["priceErrMsg"] = "Please enter product price(INR).";
     }
     if (typeof product["discount"] !== "undefined") {
-      alert("regr");
       if (
         !NumericRegX.test(product["discount"]) ||
         parseInt(product["discount"]) > 100
