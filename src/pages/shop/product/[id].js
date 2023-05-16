@@ -94,7 +94,7 @@ const ProductBasic = ({
             />
           </Col>
 
-          <Col lg={6} data-aos="fade-right">
+          <Col lg={6} >
             {/* product description */}
             <ProductDescription
               product={product}
@@ -114,7 +114,7 @@ const ProductBasic = ({
           </Col>
         </Row>
         <Row>
-          <Col data-aos="fade-down">
+          <Col>
             {/* product description tab */}
             <ProductDescriptionTab product={product} />
           </Col>
